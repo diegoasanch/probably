@@ -11,10 +11,10 @@ export const dark: Itheme = {
 }
 
 export const light: Itheme = {
-    background: '#EBEBEB',
+    background: '#FFFFFF',
     text: '#37352F',
     sidebarText: '#37352F',
-    sidebarBg: '#FFFFFF',
+    sidebarBg: '#EBEBEB',
     header: '#19A6FF',
     scrollBarBg: '#EBEBEB',
     scrollBarThumb: '#888',
