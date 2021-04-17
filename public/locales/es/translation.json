@@ -15,5 +15,7 @@
     "sample-size": "Cantidad de observaciones",
     "success-prob": "Probabilidad de éxito",
     "success-found": "Cantidad de éxitos encontrados",
-    "round-precision": "Precisión"
+    "round-precision": "Precisión",
+    "by": "por",
+    "with": "con"
 }
