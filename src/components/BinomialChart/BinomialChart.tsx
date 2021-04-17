@@ -1,10 +1,9 @@
 import React, { useContext } from 'react'
 import { IBarChartItem } from '../../types/tables'
-import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip } from 'recharts';
 import { OverflowContainer } from '../../pages/layout';
 import { ThemeContext } from 'styled-components'
 import { isCellHighlight } from '../../utils/determine_style';
-import TeX from '@matejmazur/react-katex'
 
 type IProps = {
     data: IBarChartItem[],

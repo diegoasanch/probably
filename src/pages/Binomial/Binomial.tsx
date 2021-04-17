@@ -80,7 +80,7 @@ function Binomial() {
     const [tableData, setTableData] = useState<IBinomialTable | undefined>(undefined)
     const [probabilities, setProbabilities] = useState<IBarChartItem[] | undefined>(([ {label: '', value: 0} ]) as IBarChartItem[])
 
-    const [dataFrom, setDataFrom] = useState<number>(0)
+    // const [dataFrom, setDataFrom] = useState<number>(0)
     const [dataTo, setDataTo] = useState<number>(0)
     const [highlight, setHighlight] = useState<string | string[]>('')
 
