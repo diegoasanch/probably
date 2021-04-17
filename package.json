@@ -1,6 +1,6 @@
 {
   "name": "estadistica_general",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "private": true,
   "dependencies": {
     "@blueprintjs/core": "^3.43.0",
