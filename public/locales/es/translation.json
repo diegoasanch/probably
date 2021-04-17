@@ -1,7 +1,19 @@
 {
-    "sidebar-header": "Distribuciones",
+    "sidebar-header": "Estadística General",
 
     "pages-binomial": "Distribución Binomial",
-    "select-binomial": "Binomial"
+    "select-binomial": "Binomial",
 
+    "select-more_soon": "Pronto...",
+
+    "analysis": "Análisis",
+    "table": "Tabla",
+    "chart": "Gráfico",
+    "specify": "Ingrese",
+    "and": "y",
+
+    "sample-size": "Cantidad de observaciones",
+    "success-prob": "Probabilidad de éxito",
+    "success-found": "Cantidad de éxitos encontrados",
+    "round-precision": "Precisión"
 }

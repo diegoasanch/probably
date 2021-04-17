@@ -4,10 +4,13 @@ export const dark: Itheme = {
     background: '#2F3437',
     text: '#EBEBEB',
     sidebarText: '#EBEBEB',
-    sidebarBg: '#151515',
-    header: '#19A6FF',
+    sidebarBg: '#1B222A',
+    result: '#19A6FF',
     scrollBarBg: '#2F3437',
     scrollBarThumb: '#151515',
+    chart_barNormal: '#828282',
+    chart_barHighlight: '#19A6FF',
+    chart_gridColor: '#999999',
 }
 
 export const light: Itheme = {
@@ -15,7 +18,10 @@ export const light: Itheme = {
     text: '#37352F',
     sidebarText: '#37352F',
     sidebarBg: '#EBEBEB',
-    header: '#19A6FF',
+    result: '#0C527E',
     scrollBarBg: '#EBEBEB',
     scrollBarThumb: '#888',
+    chart_barNormal: '#828282',
+    chart_barHighlight: '#19A6FF',
+    chart_gridColor: '#CCCCCC'
 }

@@ -2,67 +2,65 @@ import React, { Suspense, useState } from 'react'
 import { useLocalStorage } from 'react-use'
 import { dark, light } from './styles/colors'
 import { ThemeProvider } from 'styled-components'
-import { FocusStyleManager } from "@blueprintjs/core"
+
+import { FocusStyleManager, Spinner } from "@blueprintjs/core"
 import Sidebar from './components/Sidebar'
-import PageFrame from './components/PageFrame'
+import PageHeader from './components/PageHeader'
+import { pageOptions, defaultPage } from './pages/available'
+
+import { IPageInfo } from './types/pages'
 import {
     ViewPort,
     SideContainer,
-    PageContainer
-} from './styles/AppStyles'
-import { IPageInfo } from './types/pages'
-import Binomial from './pages/Binomial'
-import PageHeader from './components/PageHeader'
+    AppPageContainer,
+    PageFrame
+} from './pages/layout'
 
 FocusStyleManager.onlyShowFocusOnTabs()
 
-const binomial: IPageInfo = {
-    id: 'binomial',
-    title: 'pages-binomial',
-    ToRenderPage: Binomial
-}
-
-const defaultPage = binomial
-
-const pageOptions: IPageInfo[] = [
-    binomial
-]
-
 function App() {
-    const [isDark, setIsDark] = useLocalStorage('isDark', true)
-    const [currentPage, setCurrentPage] = useState(defaultPage)
+
+    const [isDark, setIsDark] = useLocalStorage('isDark', false)
+    const [CurrentPage, setCurrentPage] = useState(defaultPage)
 
     const toggleTheme = () => {
         setIsDark(!isDark)
     }
 
-    const selectPage = (newItem: IPageInfo) => {
-        setCurrentPage(newItem)
+    console.log({ CurrentPage })
+
+    const selectPage = (selected: IPageInfo) => {
+
+        setCurrentPage(selected)
+
+        // TODO: push id to url
+        // TODO: use URL params from hash router
     }
 
-    console.log(typeof PageFrame)
-
     return (
-        <Suspense fallback={<h1>Loading...</h1>}>
+        <Suspense fallback={<AppPageContainer> <Spinner /> </AppPageContainer>}>
             <ThemeProvider theme={isDark ? dark : light}>
                 <ViewPort className={`.bp3-ui-text ${isDark ? 'bp3-dark' : ''}`}>
+
                     <SideContainer>
                         <Sidebar
-                            current_page={currentPage}
-                            available_pages={[]}
+                            current_page={CurrentPage}
+                            available_pages={pageOptions}
                             setNewPage={selectPage}
                         />
                     </SideContainer>
-                    <PageContainer>
+
+                    <AppPageContainer>
                         <PageHeader
-                            title={currentPage.title}
+                            title={CurrentPage.title}
                             isDark={!!isDark}
                             toggleTheme={toggleTheme}
                         />
-                        <PageFrame
-                            Page={currentPage}
-                        />
-                    </PageContainer>
+                        <PageFrame>
+                            <CurrentPage.ToRenderPage />
+                        </PageFrame>
+                    </AppPageContainer>
+
                 </ViewPort>
             </ThemeProvider>
         </Suspense>

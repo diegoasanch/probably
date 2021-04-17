@@ -8,13 +8,14 @@ export const SidebarContainer = styled.nav`
     width: 100%;
     color: ${props => props.theme.sidebarText};
     background-color: ${ props => props.theme.sidebarBg };
+    border-right: 3px solid "#CACBCC"
 `
 
 export const Header = styled(H1)`
-    font-size: 2.5em !important;
-    line-height: .9em !important;
+    font-size: 3em !important;
+    line-height: 1.2em !important;
     font-weight: bold;
-    align-self: flex-start;
     word-wrap: break-word;
-    margin: 1em 0;
+    width: 100%;
+    padding: .5em .4em;
 `
