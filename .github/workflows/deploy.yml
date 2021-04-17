@@ -5,23 +5,42 @@ on:
       - "*"
 
 jobs:
-  build-deploy:
-    runs-on: ubuntu-18.04
+  build-and-deploy:
+    runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v2
 
-      - name: Install dependencies
-        uses: borales/actions-yarn@v2.0.0
-        with:
-          cmd: install
+      - name: Build and Deploy
+        uses: ./.github/actions/deploy
+        env:
+          COMMIT_EMAIL: jeoy_z@126.com
+          COMMIT_NAME: jeoy
+          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+          BASE_BRANCH: master
+          DEPLOY_BRANCH: gh-pages
+          BUILD_SCRIPT: yarn && yarn build
+          FOLDER: build
 
-      - name: Build app
-        uses: borales/actions-yarn@v2.0.0
-        with:
-          cmd: build
 
-      - name: Deploy to gh-pages
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./build
+# jobs:
+#   build-deploy:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@v2
+
+#       - name: Install dependencies
+#         uses: borales/actions-yarn@v2.0.0
+#         with:
+#           cmd: install
+
+#       - name: Build app
+#         uses: borales/actions-yarn@v2.0.0
+#         with:
+#           cmd: build
+
+#       - name: Deploy to gh-pages
+#         uses: peaceiris/actions-gh-pages@v3
+#         with:
+#           github_token: ${{ secrets.GITHUB_TOKEN }}
+#           publish_dir: ./build
