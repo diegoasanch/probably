@@ -59,6 +59,7 @@ const SelectLang = () => {
                 icon="globe-network"
                 text={currentLang}
                 rightIcon="caret-down"
+                minimal
             />
         </LangSelect>
     )
