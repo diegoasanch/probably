@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/Estadistica_General/static/css/main.37fe6d68.chunk.css",
-    "main.js": "/Estadistica_General/static/js/main.987a84e5.chunk.js",
-    "main.js.map": "/Estadistica_General/static/js/main.987a84e5.chunk.js.map",
+    "main.js": "/Estadistica_General/static/js/main.63ef4e98.chunk.js",
+    "main.js.map": "/Estadistica_General/static/js/main.63ef4e98.chunk.js.map",
     "runtime-main.js": "/Estadistica_General/static/js/runtime-main.7b84b9d0.js",
     "runtime-main.js.map": "/Estadistica_General/static/js/runtime-main.7b84b9d0.js.map",
     "static/css/2.635780d2.chunk.css": "/Estadistica_General/static/css/2.635780d2.chunk.css",
@@ -17,13 +17,13 @@
     "static/media/katex.min.css": "/Estadistica_General/static/media/KaTeX_Typewriter-Regular.b6a56b14.woff",
     "static/media/getFetch.cjs": "/Estadistica_General/static/media/getFetch.d7d6010d.cjs",
     "static/media/spain.12ca02a6.svg": "/Estadistica_General/static/media/spain.12ca02a6.svg",
-    "static/media/us.c1e2ba3f.svg": "/Estadistica_General/static/media/us.c1e2ba3f.svg"
+    "static/media/uk.64f4888d.svg": "/Estadistica_General/static/media/uk.64f4888d.svg"
   },
   "entrypoints": [
     "static/js/runtime-main.7b84b9d0.js",
     "static/css/2.635780d2.chunk.css",
     "static/js/2.1f2d4130.chunk.js",
     "static/css/main.37fe6d68.chunk.css",
-    "static/js/main.987a84e5.chunk.js"
+    "static/js/main.63ef4e98.chunk.js"
   ]
 }
