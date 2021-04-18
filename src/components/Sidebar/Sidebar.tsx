@@ -4,7 +4,6 @@ import { useTranslation } from 'react-i18next'
 import { Select } from '@blueprintjs/select'
 
 import { IPageInfo } from '../../types/pages'
-import styled from 'styled-components'
 import packageJSON from '../../../package.json'
 import {
     SidebarContainer,
