@@ -1,4 +1,4 @@
-# Probabilty Distributions calculator
+# Probabilty Distributions calculator [![Deploy to GitHub Pages](https://github.com/diegoasanch/Estadistica_General/actions/workflows/deploy.yml/badge.svg)](https://github.com/diegoasanch/Estadistica_General/actions/workflows/deploy.yml)
 
 ## Why?
 
