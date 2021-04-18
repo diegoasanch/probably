@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/Estadistica_General/static/css/main.37fe6d68.chunk.css",
-    "main.js": "/Estadistica_General/static/js/main.066afa46.chunk.js",
-    "main.js.map": "/Estadistica_General/static/js/main.066afa46.chunk.js.map",
+    "main.js": "/Estadistica_General/static/js/main.e5427317.chunk.js",
+    "main.js.map": "/Estadistica_General/static/js/main.e5427317.chunk.js.map",
     "runtime-main.js": "/Estadistica_General/static/js/runtime-main.7b84b9d0.js",
     "runtime-main.js.map": "/Estadistica_General/static/js/runtime-main.7b84b9d0.js.map",
     "static/css/2.635780d2.chunk.css": "/Estadistica_General/static/css/2.635780d2.chunk.css",
@@ -22,6 +22,6 @@
     "static/css/2.635780d2.chunk.css",
     "static/js/2.780cbb99.chunk.js",
     "static/css/main.37fe6d68.chunk.css",
-    "static/js/main.066afa46.chunk.js"
+    "static/js/main.e5427317.chunk.js"
   ]
 }
