@@ -1,5 +1,5 @@
 import i18n from "../i18n"
-import usFlag from '../svg/us.svg'
+import enFlag from '../svg/uk.svg'
 import esFlag from '../svg/spain.svg'
 
 const DEFAULT_LANG = 'es'
@@ -14,7 +14,7 @@ const available_langs: ILang[] = [
 
 const flags = {
     'es': esFlag,
-    'en': usFlag,
+    'en': enFlag,
 }
 
 const setLang = (newLang: string): void => {
