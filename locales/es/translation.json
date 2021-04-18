@@ -1,6 +1,7 @@
 {
     "sidebar-header": "Estadística General",
 
+    "distribution": "Distribución",
     "pages-binomial": "Distribución Binomial",
     "select-binomial": "Binomial",
 
@@ -17,5 +18,6 @@
     "success-found": "Cantidad de éxitos encontrados",
     "round-precision": "Precisión",
     "by": "por",
-    "with": "con"
+    "with": "con",
+    "view-on": "Ver en"
 }
