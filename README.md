@@ -1,7 +1,5 @@
 # Probabilty Distributions calculator 
 
-[![Deploy to GitHub Pages](https://github.com/diegoasanch/Estadistica_General/actions/workflows/deploy.yml/badge.svg)](https://github.com/diegoasanch/Estadistica_General/actions/workflows/deploy.yml)
-
 ## Why?
 
 Because the calculators recommended by the professor are __completely functional__
@@ -13,3 +11,5 @@ Also, I wanted to practice more TypeScript.
 The idea behind this project is to create a calculator for all sort of Probability Distribution models, so if there is one that you particularly want to add, feel free to contribute. 😎
 
 ### Use the calculator [online](https://diegoasanch.github.io/Estadistica_General/)
+
+[![Deploy to GitHub Pages](https://github.com/diegoasanch/Estadistica_General/actions/workflows/deploy.yml/badge.svg)](https://github.com/diegoasanch/Estadistica_General/actions/workflows/deploy.yml)
