@@ -10,7 +10,7 @@ export const dark: Itheme = {
     scrollBarThumb: '#151515',
     chart_barNormal: '#828282',
     chart_barHighlight: '#19A6FF',
-    chart_gridColor: '#999999',
+    chart_gridColor: '#555',
 }
 
 export const light: Itheme = {
@@ -21,7 +21,7 @@ export const light: Itheme = {
     result: '#0C527E',
     scrollBarBg: '#EBEBEB',
     scrollBarThumb: '#888',
-    chart_barNormal: '#828282',
+    chart_barNormal: '#414141',
     chart_barHighlight: '#19A6FF',
     chart_gridColor: '#CCCCCC'
 }

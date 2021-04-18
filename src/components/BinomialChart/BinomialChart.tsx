@@ -30,8 +30,8 @@ const BinomialChart = ({ data, highlight, legend, roundPrecision }: IProps ) => 
                 data={data}
             >
                 <CartesianGrid strokeDasharray="5" />
-                <XAxis dataKey="label" />
-                <YAxis />
+                <XAxis dataKey="label" tick={{ fill: themeContext.text}} />
+                <YAxis tick={{ fill: themeContext.text}} />
                 <Tooltip
                     formatter={(x: any, y: any, props: any) => (
                         `P(${props.payload.label}) = ${props.value.toFixed(roundPrecision ?? 4)}`
