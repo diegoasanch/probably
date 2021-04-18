@@ -1,19 +1,19 @@
 {
   "files": {
     "main.css": "/Estadistica_General/static/css/main.37fe6d68.chunk.css",
-    "main.js": "/Estadistica_General/static/js/main.c8136bab.chunk.js",
-    "main.js.map": "/Estadistica_General/static/js/main.c8136bab.chunk.js.map",
+    "main.js": "/Estadistica_General/static/js/main.49c091ae.chunk.js",
+    "main.js.map": "/Estadistica_General/static/js/main.49c091ae.chunk.js.map",
     "runtime-main.js": "/Estadistica_General/static/js/runtime-main.7b84b9d0.js",
     "runtime-main.js.map": "/Estadistica_General/static/js/runtime-main.7b84b9d0.js.map",
     "static/css/2.635780d2.chunk.css": "/Estadistica_General/static/css/2.635780d2.chunk.css",
-    "static/js/2.38dbaafa.chunk.js": "/Estadistica_General/static/js/2.38dbaafa.chunk.js",
-    "static/js/2.38dbaafa.chunk.js.map": "/Estadistica_General/static/js/2.38dbaafa.chunk.js.map",
+    "static/js/2.1f2d4130.chunk.js": "/Estadistica_General/static/js/2.1f2d4130.chunk.js",
+    "static/js/2.1f2d4130.chunk.js.map": "/Estadistica_General/static/js/2.1f2d4130.chunk.js.map",
     "static/js/3.3d1e6aa0.chunk.js": "/Estadistica_General/static/js/3.3d1e6aa0.chunk.js",
     "static/js/3.3d1e6aa0.chunk.js.map": "/Estadistica_General/static/js/3.3d1e6aa0.chunk.js.map",
     "index.html": "/Estadistica_General/index.html",
     "static/css/2.635780d2.chunk.css.map": "/Estadistica_General/static/css/2.635780d2.chunk.css.map",
     "static/css/main.37fe6d68.chunk.css.map": "/Estadistica_General/static/css/main.37fe6d68.chunk.css.map",
-    "static/js/2.38dbaafa.chunk.js.LICENSE.txt": "/Estadistica_General/static/js/2.38dbaafa.chunk.js.LICENSE.txt",
+    "static/js/2.1f2d4130.chunk.js.LICENSE.txt": "/Estadistica_General/static/js/2.1f2d4130.chunk.js.LICENSE.txt",
     "static/media/katex.min.css": "/Estadistica_General/static/media/KaTeX_Typewriter-Regular.b6a56b14.woff",
     "static/media/getFetch.cjs": "/Estadistica_General/static/media/getFetch.d7d6010d.cjs",
     "static/media/spain.12ca02a6.svg": "/Estadistica_General/static/media/spain.12ca02a6.svg",
@@ -22,8 +22,8 @@
   "entrypoints": [
     "static/js/runtime-main.7b84b9d0.js",
     "static/css/2.635780d2.chunk.css",
-    "static/js/2.38dbaafa.chunk.js",
+    "static/js/2.1f2d4130.chunk.js",
     "static/css/main.37fe6d68.chunk.css",
-    "static/js/main.c8136bab.chunk.js"
+    "static/js/main.49c091ae.chunk.js"
   ]
 }
