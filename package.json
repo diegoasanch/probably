@@ -1,6 +1,6 @@
 {
   "name": "estadistica_general",
-  "version": "0.1.14",
+  "version": "0.1.15",
   "private": true,
   "homepage": "http://diegoasanch.github.io/Estadistica_General",
   "dependencies": {
