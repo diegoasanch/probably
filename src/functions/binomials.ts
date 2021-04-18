@@ -108,6 +108,16 @@ const createTable = (
     }
     return {headers, content}
 }
+const defaultTable: IBinomialTable = {
+    headers: ['r', 'P(r)', 'F(r)', 'G(r)', 'H(r)', 'J(r)'],
+    content: [
+        [0, 0, 0 ,0, 0, 0], [0, 0, 0 ,0, 0, 0],
+        [0, 0, 0 ,0, 0, 0], [0, 0, 0 ,0, 0, 0],
+        [0, 0, 0 ,0, 0, 0], [0, 0, 0 ,0, 0, 0],
+        [0, 0, 0 ,0, 0, 0], [0, 0, 0 ,0, 0, 0],
+        [0, 0, 0 ,0, 0, 0], [0, 0, 0 ,0, 0, 0],
+    ]
+}
 
 export { binomialModel,
     accumulatedLeft,
@@ -120,4 +130,5 @@ export { binomialModel,
     partialLeftExpected,
     partialRightExpected,
     createTable,
+    defaultTable,
 }

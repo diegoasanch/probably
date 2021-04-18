@@ -6,17 +6,18 @@ import { isCellHighlight } from '../../utils/determine_style'
 type IProps = {
     table: IBinomialTable,
     precision: number,
+    isLoading: boolean,
     highlight?: string | string[],
 }
 
-const BinomialTable = ({ table, precision, highlight }: IProps) => {
+const BinomialTable = ({ table, precision, highlight, isLoading }: IProps) => {
 
     const renderCell = (row: number, col: number) => {
         const intent = isCellHighlight(row, highlight) ? 'primary' : 'none'
         // console.log(`Cell intent: ${intent}`)
 
         return (
-            <Cell intent={intent}>
+            <Cell intent={intent} loading={isLoading}>
                 { table.content[row][col]
                     .toFixed(col ? precision : 0)
                 }

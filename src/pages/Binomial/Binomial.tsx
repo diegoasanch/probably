@@ -24,7 +24,8 @@ import {
     assymetry,
     binomialModel,
     accumulatedLeft,
-    accumulatedRight
+    accumulatedRight,
+    defaultTable
 } from '../../functions/binomials'
 import BinomialChart from '../../components/BinomialChart'
 import { IOperationType } from '../../types/pages'
@@ -236,15 +237,12 @@ function Binomial() {
                     { !validInput ?
                         <NoInput />
                       :
-                        (tableData ?
-                            <BinomialTable
-                                table={tableData}
-                                precision={roundPrecision}
-                                highlight={highlight}
-                            />
-                          :
-                            <Spinner size={100} />
-                        )
+                        <BinomialTable
+                            table={tableData || defaultTable}
+                            precision={roundPrecision}
+                            isLoading={!tableData}
+                            highlight={highlight}
+                        />
                     }
                 </Column>
                 <Column>

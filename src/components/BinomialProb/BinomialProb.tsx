@@ -1,5 +1,5 @@
 import React from 'react'
-import { Card, H3, Icon, Tab, TabId, Tabs } from '@blueprintjs/core'
+import { Card, H3, Icon, Tab, Tabs } from '@blueprintjs/core'
 import TeX from '@matejmazur/react-katex'
 import { useTranslation } from 'react-i18next'
 import { StyledCallout } from '../../styles/display'
