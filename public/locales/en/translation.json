@@ -1,3 +1,23 @@
 {
-    "title": "My title"
+    "sidebar-header": "Estadística General",
+
+    "distribution": "Distribution",
+    "pages-binomial": "Binomial Distribution",
+    "select-binomial": "Binomial",
+
+    "select-more_soon": "Coming soon...",
+
+    "analysis": "Analysis",
+    "table": "Table",
+    "chart": "Plot",
+    "specify": "Specify",
+    "and": "and",
+
+    "sample-size": "Number of trials",
+    "success-prob": "Probability of success",
+    "success-found": "Success count",
+    "round-precision": "Precision",
+    "by": "by",
+    "with": "with",
+    "view-on": "View on"
 }

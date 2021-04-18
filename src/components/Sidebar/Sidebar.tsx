@@ -25,11 +25,6 @@ type IClickHandler = {
 
 const PageSelect = Select.ofType<IPageInfo>()
 
-const StyledSelect = styled(PageSelect)`
-    width: 100%;
-    padding: 1em 3.5em;
-`
-
 const Sidebar = ({
     current_page,
     available_pages,
@@ -64,7 +59,10 @@ const Sidebar = ({
             <Divider />
 
             <SideMain>
-                <StyledSelect
+                <H4>
+                    {translate('distribution')}
+                </H4>
+                <PageSelect
                     // initialContent={initialContent}
                     items={available_pages}
                     itemRenderer={renderItem}
@@ -77,11 +75,11 @@ const Sidebar = ({
                         text={translate(`select-${current_page.id}`)}
                         rightIcon="caret-down"
                     />
-                </StyledSelect>
+                </PageSelect>
                 <SideFooter>
                     <H4>
                         <Icon className="bp3-text-muted" icon="git-branch" />&nbsp;
-                        Ver en&nbsp;
+                        {translate('view-on')}&nbsp;
                         <a href="https://github.com/diegoasanch/Estadistica_General">
                             GitHub
                         </a>

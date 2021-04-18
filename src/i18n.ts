@@ -5,13 +5,11 @@ import { initReactI18next } from 'react-i18next'
 
 i18n
     .use(Backend)
-  // Enable automatic language detection
     .use(LanguageDetector)
-  // Enables the hook initialization module
     .use (initReactI18next)
     .init({
         // Standard language used
-        fallbackLng: 'en',
+        fallbackLng: 'es',
         debug: true,
         interpolation: {
             escapeValue: false
