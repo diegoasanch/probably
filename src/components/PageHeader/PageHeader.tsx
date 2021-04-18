@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import {
     NavbarGroup,
     NavbarHeading,
@@ -7,6 +7,9 @@ import {
 
 import { StyledNavbar, StyledSwitch } from './styles'
 import { useTranslation } from 'react-i18next'
+import { available_langs, getLang, ILang } from '../../utils/internationalization'
+import { SelectionModes } from '@blueprintjs/table'
+import SelectLang from '../SelectLang'
 
 
 type Iprops = {
@@ -26,6 +29,7 @@ const PageHeader = ({ title, isDark, toggleTheme }: Iprops) => {
             </NavbarGroup>
 
             <NavbarGroup align={Alignment.RIGHT}>
+                <SelectLang />
                 <StyledSwitch
                     alignIndicator={Alignment.RIGHT}
                     checked={isDark}

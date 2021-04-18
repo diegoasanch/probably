@@ -224,7 +224,7 @@ function Binomial() {
                                         id="f"
                                         panel={
                                             <Result
-                                                name="P(\text{V.A.} \leq r)"
+                                                name={`P(\\text{V.A.} \\leq ${successFound})`}
                                                 result={accumLeft}
                                                 precision={roundPrecision}
                                             />
@@ -235,7 +235,7 @@ function Binomial() {
                                         id="g"
                                         panel={
                                             <Result
-                                                name="P(\text{V.A.} \geq r)"
+                                                name={`P(\\text{V.A.} \\geq ${successFound})`}
                                                 result={accumRight}
                                                 precision={roundPrecision}
                                             />
