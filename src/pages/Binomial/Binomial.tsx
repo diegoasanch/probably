@@ -2,13 +2,9 @@ import React, { useEffect, useState } from 'react'
 import {
     H1,
     H3,
-    Callout,
     Label,
     NumericInput,
     Spinner,
-    Card,
-    Tabs,
-    Tab,
     Icon,
 } from '@blueprintjs/core'
 import { PageContainer, Row, Column } from '../layout'
@@ -33,14 +29,8 @@ import {
 import BinomialChart from '../../components/BinomialChart'
 import { IOperationType } from '../../types/pages'
 import { stringRange } from '../../utils/arrays'
-import TeX from '@matejmazur/react-katex'
-import styled from 'styled-components'
-
-const StyledCallout = styled(Callout)`
-    width: max-content;
-    padding: 1.5em;
-`
-
+import { StyledCallout } from '../../styles/display'
+import BinomialProb from '../../components/BinomialProb'
 
 function Binomial() {
 
@@ -56,16 +46,7 @@ function Binomial() {
             </H3>
         </StyledCallout>
     )
-    const NoR = () => (
-        <StyledCallout>
-            <H3>
-                <span className="bp3-text-muted">
-                    <Icon icon="calculator" iconSize={25} />&nbsp;
-                </span>
-                {t('specify')} <code>r</code>
-            </H3>
-        </StyledCallout>
-    )
+
 
 
     // TODO: Set defaults to 0
@@ -202,48 +183,15 @@ function Binomial() {
                                     placeholder="x"
                                 />
                             </Label>
-                            <Card>
-                                <Tabs id="operation" onChange={handleTab}>
-                                    <Tab
-                                        title={<TeX math="P(r)" />}
-                                        id="p"
-                                        panel={
-                                            isNaN(successFound) ?
-                                            <NoR />
-                                            :
-                                            <Result
-                                                name={`P(\\text{V.A.} = ${successFound})`}
-                                                // name="P(\text{V.A.} = r)"
-                                                result={punctualProbability}
-                                                precision={roundPrecision}
-                                            />
-                                        }
-                                    />
-                                    <Tab
-                                        title={<TeX math="F(r)"/>}
-                                        id="f"
-                                        panel={
-                                            <Result
-                                                name={`P(\\text{V.A.} \\leq ${successFound})`}
-                                                result={accumLeft}
-                                                precision={roundPrecision}
-                                            />
-                                        }
-                                    />
-                                    <Tab
-                                        title={<TeX math="G(r)"/>}
-                                        id="g"
-                                        panel={
-                                            <Result
-                                                name={`P(\\text{V.A.} \\geq ${successFound})`}
-                                                result={accumRight}
-                                                precision={roundPrecision}
-                                            />
-                                        }
-                                    />
-                                </Tabs>
-
-                            </Card>
+                            <BinomialProb
+                                handleTab={handleTab}
+                                successFound={successFound}
+                                punctualProbability={punctualProbability}
+                                roundPrecision={roundPrecision}
+                                accumLeft={accumLeft}
+                                accumRight={accumRight}
+                                validInput={validInput}
+                            />
                         </Column>
                         </Row>
                 </Column>

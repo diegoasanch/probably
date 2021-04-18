@@ -7,7 +7,7 @@
  */
 const range = (from: number, to: number, step=1): number[] => {
     const length = to - from
-    if (length)
+    if (length > 0)
         return [...Array(length + 1)].map((_, i) => from + i * step);
     return []
 }
