@@ -6,15 +6,9 @@ import SvgIcon from '../SvgIcon'
 
 const LangSelect = Select.ofType<string>()
 
-type IProps = {
-    currentLang: ILang,
-    langs: ILang[],
-}
-
 type IClickHandler = {
     handleClick: (event: React.MouseEvent<HTMLElement, MouseEvent>) => void,
 }
-
 
 const SelectLang = () => {
 
