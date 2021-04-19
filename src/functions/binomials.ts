@@ -1,4 +1,4 @@
-import { IBinomialTable } from "../types/tables"
+import { IBinomialTable, IProbabilities, IResults } from "../types/tables"
 
 const factorial = (n: number): number => {
     if (n === 0)
@@ -108,6 +108,27 @@ const createTable = (
     }
     return {headers, content}
 }
+
+const getAnalysis = (sampleSize: number, successProbability: number): IResults  => {
+    const results: IResults = {
+        expected: expectedValue(sampleSize, successProbability),
+        variance: variance(sampleSize, successProbability),
+        std_dev: stdDeviation(sampleSize, successProbability),
+        assymetry: assymetry(sampleSize, successProbability),
+        kurtosis: kurtosis(sampleSize, successProbability),
+    }
+    return results
+}
+
+const getProbabilities = (r: number, n: number, p: number): IProbabilities => {
+    const results: IProbabilities = {
+        punctual: binomialModel(r, n, p),
+        accum_left: accumulatedLeft(r, n, p),
+        accum_right: accumulatedRight(r, n, p),
+    }
+    return results
+}
+
 const defaultTable: IBinomialTable = {
     headers: ['r', 'P(r)', 'F(r)', 'G(r)', 'H(r)', 'J(r)'],
     content: [
@@ -119,7 +140,8 @@ const defaultTable: IBinomialTable = {
     ]
 }
 
-export { binomialModel,
+export {
+    binomialModel,
     accumulatedLeft,
     accumulatedRight,
     expectedValue,
@@ -130,5 +152,7 @@ export { binomialModel,
     partialLeftExpected,
     partialRightExpected,
     createTable,
+    getAnalysis,
+    getProbabilities,
     defaultTable,
 }

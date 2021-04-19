@@ -17,7 +17,7 @@ const StyledResult = styled(Text)`
 
 type IProps = {
     name: string,
-    result: number,
+    result: number | undefined,
     precision: number,
 }
 
@@ -29,8 +29,12 @@ const Result = ({ name, result, precision= 4 }: IProps) => {
         <StyledResult>
 
             <TeX math={name + ' = '} />&nbsp;
-            <span className="number">
-                {result.toFixed(precision)}
+            <span className={`number` + (typeof(result) === 'undefined' ? ' bp3-skeleton' : '')}>
+                { result ?   // if no result, show skeleton loader animation
+                    result.toFixed(precision)
+                  :
+                    '0.000000' // just some placeholder for the skeleton
+                }
             </span>
         </StyledResult>)
 }

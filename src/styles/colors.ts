@@ -6,8 +6,10 @@ export const dark: Itheme = {
     sidebarText: '#EBEBEB',
     sidebarBg: '#1B222A',
     result: '#19A6FF',
-    scrollBarBg: '#2F3437',
-    scrollBarThumb: '#151515',
+
+    scrollBarBg: '#262A2C',
+    scrollBarThumb: '#171D25',
+
     chart_barNormal: '#828282',
     chart_barHighlight: '#19A6FF',
     chart_gridColor: '#555',
@@ -19,8 +21,10 @@ export const light: Itheme = {
     sidebarText: '#37352F',
     sidebarBg: '#EBEBEB',
     result: '#0C527E',
+
     scrollBarBg: '#EBEBEB',
     scrollBarThumb: '#888',
+
     chart_barNormal: '#414141',
     chart_barHighlight: '#19A6FF',
     chart_gridColor: '#CCCCCC'

@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next'
 import { StyledCallout } from '../../styles/display'
 import Result from '../Result'
 import { IOperationType } from '../../types/pages'
+import { IProbabilities } from '../../types/tables'
 
 const NoR = () => {
 
@@ -25,21 +26,17 @@ const NoR = () => {
 type IProps = {
     handleTab: (tab: IOperationType) => void,
     successFound: number,
-    punctualProbability: number,
     roundPrecision: number,
-    accumLeft: number,
-    accumRight: number,
     validInput: boolean,
+    probabilities: IProbabilities | undefined,
 }
 
 const BinomialProb = ({
     handleTab,
     successFound,
-    punctualProbability,
-    roundPrecision,
-    accumLeft,
-    accumRight,
     validInput,
+    roundPrecision,
+    probabilities,
 }: IProps) => {
 
     validInput = validInput && !isNaN(successFound)
@@ -56,8 +53,7 @@ const BinomialProb = ({
                         :
                             <Result
                                 name={`P(\\text{V.A.} = ${successFound})`}
-                                // name="P(\text{V.A.} = r)"
-                                result={punctualProbability}
+                                result={probabilities?.punctual}
                                 precision={roundPrecision}
                             />
                     }
@@ -71,7 +67,7 @@ const BinomialProb = ({
                         :
                             <Result
                                 name={`P(\\text{V.A.} \\leq ${successFound})`}
-                                result={accumLeft}
+                                result={probabilities?.accum_left}
                                 precision={roundPrecision}
                             />
                     }
@@ -85,7 +81,7 @@ const BinomialProb = ({
                         :
                             <Result
                                 name={`P(\\text{V.A.} \\geq ${successFound})`}
-                                result={accumRight}
+                                result={probabilities?.accum_right}
                                 precision={roundPrecision}
                             />
                     }

@@ -16,19 +16,34 @@ const ViewPort = styled.div`
     height: 100vh;
     display: flex;
     flex-direction: row;
+
+    > * ::-webkit-scrollbar {
+        background-color: ${props => props.theme.scrollBarBg};
+        width: 10px;
+        height: 10px;
+        border-radius: 10px;
+    }
+    > * ::-webkit-scrollbar-thumb {
+        background-color: ${props => props.theme.scrollBarThumb};
+        border-radius: 5px;
+    }
 `
 
 const SideContainer = styled.div`
-    width: ${sideBarWidth};
+    width: ${minSideBarWidth};
     height: 100%;
     min-width: ${minSideBarWidth};
+    /* max-wid */
 `
 
 const AppPageContainer = styled.div`
-    width: calc(100% - ${sideBarWidth});
+    width: calc(100% - ${minSideBarWidth});
     height: 100%;
     overflow-y: auto;
     min-width: ${minSideBarWidth};
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 `
 
 const PageFrame = styled.main`
@@ -38,6 +53,7 @@ const PageFrame = styled.main`
     margin: 0;
     background-color: ${ props => props.theme.background };
     color: ${props => props.theme.text };
+    max-width: 1050px;
 `
 
 
@@ -47,7 +63,7 @@ const Column = styled.div<IContainer>`
     flex-direction: column;
     flex-grow: ${props => props.noGrow ? 0 : 1};
     height: ${ props => props.height ?? '100%'};
-    width: ${ props => props.width ?? 'calc(max-content + 10vw)'};
+    width: ${ props => props.width ?? '100%'};
     min-width: max-content;
 
     margin: ${props => (
