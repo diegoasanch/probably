@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-const sideBarWidth = '20vw'
+// const sideBarWidth = '20vw'
 const minSideBarWidth = '250px'
 
 type IContainer = {
