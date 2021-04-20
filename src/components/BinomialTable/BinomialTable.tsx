@@ -1,26 +1,19 @@
-import React from 'react'
-import { Cell, Column, Table } from '@blueprintjs/table'
-import { IBinomialTable } from '../../types/tables'
+import React, { useContext } from 'react'
+import { Cell, Column } from '@blueprintjs/table'
+import { ITable } from '../../types/tables'
 import { isCellHighlight } from '../../utils/determine_style'
-
-//! ---------------------------- TODO: lint this ----------------------------
-
-import styled from 'styled-components'
-
-const StyledTable = styled(Table)`
-    height: min-content;
-`
-//! ---------------------------- END LINT  ----------------------------
-
+import { StyledTable } from './styles'
+import { PrecisionContext } from '../../contexts/inputs'
 
 type IProps = {
-    table: IBinomialTable,
-    precision: number,
+    table: ITable,
     isLoading: boolean,
     highlight?: string | string[],
 }
 
-const BinomialTable = ({ table, precision, highlight, isLoading }: IProps) => {
+const BinomialTable = ({ table, highlight, isLoading }: IProps) => {
+
+    const roundPrecision = useContext(PrecisionContext)
 
     const renderCell = (row: number, col: number) => {
         const intent = isCellHighlight(row, highlight) ? 'primary' : 'none'
@@ -29,13 +22,13 @@ const BinomialTable = ({ table, precision, highlight, isLoading }: IProps) => {
         return (
             <Cell intent={intent} loading={isLoading}>
                 { table.content[row][col]
-                    .toFixed(col ? precision : 0)
+                    .toFixed(col ? roundPrecision : 0)
                 }
             </Cell>
         )
     }
 
-    console.table(table.content)
+    // console.table(table.content)
 
     return (
         <StyledTable

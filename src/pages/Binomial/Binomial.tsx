@@ -3,27 +3,20 @@ import BinomialChart from '../../components/BinomialChart'
 import { IOperationType } from '../../types/pages'
 import { stringRange } from '../../utils/arrays'
 
-import { StyledCallout } from '../../styles/display'
 import BinomialProb from '../../components/BinomialProb'
 import ResultGroup from '../../components/ResultGroup'
-import { PageContainer, Row, Column } from '../layout'
-
 import BinomialTable from '../../components/BinomialTable'
-import { useTranslation } from 'react-i18next'
 import { useDebounce } from 'react-use'
-import { IBarChartItem, IBinomialTable, IProbabilities, IResults } from '../../types/tables'
 
-import {
-    H1,
-    H3,
-    Label,
-    NumericInput,
-    Spinner,
-    Icon,
-} from '@blueprintjs/core'
+import { IBarChartItem, ITable, IProbabilities, IResult } from '../../types/tables'
+import { Spinner } from '@blueprintjs/core'
+import PageTemplate from '../PageTemplate'
+import { PrecisionContext } from '../../contexts/inputs'
 
+import BinomialInput from '../../components/BinomialInput'
 import {
     createTable,
+    defaultResults,
     defaultTable,
     getAnalysis,
     getProbabilities
@@ -31,33 +24,21 @@ import {
 
 function Binomial() {
 
-    const { t } = useTranslation()
-
-    const NoInput = () => (
-        <StyledCallout>
-            <H3>
-                <span className="bp3-text-muted">
-                    <Icon icon="calculator" iconSize={25} />&nbsp;
-                </span>
-                {t('specify')} <code>n</code> {t('and')} <code>p</code>
-            </H3>
-        </StyledCallout>
-    )
-
-    const [sampleSize, setSampleSize] = useState<number>(0) // n
-    const [successProbability, setSuccessProbability] = useState<number>(0) // p
+    const [sampleSize, setSampleSize] = useState(0) // n
+    const [successProbability, setSuccessProbability] = useState(0) // p
     const [successFound, setSuccessFound] = useState<number>(NaN) // r
-    const [validInput, setValidInput] = useState<boolean>(false)
+    const [validInput, setValidInput] = useState(false)
 
-    const [roundPrecision, setRoundPrecision] = useState<number>(5)
-    const [results, setResults] = useState<IResults | undefined>()
+    const [roundPrecision, setRoundPrecision] = useState(5)
+    const [results, setResults] = useState<IResult[]>(defaultResults)
+    const [validResults, setValidResults] = useState(false)
     const [probabilities, setProbabilities] = useState<IProbabilities | undefined>()
 
-    const [tableData, setTableData] = useState<IBinomialTable | undefined>()
+    const [tableData, setTableData] = useState<ITable | undefined>()
     const [chartData, setChartData] = useState<IBarChartItem[] | undefined>(([ {label: '', value: 0} ]) as IBarChartItem[])
 
     // const [dataFrom, setDataFrom] = useState<number>(0)
-    const [dataTo, setDataTo] = useState<number>(0)
+    const [dataTo, setDataTo] = useState(0)
     const [highlight, setHighlight] = useState<string | string[]>('')
     const [opType, setOpType] = useState<IOperationType>('p')
 
@@ -105,7 +86,8 @@ function Binomial() {
     useEffect(() => {
         setTableData(undefined)
         setChartData(undefined)
-        setResults(undefined)
+        setResults(defaultResults)
+        setValidResults(false)
     }, [sampleSize, successProbability])
 
     // Debouncing the calculations
@@ -122,6 +104,7 @@ function Binomial() {
         setChartData(probs_from_table)
         setDataTo(sampleSize)
         setResults(analysis)
+        setValidResults(true)
 
         // console.table(probs_from_table)
 
@@ -130,113 +113,54 @@ function Binomial() {
     useEffect(() => {
         const valid = !!(sampleSize && successProbability)
         setValidInput(valid)
-        console.log({ valid, sampleSize, successProbability})
+        // console.log({ valid, sampleSize, successProbability})
     }, [sampleSize, successProbability])
 
     return (
-        <PageContainer>
-            <Row>
-                <Column>
-                    <H1>Input</H1>
-                    <Row noPad>
-                        <Column margin=".8em 1em" noGrow >
-                            <Label>
-                                <code>n</code> = {t('sample-size')}
-                                <NumericInput
-                                    min={1}
-                                    onValueChange={handleSampleSize}
-                                    minorStepSize={0.0001}
-                                    placeholder="n"
-                                />
-                            </Label>
-                            <Label>
-                                <code>p</code> = {t('success-prob')}
-                                <NumericInput
-                                    min={0}
-                                    max={1}
-                                    stepSize={0.1}
-                                    onValueChange={handleSuccessProb}
-                                    placeholder="p"
-                                />
-                            </Label>
-                            <Label>
-                                <code>r</code> = {t('success-found')}
-                                <NumericInput
-                                    min={0}
-                                    onValueChange={handleSuccessFound}
-                                    max={sampleSize}
-                                    placeholder="r"
-                                />
-                            </Label>
-                        </Column>
-                        <Column margin=".8em 1em" noGrow >
-                            <Label>
-                                {t('round-precision')} <code> (0.xf)</code>
-                                <NumericInput
-                                    min={0}
-                                    onValueChange={setRoundPrecision}
-                                    value={roundPrecision ?? 'x'}
-                                    placeholder="x"
-                                />
-                            </Label>
-
-                            {/* P(r) , F(r) , G(r)  */}
+        <PrecisionContext.Provider value={roundPrecision}>
+            <PageTemplate
+                validInput={validInput}
+                input={
+                    <BinomialInput
+                        handleSampleSize={handleSampleSize}
+                        handleSuccessProb={handleSuccessProb}
+                        handleSuccessFound={handleSuccessFound}
+                        setRoundPrecision={setRoundPrecision}
+                        sampleSize={sampleSize}
+                        extraPanel={
                             <BinomialProb
                                 handleTab={handleTab}
                                 successFound={successFound}
-                                roundPrecision={roundPrecision}
                                 validInput={validInput}
                                 probabilities={probabilities}
                             />
-                        </Column>
-                        </Row>
-                </Column>
-                <Column>
-                    <H1>{t('analysis')}</H1>
-                    { !validInput ?
-                        <NoInput />
-                      :
-                        <ResultGroup
-                            results={results}
-                            precision={roundPrecision}
-                        />
-                    }
-                </Column>
-            </Row>
-            <Row>
-                <Column width="max-content" noGrow>
-                    <H1>{t('table')}</H1>
-                    { !validInput ?
-                        <NoInput />
-                      :
-                        <BinomialTable
-                            table={tableData || defaultTable}
-                            precision={roundPrecision}
-                            isLoading={!tableData}
+                        }
+                    />
+                }
+                analysis={
+                    <ResultGroup
+                        validResults={validResults}
+                        results={results}
+                    /> }
+                table={
+                    <BinomialTable
+                        table={tableData || defaultTable}
+                        isLoading={!tableData}
+                        highlight={highlight}
+                    />
+                }
+                chart={
+                    (chartData ?
+                        <BinomialChart
+                            data={chartData}
                             highlight={highlight}
                         />
-                    }
-                </Column>
-                <Column>
-                    <H1>{t('chart')}</H1>
-                    { !validInput ?
-                        <NoInput />
-                      :
-                       (chartData ?
-                            <BinomialChart
-                                data={chartData}
-                                highlight={highlight}
-                                roundPrecision={roundPrecision}
-                            />
-                        :
-                            <Spinner size={100} />
-                        )
-                     }
-                </Column>
-            </Row>
-
-
-        </PageContainer >
+                    :
+                        <Spinner size={100} />
+                    )
+                }
+            />
+        </PrecisionContext.Provider>
     )
 }
 

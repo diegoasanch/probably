@@ -1,4 +1,4 @@
-import { IBinomialTable, IProbabilities, IResults } from "../types/tables"
+import { ITable, IProbabilities, IResult } from "../types/tables"
 
 const factorial = (n: number): number => {
     if (n === 0)
@@ -88,7 +88,7 @@ const createTable = (
     p: number,
     from?: number,
     to?: number,
-): IBinomialTable => {
+): ITable => {
 
     const headers = ['r', 'P(r)', 'F(r)', 'G(r)', 'H(r)', 'J(r)']
     const content: number[][] = []
@@ -109,14 +109,38 @@ const createTable = (
     return {headers, content}
 }
 
-const getAnalysis = (sampleSize: number, successProbability: number): IResults  => {
-    const results: IResults = {
-        expected: expectedValue(sampleSize, successProbability),
-        variance: variance(sampleSize, successProbability),
-        std_dev: stdDeviation(sampleSize, successProbability),
-        assymetry: assymetry(sampleSize, successProbability),
-        kurtosis: kurtosis(sampleSize, successProbability),
-    }
+const analysis_labels = {
+    expected: "E(r) = \\mu",
+    variance: "V(r) = \\sigma^2",
+    std_dev: "D(r) = \\sigma",
+    assymetry: "As = \\alpha_3",
+    kurtosis: "Ku = \\alpha_4"
+}
+
+const getAnalysis = (sampleSize: number, successProbability: number): IResult[]  => {
+    const results: IResult[] = [
+        {
+            texLabel: analysis_labels.expected,
+            value: expectedValue(sampleSize, successProbability),
+        },
+        {
+            texLabel: analysis_labels.variance,
+            value: variance(sampleSize, successProbability),
+        },
+        {
+            texLabel: analysis_labels.std_dev,
+            value: stdDeviation(sampleSize, successProbability),
+        },
+        {
+            texLabel: analysis_labels.assymetry,
+            value: assymetry(sampleSize, successProbability),
+        },
+        {
+            texLabel: analysis_labels.kurtosis,
+            value: kurtosis(sampleSize, successProbability),
+        },
+    ]
+
     return results
 }
 
@@ -128,8 +152,11 @@ const getProbabilities = (r: number, n: number, p: number): IProbabilities => {
     }
     return results
 }
+const defaultResults: IResult[] = [
+    { texLabel: analysis_labels.expected, value: 0 }
+]
 
-const defaultTable: IBinomialTable = {
+const defaultTable: ITable = {
     headers: ['r', 'P(r)', 'F(r)', 'G(r)', 'H(r)', 'J(r)'],
     content: [
         [0, 0, 0 ,0, 0, 0], [0, 0, 0 ,0, 0, 0],
@@ -154,5 +181,6 @@ export {
     createTable,
     getAnalysis,
     getProbabilities,
+    defaultResults,
     defaultTable,
 }
