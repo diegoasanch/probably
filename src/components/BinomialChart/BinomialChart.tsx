@@ -4,6 +4,61 @@ import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip } from 'recha
 import { OverflowContainer } from '../../pages/layout';
 import { ThemeContext } from 'styled-components'
 import { isCellHighlight } from '../../utils/determine_style';
+import { Card, Divider } from '@blueprintjs/core';
+import styled from 'styled-components'
+
+//! ---------------------------- TODO: lint this ----------------------------
+
+type ITooltipProps = {
+    active: boolean,
+    label: string,
+    value: number,
+    roundPrecision: number,
+}
+
+const sanitizeTooltipProps = (props: any): ITooltipProps => {
+    let { active, payload, label, roundPrecision } = props
+    active = !!active
+
+    let value = 0
+
+    if (typeof(label) !== 'string')
+        label = String(label)
+
+    if (Array.isArray(payload)) {
+        const innerPayload = payload[0]
+
+        if (typeof(innerPayload?.value) === 'number')
+            value = innerPayload.value
+    }
+    if (isNaN(parseFloat(roundPrecision)))
+        roundPrecision = 4
+
+    return { active, label, value, roundPrecision }
+}
+
+const StyledDivider = styled(Divider)`
+    margin: .8em 0;
+`
+
+const BinomialTooltip = (props: any) => {
+
+    console.log({ props })
+    const { active, label, value, roundPrecision } = sanitizeTooltipProps(props)
+
+    if (!active)
+        return <></>
+
+    return (
+        <Card>
+            <code>r</code> = {label}
+            <StyledDivider />
+            <code>P({label})</code> = {value.toFixed(roundPrecision)}
+        </Card>
+    )
+}
+
+//! ---------------------------- END LINT  ----------------------------
 
 type IProps = {
     data: IBarChartItem[],
@@ -18,7 +73,6 @@ const BinomialChart = ({ data, highlight, legend, roundPrecision }: IProps ) => 
 
     const BarColor = (entry: IBarChartItem): string => {
         const is_highlight = isCellHighlight(entry.label, highlight)
-
         return is_highlight ? themeContext.chart_barHighlight : themeContext.chart_barNormal;
     }
 
@@ -33,9 +87,7 @@ const BinomialChart = ({ data, highlight, legend, roundPrecision }: IProps ) => 
                 <XAxis dataKey="label" tick={{ fill: themeContext.text}} />
                 <YAxis tick={{ fill: themeContext.text}} />
                 <Tooltip
-                    formatter={(x: any, y: any, props: any) => (
-                        `P(${props.payload.label}) = ${props.value.toFixed(roundPrecision ?? 4)}`
-                    )}
+                    content={(props: any) => <BinomialTooltip {...props} roundPrecision={roundPrecision} />}
                 />
 
                 <Bar dataKey="value">
