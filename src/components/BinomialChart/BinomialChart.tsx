@@ -43,7 +43,7 @@ const StyledDivider = styled(Divider)`
 
 const BinomialTooltip = (props: any) => {
 
-    console.log({ props })
+    // console.log({ props })
     const { active, label, value, roundPrecision } = sanitizeTooltipProps(props)
 
     if (!active)
