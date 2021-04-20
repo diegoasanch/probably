@@ -8,11 +8,13 @@ import "@blueprintjs/table/lib/css/table.css";
 import '@blueprintjs/select/lib/css/blueprint-select.css'
 import 'katex/dist/katex.min.css';
 import './i18n'
-
+import { HashRouter as Router } from 'react-router-dom'
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Router>
+      <App />
+    </Router>
   </React.StrictMode>,
   document.getElementById('root')
 );

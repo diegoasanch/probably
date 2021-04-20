@@ -1,12 +1,15 @@
 {
     "sidebar-header": "Estadística General",
 
-    "distribution": "Distribución",
     "pages-binomial": "Distribución Binomial",
     "select-binomial": "Binomial",
 
+    "pages-pascal": "Modelo de Pascal",
+    "select-pascal": "Pascal",
+
     "select-more_soon": "Pronto...",
 
+    "distribution": "Distribución",
     "analysis": "Análisis",
     "table": "Tabla",
     "chart": "Gráfico",

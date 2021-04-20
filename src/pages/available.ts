@@ -1,28 +1,43 @@
-import React from "react"
 import { IPageInfo } from "../types/pages"
-import Binomial from "./Binomial"
 
 // All available pages
-export const binomial: IPageInfo = {
+const binomial: IPageInfo = {
     id: 'binomial',
     title: 'pages-binomial',
-    ToRenderPage: Binomial,
     disabled: false,
 }
 
-export const coming_soon: IPageInfo = {
+const pascal: IPageInfo = {
+    id: 'pascal',
+    title: 'pages-pascal',
+    disabled: false,
+}
+
+const coming_soon: IPageInfo = {
     id: 'more_soon',
     title: 'pages-binomial',
-    ToRenderPage: () => React.Fragment,
     disabled: true,
     icon: 'plus'
 }
 
 // Array of all of them
-export const pageOptions: IPageInfo[] = [
+const pageOptions: IPageInfo[] = [
     binomial,
+    pascal,
     coming_soon,
 ]
 
-export const defaultPage = binomial
+const defaultPage = binomial
 
+const getAvailable = (): string[] => {
+    return pageOptions.map(item => item.id)
+}
+
+export {
+    binomial,
+    pascal,
+    coming_soon,
+    pageOptions,
+    defaultPage,
+    getAvailable,
+}
