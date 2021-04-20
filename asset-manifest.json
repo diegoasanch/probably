@@ -1,29 +1,29 @@
 {
   "files": {
     "main.css": "/Estadistica_General/static/css/main.37fe6d68.chunk.css",
-    "main.js": "/Estadistica_General/static/js/main.45a9be5b.chunk.js",
-    "main.js.map": "/Estadistica_General/static/js/main.45a9be5b.chunk.js.map",
-    "runtime-main.js": "/Estadistica_General/static/js/runtime-main.7b84b9d0.js",
-    "runtime-main.js.map": "/Estadistica_General/static/js/runtime-main.7b84b9d0.js.map",
+    "main.js": "/Estadistica_General/static/js/main.67676802.chunk.js",
+    "main.js.map": "/Estadistica_General/static/js/main.67676802.chunk.js.map",
+    "runtime-main.js": "/Estadistica_General/static/js/runtime-main.395b180e.js",
+    "runtime-main.js.map": "/Estadistica_General/static/js/runtime-main.395b180e.js.map",
     "static/css/2.635780d2.chunk.css": "/Estadistica_General/static/css/2.635780d2.chunk.css",
-    "static/js/2.98a3e6ca.chunk.js": "/Estadistica_General/static/js/2.98a3e6ca.chunk.js",
-    "static/js/2.98a3e6ca.chunk.js.map": "/Estadistica_General/static/js/2.98a3e6ca.chunk.js.map",
-    "static/js/3.3d1e6aa0.chunk.js": "/Estadistica_General/static/js/3.3d1e6aa0.chunk.js",
-    "static/js/3.3d1e6aa0.chunk.js.map": "/Estadistica_General/static/js/3.3d1e6aa0.chunk.js.map",
+    "static/js/2.b72bafee.chunk.js": "/Estadistica_General/static/js/2.b72bafee.chunk.js",
+    "static/js/2.b72bafee.chunk.js.map": "/Estadistica_General/static/js/2.b72bafee.chunk.js.map",
+    "static/js/3.7ea16d95.chunk.js": "/Estadistica_General/static/js/3.7ea16d95.chunk.js",
+    "static/js/3.7ea16d95.chunk.js.map": "/Estadistica_General/static/js/3.7ea16d95.chunk.js.map",
     "index.html": "/Estadistica_General/index.html",
     "static/css/2.635780d2.chunk.css.map": "/Estadistica_General/static/css/2.635780d2.chunk.css.map",
     "static/css/main.37fe6d68.chunk.css.map": "/Estadistica_General/static/css/main.37fe6d68.chunk.css.map",
-    "static/js/2.98a3e6ca.chunk.js.LICENSE.txt": "/Estadistica_General/static/js/2.98a3e6ca.chunk.js.LICENSE.txt",
+    "static/js/2.b72bafee.chunk.js.LICENSE.txt": "/Estadistica_General/static/js/2.b72bafee.chunk.js.LICENSE.txt",
     "static/media/katex.min.css": "/Estadistica_General/static/media/KaTeX_Typewriter-Regular.b6a56b14.woff",
     "static/media/getFetch.cjs": "/Estadistica_General/static/media/getFetch.d7d6010d.cjs",
     "static/media/spain.12ca02a6.svg": "/Estadistica_General/static/media/spain.12ca02a6.svg",
     "static/media/uk.64f4888d.svg": "/Estadistica_General/static/media/uk.64f4888d.svg"
   },
   "entrypoints": [
-    "static/js/runtime-main.7b84b9d0.js",
+    "static/js/runtime-main.395b180e.js",
     "static/css/2.635780d2.chunk.css",
-    "static/js/2.98a3e6ca.chunk.js",
+    "static/js/2.b72bafee.chunk.js",
     "static/css/main.37fe6d68.chunk.css",
-    "static/js/main.45a9be5b.chunk.js"
+    "static/js/main.67676802.chunk.js"
   ]
 }
