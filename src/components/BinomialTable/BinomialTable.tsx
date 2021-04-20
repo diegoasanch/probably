@@ -3,6 +3,16 @@ import { Cell, Column, Table } from '@blueprintjs/table'
 import { IBinomialTable } from '../../types/tables'
 import { isCellHighlight } from '../../utils/determine_style'
 
+//! ---------------------------- TODO: lint this ----------------------------
+
+import styled from 'styled-components'
+
+const StyledTable = styled(Table)`
+    height: min-content;
+`
+//! ---------------------------- END LINT  ----------------------------
+
+
 type IProps = {
     table: IBinomialTable,
     precision: number,
@@ -28,14 +38,14 @@ const BinomialTable = ({ table, precision, highlight, isLoading }: IProps) => {
     console.table(table.content)
 
     return (
-        <Table
+        <StyledTable
             numRows={table.content.length}
             columnWidths={[35, 75, 75, 75, 75, 75]}
         >
             {table.headers.map((header: string, i: number) => (
                 <Column name={header} cellRenderer={row => renderCell(row, i)} />
             ))}
-        </Table>
+        </StyledTable>
     )
 }
 

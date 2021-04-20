@@ -5,9 +5,9 @@ import { OverflowContainer } from '../../pages/layout';
 import { ThemeContext } from 'styled-components'
 import { isCellHighlight } from '../../utils/determine_style';
 import { Card, Divider } from '@blueprintjs/core';
-import styled from 'styled-components'
 
 //! ---------------------------- TODO: lint this ----------------------------
+import styled from 'styled-components'
 
 type ITooltipProps = {
     active: boolean,
