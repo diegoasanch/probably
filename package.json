@@ -2,7 +2,7 @@
   "name": "estadistica_general",
   "version": "0.2.0",
   "private": true,
-  "homepage": "http://diegoasanch.github.io/Estadistica_General",
+  "homepage": "https://diegoasanch.github.io/Estadistica_General",
   "dependencies": {
     "@blueprintjs/core": "^3.43.0",
     "@blueprintjs/select": "^3.15.10",
