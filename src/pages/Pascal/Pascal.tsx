@@ -13,19 +13,32 @@ import { Spinner } from '@blueprintjs/core'
 import PageTemplate from '../PageTemplate'
 import { PrecisionContext } from '../../contexts/inputs'
 
-import BinomialInput from '../../components/InputGroups/BinomialInput'
+import PascalInput from '../../components/InputGroups/PascalInput'
 import {
     createTable,
     defaultTable,
     getAnalysis,
     getProbabilities
-} from '../../functions/binomials'
+} from '../../functions/pascal'
 import { defaultResults } from '../../functions/shared'
 
-function Binomial() {
+const handleHighlight = (tab: IOperationType, n: number, from: number, to: number): string | string[] => {
+    let hl: string | string[]
 
-    const [sampleSize, setSampleSize] = useState(0) // n
-    const [successProbability, setSuccessProbability] = useState(0) // p
+    if (tab === 'f')
+        hl = stringRange(from, n)
+    else if (tab === 'g')
+        hl = stringRange(n, to)
+    else
+        hl = String(n)
+
+    return hl
+}
+
+function Pascal() {
+
+    const [sampleSize, setSampleSize] = useState(NaN) // n
+    const [successProbability, setSuccessProbability] = useState(NaN) // p
     const [successFound, setSuccessFound] = useState<number>(NaN) // r
     const [validInput, setValidInput] = useState(false)
 
@@ -37,50 +50,43 @@ function Binomial() {
     const [tableData, setTableData] = useState<ITable | undefined>()
     const [chartData, setChartData] = useState<IBarChartItem[] | undefined>(([ {label: '', value: 0} ]) as IBarChartItem[])
 
-    // const [dataFrom, setDataFrom] = useState<number>(0)
-    const [dataTo, setDataTo] = useState(0)
+    const [dataFrom, setDataFrom] = useState<number>(0)
+    // TODO: fix this disable
+    // eslint-disable-next-line
+    const [dataTo, setDataTo] = useState(60)
     const [highlight, setHighlight] = useState<string | string[]>('')
     const [opType, setOpType] = useState<IOperationType>('p')
 
     const handleSampleSize = (valueNum: number, valueStr: string ) => {
         setSampleSize(parseFloat(valueStr) ?? 0)
+        setProbabilities(undefined)
     }
     const handleSuccessProb = (valueNum: number, valueStr: string ) => {
         setSuccessProbability(parseFloat(valueStr) ?? 0)
     }
     const handleSuccessFound = (valueNum: number, valueStr: string ) => {
-        setSuccessFound(parseFloat(valueStr) ?? 0)
-        setProbabilities(undefined)
+        const value = parseFloat(valueStr) ?? 0
+        setSuccessFound(value)
+        setDataFrom(value)
     }
     const handleTab = (tab: IOperationType) => {
         setOpType(tab)
     }
 
-    const handleHighlight = (tab: IOperationType, r: number, n: number) => {
-        let hl: string | string[]
-
-        if (tab === 'f')
-            hl = stringRange(0, r)
-        else if (tab === 'g')
-            hl = stringRange(r, n)
-        else
-            hl = String(r)
-
-        setHighlight(hl)
-    }
-
     const handleType = (r: number, n: number, p: number) => {
-        setProbabilities(getProbabilities(r, n, p))
+        setProbabilities(getProbabilities(n, r, p))
     }
 
-    // For the calculations
+    // For the  calculations
     useDebounce(() => {
         handleType( successFound, sampleSize, successProbability)
     }, 300, [sampleSize, successProbability, successFound])
 
+    // For the higlights
     useEffect(() => {
-        handleHighlight(opType, successFound, dataTo)
-    }, [successFound, dataTo, opType])
+        const toHighlight = handleHighlight(opType, sampleSize, dataFrom, dataTo)
+        setHighlight(toHighlight)
+    }, [sampleSize, opType, dataTo, dataFrom])
 
     // for rendering the loaders
     useEffect(() => {
@@ -88,12 +94,15 @@ function Binomial() {
         setChartData(undefined)
         setResults(defaultResults)
         setValidResults(false)
-    }, [sampleSize, successProbability])
+        setProbabilities(undefined)
 
-    // Debouncing the calculations
+
+    }, [successFound, successProbability])
+
+    // Debouncing the table and chart calculations
     useDebounce(() => {
-        const newTable = createTable(sampleSize, successProbability)
-        const analysis = getAnalysis(sampleSize, successProbability)
+        const newTable = createTable(successFound, successProbability, dataFrom)
+        const analysis = getAnalysis(successFound, successProbability) // TODO: check (1)
 
         const probs_from_table = newTable.content.map(item => ({
             label: String(item[0]),
@@ -101,28 +110,26 @@ function Binomial() {
         }))
 
         setTableData(newTable)
+        setResults(analysis)   // TODO: check (1)
         setChartData(probs_from_table)
-        setDataTo(sampleSize)
-        setResults(analysis)
         setValidResults(true)
 
         // console.table(probs_from_table)
 
-    }, 300, [sampleSize, successProbability])
+    }, 300, [successFound, successProbability])
 
     useEffect(() => {
-        const valid = !!(sampleSize && successProbability)
+        const valid = !!(successFound && successProbability)
         setValidInput(valid)
-        // console.log({ valid, sampleSize, successProbability})
-    }, [sampleSize, successProbability])
+    }, [successFound, successProbability])
 
     return (
         <PrecisionContext.Provider value={roundPrecision}>
             <PageTemplate
-                noInputs={{ a: 'n', b: 'p'}}
+                noInputs={{ a: 'r', b: 'p' }}
                 validInput={validInput}
                 input={
-                    <BinomialInput
+                    <PascalInput
                         handleSampleSize={handleSampleSize}
                         handleSuccessProb={handleSuccessProb}
                         handleSuccessFound={handleSuccessFound}
@@ -131,10 +138,10 @@ function Binomial() {
                         extraPanel={
                             <BinomialProb
                                 handleTab={handleTab}
-                                variable={successFound}
+                                variable={sampleSize}
                                 validInput={validInput}
                                 probabilities={probabilities}
-                                varLabel="r"
+                                varLabel="n"
                             />
                         }
                     />
@@ -154,7 +161,7 @@ function Binomial() {
                 chart={
                     (chartData ?
                         <BinomialChart
-                            variable="r"
+                            variable="n"
                             data={chartData}
                             highlight={highlight}
                         />
@@ -167,4 +174,4 @@ function Binomial() {
     )
 }
 
-export default Binomial
+export default Pascal

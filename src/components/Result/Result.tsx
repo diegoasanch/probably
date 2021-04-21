@@ -23,6 +23,7 @@ type IProps = {
 
 /**
  * ## `name` string Will be rendered using [KaTeX](https://katex.org/docs/supported.html)
+ * If result is undefined, an animation will be displayed
  */
 const Result = ({ name, result, precision= 4 }: IProps) => {
     return (

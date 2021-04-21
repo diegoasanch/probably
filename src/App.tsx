@@ -1,4 +1,4 @@
-import React, { Suspense, useState } from 'react'
+import React, { Suspense, useEffect, useState } from 'react'
 import { useLocalStorage } from 'react-use'
 import { dark, light } from './styles/colors'
 import { ThemeProvider } from 'styled-components'
@@ -15,27 +15,45 @@ import {
     AppPageContainer,
     PageFrame
 } from './pages/layout'
+import { HashRouter, Route, Switch, useHistory } from 'react-router-dom'
+import Binomial from './pages/Binomial'
+import Pascal from './pages/Pascal'
 
 FocusStyleManager.onlyShowFocusOnTabs()
 
 function App() {
 
     const [isDark, setIsDark] = useLocalStorage('isDark', false)
-    const [CurrentPage, setCurrentPage] = useState(defaultPage)
+    const history = useHistory()
+    const [currentPage, setCurrentPage] = useState(defaultPage)
 
     const toggleTheme = () => {
         setIsDark(!isDark)
     }
 
-    console.log({ CurrentPage })
-
     const selectPage = (selected: IPageInfo) => {
-
         setCurrentPage(selected)
-
-        // TODO: push id to url
-        // TODO: use URL params from hash router
+        history.push('/' + selected.id)
     }
+
+    useEffect(() => {
+        let location = history.location.pathname.split('/')[1]
+
+        // TODO: Maybe catch a 404 here ?
+        // const availablePages = getAvailable()
+        // if (!location || !availablePages.includes(location))
+        //     location = defaultPage.id
+
+        const page = pageOptions.find(
+            item => item.id === location && !item.disabled
+        ) ?? defaultPage
+
+
+        console.log("Current page")
+        console.log(location, page)
+        setCurrentPage(page)
+    // eslint-disable-next-line
+    }, [])
 
     return (
         <Suspense fallback={<AppPageContainer> <Spinner /> </AppPageContainer>}>
@@ -44,7 +62,7 @@ function App() {
 
                     <SideContainer>
                         <Sidebar
-                            current_page={CurrentPage}
+                            current_page={currentPage}
                             available_pages={pageOptions}
                             setNewPage={selectPage}
                         />
@@ -52,12 +70,23 @@ function App() {
 
                     <AppPageContainer>
                         <PageHeader
-                            title={CurrentPage.title}
+                            title={currentPage.title}
                             isDark={!!isDark}
                             toggleTheme={toggleTheme}
                         />
                         <PageFrame>
-                            <CurrentPage.ToRenderPage />
+
+                            <HashRouter>
+                                <Switch>
+                                    <Route exact path="/binomial">
+                                        <Binomial />
+                                    </Route>
+                                    <Route exact path="/pascal">
+                                        <Pascal />
+                                    </Route>
+                                </Switch>
+                            </HashRouter>
+
                         </PageFrame>
                     </AppPageContainer>
 

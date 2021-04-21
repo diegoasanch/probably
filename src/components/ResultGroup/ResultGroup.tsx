@@ -1,41 +1,31 @@
-import React from 'react'
-import { IResults } from '../../types/tables'
+import React, { useContext } from 'react'
+import { PrecisionContext } from '../../contexts/inputs'
+import { IResult } from '../../types/tables'
 import Result from '../Result/Result'
 
 type IProps = {
-    results: IResults | undefined,
-    precision: number,
+    results: IResult[],
+    validResults: boolean,
 }
 
-const ResultGroup = ({ results, precision }: IProps) => {
+const ResultGroup = ({ results, validResults }: IProps) => {
+
+    const roundPrecision = useContext(PrecisionContext)
+
     return (
         <>
-            <Result
-                name="E(r) = \mu"
-                result={results?.expected}
-                precision={precision}
-            />
-            <Result
-                name="V(r) = \sigma^2"
-                result={results?.variance}
-                precision={precision}
-            />
-            <Result
-                name="D(r) = \sigma"
-                result={results?.std_dev}
-                precision={precision}
-            />
-            <Result
-                name="As = \alpha_3"
-                result={results?.assymetry}
-                precision={precision}
-            />
-            <Result
-                name="Ku = \alpha_4"
-                result={results?.kurtosis}
-                precision={precision}
-            />
-    </>
+            { results.map(( item, index ) => {
+                const displayValue = validResults ? item.value : undefined
+                return (
+                    <Result
+                        name={item.texLabel}
+                        result={displayValue}
+                        precision={roundPrecision}
+                        key={`result-${index}`}
+                    />
+                )
+            })}
+        </>
     )
 }
 

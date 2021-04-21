@@ -1,45 +1,30 @@
-import React from 'react'
-import { Card, H3, Icon, Tab, Tabs } from '@blueprintjs/core'
+import React, { useContext } from 'react'
+import { Card, Tab, Tabs } from '@blueprintjs/core'
 import TeX from '@matejmazur/react-katex'
-import { useTranslation } from 'react-i18next'
-import { StyledCallout } from '../../styles/display'
 import Result from '../Result'
 import { IOperationType } from '../../types/pages'
 import { IProbabilities } from '../../types/tables'
-
-const NoR = () => {
-
-    const { t } = useTranslation()
-
-    return (
-        <StyledCallout>
-            <H3>
-                <span className="bp3-text-muted">
-                    <Icon icon="calculator" iconSize={25} />&nbsp;
-                </span>
-                {t('specify')} <code>r</code>
-            </H3>
-        </StyledCallout>
-    )
-}
+import No2 from '../NoInputCards/No2'
+import { PrecisionContext } from '../../contexts/inputs'
 
 type IProps = {
     handleTab: (tab: IOperationType) => void,
-    successFound: number,
-    roundPrecision: number,
+    variable: number,
     validInput: boolean,
     probabilities: IProbabilities | undefined,
+    varLabel: string,
 }
 
 const BinomialProb = ({
     handleTab,
-    successFound,
+    variable,
     validInput,
-    roundPrecision,
     probabilities,
+    varLabel,
 }: IProps) => {
 
-    validInput = validInput && !isNaN(successFound)
+    validInput = validInput && !isNaN(variable)
+    const roundPrecision = useContext(PrecisionContext)
 
     return (
         <Card>
@@ -49,10 +34,10 @@ const BinomialProb = ({
                     id="p"
                     panel={
                         !validInput ?
-                            <NoR />
+                            <No2 a={varLabel} />
                         :
                             <Result
-                                name={`P(\\text{V.A.} = ${successFound})`}
+                                name={`P(\\text{V.A.} = ${variable})`}
                                 result={probabilities?.punctual}
                                 precision={roundPrecision}
                             />
@@ -63,10 +48,10 @@ const BinomialProb = ({
                     id="f"
                     panel={
                         !validInput ?
-                            <NoR />
+                            <No2 a={varLabel} />
                         :
                             <Result
-                                name={`P(\\text{V.A.} \\leq ${successFound})`}
+                                name={`P(\\text{V.A.} \\leq ${variable})`}
                                 result={probabilities?.accum_left}
                                 precision={roundPrecision}
                             />
@@ -77,10 +62,10 @@ const BinomialProb = ({
                     id="g"
                     panel={
                         !validInput ?
-                            <NoR />
+                            <No2 a={varLabel} />
                         :
                             <Result
-                                name={`P(\\text{V.A.} \\geq ${successFound})`}
+                                name={`P(\\text{V.A.} \\geq ${variable})`}
                                 result={probabilities?.accum_right}
                                 precision={roundPrecision}
                             />

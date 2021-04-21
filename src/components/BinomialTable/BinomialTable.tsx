@@ -1,46 +1,46 @@
-import React from 'react'
-import { Cell, Column, Table } from '@blueprintjs/table'
-import { IBinomialTable } from '../../types/tables'
+import React, { useContext } from 'react'
+import { Cell, Column } from '@blueprintjs/table'
+import { ITable } from '../../types/tables'
 import { isCellHighlight } from '../../utils/determine_style'
-
-//! ---------------------------- TODO: lint this ----------------------------
-
-import styled from 'styled-components'
-
-const StyledTable = styled(Table)`
-    height: min-content;
-`
-//! ---------------------------- END LINT  ----------------------------
-
+import { StyledTable } from './styles'
+import { PrecisionContext } from '../../contexts/inputs'
 
 type IProps = {
-    table: IBinomialTable,
-    precision: number,
+    table: ITable,
     isLoading: boolean,
     highlight?: string | string[],
 }
 
-const BinomialTable = ({ table, precision, highlight, isLoading }: IProps) => {
+/**
+ * The first column is the thinnest
+ */
+const getColumnWidths = (length: number) => {
+    return [35].concat(Array(length - 1).fill(75))
+}
+
+const BinomialTable = ({ table, highlight, isLoading }: IProps) => {
+
+    const roundPrecision = useContext(PrecisionContext)
 
     const renderCell = (row: number, col: number) => {
-        const intent = isCellHighlight(row, highlight) ? 'primary' : 'none'
-        // console.log(`Cell intent: ${intent}`)
+        // Determine if higlightable from first value of row
+        const intent = isCellHighlight(table.content[row][0], highlight) ? 'primary' : 'none'
 
         return (
             <Cell intent={intent} loading={isLoading}>
                 { table.content[row][col]
-                    .toFixed(col ? precision : 0)
+                    .toFixed(col ? roundPrecision : 0)
                 }
             </Cell>
         )
     }
 
-    console.table(table.content)
+    // console.table(table.content)
 
     return (
         <StyledTable
             numRows={table.content.length}
-            columnWidths={[35, 75, 75, 75, 75, 75]}
+            columnWidths={getColumnWidths(table.headers.length)}
         >
             {table.headers.map((header: string, i: number) => (
                 <Column name={header} cellRenderer={row => renderCell(row, i)} />

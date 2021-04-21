@@ -1,4 +1,4 @@
-type IBinomialTable = {
+type ITable = {
     headers: string[],
     content: number[][],
 }
@@ -8,12 +8,9 @@ type IBarChartItem = {
     value: number,
 }
 
-type IResults = {
-    expected: number,
-    variance: number,
-    std_dev: number,
-    assymetry: number,
-    kurtosis: number
+type IResult = {
+    texLabel: string,
+    value: number,
 }
 
 type IProbabilities = {
@@ -23,8 +20,8 @@ type IProbabilities = {
 }
 
 export {
-    IBinomialTable,
+    ITable,
     IBarChartItem,
-    IResults,
+    IResult,
     IProbabilities,
 }
