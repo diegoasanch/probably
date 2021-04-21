@@ -1,12 +1,18 @@
 {
     "sidebar-header": "Estadística General",
 
-    "distribution": "Distribution",
+    "pages-home": "Home",
+    "select-home": "Select",
+
     "pages-binomial": "Binomial Distribution",
     "select-binomial": "Binomial",
 
+    "pages-pascal": "Pascal Model",
+    "select-pascal": "Pascal",
+
     "select-more_soon": "Coming soon...",
 
+    "distribution": "Distribution",
     "analysis": "Analysis",
     "table": "Table",
     "chart": "Plot",
@@ -19,5 +25,7 @@
     "round-precision": "Precision",
     "by": "by",
     "with": "with",
-    "view-on": "View on"
+    "view-on": "View on",
+    "calculate-pre": "Calculate",
+    "calculate-post": " model"
 }

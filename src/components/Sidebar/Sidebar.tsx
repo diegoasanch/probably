@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Button, Divider, H4, H5, H6, Icon, MenuItem } from '@blueprintjs/core'
 import { useTranslation } from 'react-i18next'
 import { Select } from '@blueprintjs/select'
@@ -10,7 +10,10 @@ import {
     Header,
     SideMain,
     SideFooter,
+    SideNav,
 } from './styles'
+import { getSelectOptions } from '../../pages/available'
+import { StyledLink } from '../../styles/typography'
 
 type IProps = {
     readonly current_page: IPageInfo,
@@ -32,9 +35,7 @@ const Sidebar = ({
 
     const { t: translate } = useTranslation();
 
-    // const initialContent = () => {
-    //     return current_page ? <MenuItem text={current_page} disabled /> : undefined
-    // }
+    const [options] = useState(getSelectOptions())
 
     const renderItem = (item: IPageInfo, {handleClick}: IClickHandler) => (
 
@@ -44,7 +45,8 @@ const Sidebar = ({
             onClick={handleClick}
             active={current_page.id === item.id}
             disabled={item.disabled}
-            icon={item.icon}
+
+            labelElement={<Icon icon={item.icon} /> }
         />
 
     )
@@ -52,34 +54,41 @@ const Sidebar = ({
     return (
         <SidebarContainer>
             <Header>
-                {translate('sidebar-header')}
+                <StyledLink to="/">{translate('sidebar-header')}</StyledLink>
             </Header>
 
             <Divider />
 
             <SideMain>
-                <H4>
-                    {translate('distribution')}
-                </H4>
-                <PageSelect
-                    // initialContent={initialContent}
-                    items={available_pages}
-                    itemRenderer={renderItem}
-                    onItemSelect={setNewPage}
-                    filterable={false}
-                    noResults={<MenuItem text="No results." disabled={true} />}
-                >
-                    <Button
-                        icon="function"
-                        text={translate(`select-${current_page.id}`)}
-                        rightIcon="caret-down"
-                    />
-                </PageSelect>
+                <SideNav>
+                    <StyledLink to="/">
+                        <Button icon="home" large minimal>
+                            {translate('pages-home')}
+                        </Button>
+                    </StyledLink>
+                    <H4>
+                        {translate('distribution')}
+                    </H4>
+                    <PageSelect
+                        // initialContent={initialContent}
+                        items={options}
+                        itemRenderer={renderItem}
+                        onItemSelect={setNewPage}
+                        filterable={false}
+                        noResults={<MenuItem text="No results." disabled={true} />}
+                    >
+                        <Button
+                            icon="function"
+                            text={translate(`select-${current_page.id}`)}
+                            rightIcon="caret-down"
+                        />
+                    </PageSelect>
+                </SideNav>
                 <SideFooter>
                     <H4>
                         <Icon className="bp3-text-muted" icon="git-branch" />&nbsp;
                         {translate('view-on')}&nbsp;
-                        <a href="https://github.com/diegoasanch/Estadistica_General">
+                        <a href="https://github.com/diegoasanch/Estadistica_General" target="_blank" rel="noopener noreferrer">
                             GitHub
                         </a>
                     </H4>

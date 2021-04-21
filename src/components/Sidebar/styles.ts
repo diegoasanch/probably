@@ -22,6 +22,7 @@ export const Header = styled(H1)`
 
 export const SideMain = styled.main`
     position: relative;
+    /* padding-top: 3em; */
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -34,4 +35,14 @@ export const SideFooter = styled.footer`
     width: 100%;
     padding: 0 1em;
     align-items: flex-start;
+`
+export const SideNav = styled.nav`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 1em;
+
+    > * {
+        padding: .5em 0;
+    }
 `

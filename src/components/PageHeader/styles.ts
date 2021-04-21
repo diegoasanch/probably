@@ -6,6 +6,7 @@ export const StyledNavbar = styled(Navbar)`
     width: 100%;
     position: sticky;
     top: 0;
+
     &.bp3-navbar {
         background-color: ${ props => props.theme.sidebarBg};
     }
