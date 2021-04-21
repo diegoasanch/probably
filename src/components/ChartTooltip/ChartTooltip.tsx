@@ -11,10 +11,11 @@ type ITooltipProps = {
     active: boolean,
     label: string,
     value: number,
+    variable: string,
 }
 
 const sanitizeTooltipProps = (props: any): ITooltipProps => {
-    let { active, payload, label } = props
+    let { active, payload, label, variable } = props
     active = !!active
 
     let value = 0
@@ -29,22 +30,21 @@ const sanitizeTooltipProps = (props: any): ITooltipProps => {
             value = innerPayload.value
     }
 
-    return { active, label, value }
+    return { active, label, value, variable }
 }
-
 
 const ChartTooltip = (props: any) => {
 
-    // console.log({ props })
-    const { active, label, value } = sanitizeTooltipProps(props)
+    const { active, label, value, variable } = sanitizeTooltipProps(props)
     const roundPrecision = useContext(PrecisionContext)
+    // console.log({ props, variable })
 
     if (!active)
         return <></>
 
     return (
         <Card>
-            <code>r</code> = {label}
+            <code>{ variable }</code> = {label}
             <StyledDivider />
             <code>P({label})</code> = {value.toFixed(roundPrecision)}
         </Card>

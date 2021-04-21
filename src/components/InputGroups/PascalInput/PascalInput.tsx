@@ -1,8 +1,8 @@
 import { Label, NumericInput } from '@blueprintjs/core'
 import React, { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
-import { PrecisionContext } from '../../contexts/inputs'
-import { Column, Row } from '../../pages/layout'
+import { PrecisionContext } from '../../../contexts/inputs'
+import { Column, Row } from '../../../pages/layout'
 
 type StateSetter = (valueNum: number, valueStr: string) => void
 
@@ -15,7 +15,7 @@ type IProps = {
     sampleSize: number,
 }
 
-const BinomialInput = ({
+const PascalInput = ({
     handleSampleSize,
     handleSuccessProb,
     handleSuccessFound,
@@ -32,12 +32,11 @@ const BinomialInput = ({
         <Row noPad>
             <Column margin=".8em 1em" noGrow >
                 <Label>
-                    <code>n</code> = {t('sample-size')}
+                    <code>r</code> = {t('success-found')}
                     <NumericInput
-                        min={1}
-                        onValueChange={handleSampleSize}
-                        minorStepSize={0.0001}
-                        placeholder="n"
+                        min={0}
+                        onValueChange={handleSuccessFound}
+                        placeholder="r"
                     />
                 </Label>
                 <Label>
@@ -51,12 +50,12 @@ const BinomialInput = ({
                     />
                 </Label>
                 <Label>
-                    <code>r</code> = {t('success-found')}
+                    <code>n</code> = {t('sample-size')}
                     <NumericInput
-                        min={0}
-                        onValueChange={handleSuccessFound}
-                        max={sampleSize}
-                        placeholder="r"
+                        min={1}
+                        onValueChange={handleSampleSize}
+                        minorStepSize={1}
+                        placeholder="n"
                     />
                 </Label>
             </Column>
@@ -76,4 +75,4 @@ const BinomialInput = ({
     )
 }
 
-export default BinomialInput
+export default PascalInput

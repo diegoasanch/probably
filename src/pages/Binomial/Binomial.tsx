@@ -13,14 +13,14 @@ import { Spinner } from '@blueprintjs/core'
 import PageTemplate from '../PageTemplate'
 import { PrecisionContext } from '../../contexts/inputs'
 
-import BinomialInput from '../../components/BinomialInput'
+import BinomialInput from '../../components/InputGroups/BinomialInput'
 import {
     createTable,
-    defaultResults,
     defaultTable,
     getAnalysis,
     getProbabilities
 } from '../../functions/binomials'
+import { defaultResults } from '../../functions/shared'
 
 function Binomial() {
 
@@ -119,6 +119,7 @@ function Binomial() {
     return (
         <PrecisionContext.Provider value={roundPrecision}>
             <PageTemplate
+                noInputs={{ a: 'n', b: 'p'}}
                 validInput={validInput}
                 input={
                     <BinomialInput
@@ -130,9 +131,10 @@ function Binomial() {
                         extraPanel={
                             <BinomialProb
                                 handleTab={handleTab}
-                                successFound={successFound}
+                                variable={successFound}
                                 validInput={validInput}
                                 probabilities={probabilities}
+                                varLabel="r"
                             />
                         }
                     />
@@ -152,6 +154,7 @@ function Binomial() {
                 chart={
                     (chartData ?
                         <BinomialChart
+                            variable="r"
                             data={chartData}
                             highlight={highlight}
                         />

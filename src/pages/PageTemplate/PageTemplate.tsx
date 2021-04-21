@@ -2,7 +2,14 @@ import React from 'react'
 import { Column, PageContainer, Row } from '../layout'
 import { H1 } from '@blueprintjs/core'
 import { useTranslation } from 'react-i18next'
-import NoNAndP from '../../components/NoInputCards/NoNAndP'
+import NoInput from '../../components/NoInputCards/No2'
+
+
+// For displaying the specify a and b card when no input
+type INoInputs = {
+    a: string,
+    b: string,
+}
 
 type IProps = {
     input: JSX.Element,
@@ -10,6 +17,7 @@ type IProps = {
     table: JSX.Element,
     chart: JSX.Element,
     validInput: boolean,
+    noInputs: INoInputs
 }
 
 /**
@@ -17,7 +25,7 @@ type IProps = {
  * the pages, receives the page components to render and places them accordingly
  * @returns
  */
-const PageTemplate = ({ input, analysis, table, chart, validInput }: IProps) => {
+const PageTemplate = ({ input, analysis, table, chart, validInput, noInputs }: IProps) => {
 
     const { t } = useTranslation()
 
@@ -34,7 +42,7 @@ const PageTemplate = ({ input, analysis, table, chart, validInput }: IProps) => 
                     { validInput ?
                         analysis
                       :
-                        <NoNAndP />
+                        <NoInput {...noInputs} />
                     }
                 </Column>
             </Row>
@@ -44,7 +52,7 @@ const PageTemplate = ({ input, analysis, table, chart, validInput }: IProps) => 
                     { validInput ?
                         table
                       :
-                        <NoNAndP />
+                        <NoInput {...noInputs} />
                     }
                 </Column>
                 <Column>
@@ -52,7 +60,7 @@ const PageTemplate = ({ input, analysis, table, chart, validInput }: IProps) => 
                     { validInput ?
                         chart
                       :
-                        <NoNAndP />
+                        <NoInput {...noInputs} />
                     }
                 </Column>
             </Row>

@@ -3,7 +3,12 @@ import { H3, Icon } from '@blueprintjs/core'
 import { useTranslation } from 'react-i18next'
 import { StyledCallout } from '../../../styles/display'
 
-const NoNAndP = () => {
+type IProps = {
+    a: string,
+    b?: string,
+}
+
+const NoNAndP = ({ a, b }: IProps) => {
     const { t } = useTranslation()
 
     return (
@@ -12,7 +17,12 @@ const NoNAndP = () => {
                 <span className="bp3-text-muted">
                     <Icon icon="calculator" iconSize={25} />&nbsp;
                 </span>
-                {t('specify')} <code>n</code> {t('and')} <code>p</code>
+                {t('specify')} <code>{a}</code>
+                { b &&
+                    <>
+                        &nbsp;{t('and')} <code>{b}</code>
+                    </>
+                }
             </H3>
         </StyledCallout>
     )

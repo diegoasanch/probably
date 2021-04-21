@@ -1,24 +1,7 @@
 import { ITable, IProbabilities, IResult } from "../types/tables"
+import { combinatory } from "./general"
 
-const factorial = (n: number): number => {
-    if (n === 0)
-        return 1
 
-    let res = 1
-    for (let i = 1; i <= n; i++)
-        res *= i
-    return res
-}
-
-const combinatory = (a: number, b: number): number => {
-    if (a === b)
-        return 1
-
-    const numerator = factorial(a)
-    const denominator = factorial(b) * factorial(a - b)
-
-    return numerator / denominator
-}
 
 const binomialModel = (r: number, n: number, p: number): number => {
     const nCr = combinatory(n, r)
@@ -152,9 +135,6 @@ const getProbabilities = (r: number, n: number, p: number): IProbabilities => {
     }
     return results
 }
-const defaultResults: IResult[] = [
-    { texLabel: analysis_labels.expected, value: 0 }
-]
 
 const defaultTable: ITable = {
     headers: ['r', 'P(r)', 'F(r)', 'G(r)', 'H(r)', 'J(r)'],
@@ -181,6 +161,5 @@ export {
     createTable,
     getAnalysis,
     getProbabilities,
-    defaultResults,
     defaultTable,
 }

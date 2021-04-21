@@ -10,9 +10,10 @@ import ChartTooltip from '../ChartTooltip';
 type IProps = {
     data: IBarChartItem[],
     highlight?: string | string[],
+    variable: string,
 }
 
-const BinomialChart = ({ data, highlight }: IProps ) => {
+const BinomialChart = ({ data, highlight, variable }: IProps ) => {
 
     const themeContext = useContext(ThemeContext)
 
@@ -31,7 +32,9 @@ const BinomialChart = ({ data, highlight }: IProps ) => {
                 <CartesianGrid strokeDasharray="5" />
                 <XAxis dataKey="label" tick={{ fill: themeContext.text}} />
                 <YAxis tick={{ fill: themeContext.text}} />
-                <Tooltip content={ChartTooltip} />
+                <Tooltip content={(props: any ) => (
+                    <ChartTooltip variable={variable} {...props} />
+                )} />
 
                 <Bar dataKey="value">
                     { data.map((entry, index) => {

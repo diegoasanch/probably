@@ -11,13 +11,20 @@ type IProps = {
     highlight?: string | string[],
 }
 
+/**
+ * The first column is the thinnest
+ */
+const getColumnWidths = (length: number) => {
+    return [35].concat(Array(length - 1).fill(75))
+}
+
 const BinomialTable = ({ table, highlight, isLoading }: IProps) => {
 
     const roundPrecision = useContext(PrecisionContext)
 
     const renderCell = (row: number, col: number) => {
-        const intent = isCellHighlight(row, highlight) ? 'primary' : 'none'
-        // console.log(`Cell intent: ${intent}`)
+        // Determine if higlightable from first value of row
+        const intent = isCellHighlight(table.content[row][0], highlight) ? 'primary' : 'none'
 
         return (
             <Cell intent={intent} loading={isLoading}>
@@ -33,7 +40,7 @@ const BinomialTable = ({ table, highlight, isLoading }: IProps) => {
     return (
         <StyledTable
             numRows={table.content.length}
-            columnWidths={[35, 75, 75, 75, 75, 75]}
+            columnWidths={getColumnWidths(table.headers.length)}
         >
             {table.headers.map((header: string, i: number) => (
                 <Column name={header} cellRenderer={row => renderCell(row, i)} />
