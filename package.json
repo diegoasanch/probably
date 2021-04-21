@@ -25,6 +25,7 @@
     "react-i18next": "^11.8.13",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
+    "react-text-loop": "^2.3.0",
     "react-use": "^17.2.3",
     "recharts": "^2.0.9",
     "styled-components": "^5.2.3",

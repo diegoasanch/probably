@@ -1,6 +1,9 @@
 {
     "sidebar-header": "Estadística General",
 
+    "pages-home": "Inicio",
+    "select-home": "Seleccionar",
+
     "pages-binomial": "Distribución Binomial",
     "select-binomial": "Binomial",
 
@@ -22,5 +25,7 @@
     "round-precision": "Precisión",
     "by": "por",
     "with": "con",
-    "view-on": "Ver en"
+    "view-on": "Ver en",
+    "calculate-pre": "Calcular modelo",
+    "calculate-post": ""
 }

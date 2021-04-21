@@ -9,6 +9,7 @@ type Itheme = {
     readonly chart_barNormal: string,
     readonly chart_barHighlight: string,
     readonly chart_gridColor: string,
+    readonly landing_chart: string,
 }
 
 export default Itheme

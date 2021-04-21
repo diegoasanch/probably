@@ -54,6 +54,7 @@ const PageFrame = styled.main`
     background-color: ${ props => props.theme.background };
     color: ${props => props.theme.text };
     max-width: 1050px;
+    height: 100%;
 `
 
 
