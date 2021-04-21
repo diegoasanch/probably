@@ -41,6 +41,7 @@ const Home = () => {
             <LandingBackground>
                 <LandingChart playAnimation={playAnimation} />
                 <ToggleButton
+                    intent="primary"
                     icon={playAnimation ? 'pause' : 'play'}
                     onClick={toggleAnimation}
                     large
