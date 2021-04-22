@@ -32,7 +32,6 @@ function App() {
         setIsDark(!isDark)
     }
 
-
     // Select curent page form url
     useEffect(() => {
         const current_location = location.pathname.substring(1)
@@ -89,7 +88,6 @@ function App() {
                 </ViewPort>
             </ThemeProvider>
         </Suspense>
-
     );
 }
 

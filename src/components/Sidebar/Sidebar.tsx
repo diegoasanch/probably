@@ -53,7 +53,7 @@ const Sidebar = ({
                     <H4>
                         <Icon className="bp3-text-muted" icon="git-branch" />&nbsp;
                         {translate('view-on')}&nbsp;
-                        <a href="https://github.com/diegoasanch/Estadistica_General" target="_blank" rel="noopener noreferrer">
+                        <a href="https://github.com/diegoasanch/probably" target="_blank" rel="noopener noreferrer">
                             GitHub
                         </a>
                     </H4>
