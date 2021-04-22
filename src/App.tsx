@@ -18,6 +18,7 @@ import { HashRouter, Route, Switch, useLocation } from 'react-router-dom'
 import Binomial from './pages/Binomial'
 import Pascal from './pages/Pascal'
 import Home from './pages/Home'
+import Hypergeometric from './pages/Hypergeometric'
 
 FocusStyleManager.onlyShowFocusOnTabs()
 
@@ -72,6 +73,9 @@ function App() {
                                     </Route>
                                     <Route exact path="/pascal">
                                         <Pascal />
+                                    </Route>
+                                    <Route exact path="/Hypergeometric">
+                                        <Hypergeometric />
                                     </Route>
                                     <Route exact path="/">
                                         <Home />
