@@ -1,4 +1,4 @@
-import { Button } from "@blueprintjs/core"
+import { EditableText, H3 } from "@blueprintjs/core"
 import styled from "styled-components"
 
 const LandingContainer = styled.div`
@@ -21,15 +21,29 @@ const HeaderContainer = styled.div`
     align-items: center;
     z-index: 1;
 `
-const ToggleButton = styled(Button)`
+const ChartControls = styled.div`
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+
     position: absolute;
     bottom: 0;
     right: 0;
     margin: 1em;
 `
+const StyledEditableText = styled(EditableText)`
+    width: 1.6em;
+`
+const SizeInput = styled(H3)`
+    margin-right: .5em;
+`
+
+
 export {
     LandingContainer,
     LandingBackground,
     HeaderContainer,
-    ToggleButton,
+    ChartControls,
+    StyledEditableText,
+    SizeInput,
 }

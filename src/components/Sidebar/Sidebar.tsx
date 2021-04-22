@@ -11,6 +11,7 @@ import {
     SideMain,
     SideFooter,
     SideNav,
+    NavButton,
 } from './styles'
 import { getSelectOptions } from '../../pages/available'
 import { StyledLink } from '../../styles/typography'
@@ -21,11 +22,11 @@ type IProps = {
     setNewPage: (newItem: IPageInfo) => void,
 }
 
-type IClickHandler = {
-    handleClick: (event: React.MouseEvent<HTMLElement, MouseEvent>) => void,
-}
+// type IClickHandler = {
+//     handleClick: (event: React.MouseEvent<HTMLElement, MouseEvent>) => void,
+// }
 
-const PageSelect = Select.ofType<IPageInfo>()
+// const PageSelect = Select.ofType<IPageInfo>()
 
 const Sidebar = ({
     current_page,
@@ -37,39 +38,39 @@ const Sidebar = ({
 
     const [options] = useState(getSelectOptions())
 
-    const renderItem = (item: IPageInfo, {handleClick}: IClickHandler) => (
+    // const renderItem = (item: IPageInfo, {handleClick}: IClickHandler) => (
 
-        <MenuItem
-            key={item.id}
-            text={translate(`select-${item.id}`)}
-            onClick={handleClick}
-            active={current_page.id === item.id}
-            disabled={item.disabled}
+    //     <MenuItem
+    //         key={item.id}
+    //         text={translate(`select-${item.id}`)}
+    //         onClick={handleClick}
+    //         active={current_page.id === item.id}
+    //         disabled={item.disabled}
 
-            labelElement={<Icon icon={item.icon} /> }
-        />
+    //         labelElement={<Icon icon={item.icon} /> }
+    //     />
 
-    )
+    // )
 
     return (
         <SidebarContainer>
             <Header>
-                <StyledLink to="/">{translate('sidebar-header')}</StyledLink>
+                <StyledLink to="/">Probab<code>/ly</code></StyledLink>
             </Header>
 
-            <Divider />
+            {/* <Divider /> */}
 
             <SideMain>
                 <SideNav>
-                    <StyledLink to="/">
+                    {/* <StyledLink to="/">
                         <Button icon="home" large minimal>
                             {translate('pages-home')}
                         </Button>
-                    </StyledLink>
-                    <H4>
+                    </StyledLink> */}
+                    {/* <H4>
                         {translate('distribution')}
-                    </H4>
-                    <PageSelect
+                    </H4> */}
+                    {/* <PageSelect
                         // initialContent={initialContent}
                         items={options}
                         itemRenderer={renderItem}
@@ -82,7 +83,20 @@ const Sidebar = ({
                             text={translate(`select-${current_page.id}`)}
                             rightIcon="caret-down"
                         />
-                    </PageSelect>
+                    </PageSelect> */}
+                    {
+                        options.map(option => (
+                            <StyledLink to={option.disabled ? '#' : option.url}>
+                                <NavButton
+                                    selected={current_page.id === option.id}
+                                    disabled={option.disabled}
+                                >
+                                    <Icon icon={option.icon ?? "function"} iconSize={16}/>&nbsp;
+                                    {translate(`select-${option.id}`)}
+                                </NavButton>
+                            </StyledLink>
+                        ))
+                    }
                 </SideNav>
                 <SideFooter>
                     <H4>

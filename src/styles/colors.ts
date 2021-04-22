@@ -14,6 +14,8 @@ export const dark: Itheme = {
     chart_barHighlight: '#19A6FF',
     chart_gridColor: '#555',
     landing_chart: '#0D5E91',
+    code: '#59C0FF',
+    disabled_link: '#777',
 }
 
 export const light: Itheme = {
@@ -30,4 +32,6 @@ export const light: Itheme = {
     chart_barHighlight: '#19A6FF',
     chart_gridColor: '#CCCCCC',
     landing_chart: '#50A9E1',
+    code: '#0C527E',
+    disabled_link: '#777',
 }

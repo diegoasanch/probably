@@ -29,6 +29,11 @@ const HomeSubTitle = styled(H2)`
 `
 const StyledLink = styled(Link)`
     color: inherit !important;
+
+    code {
+        color: ${props => props.theme.code } !important ;
+    }
+
 `
 
 

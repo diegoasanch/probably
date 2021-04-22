@@ -1,8 +1,6 @@
 {
-    "sidebar-header": "Estadística General",
-
     "pages-home": "Home",
-    "select-home": "Select",
+    "select-home": "Home",
 
     "pages-binomial": "Binomial Distribution",
     "select-binomial": "Binomial",

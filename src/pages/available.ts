@@ -5,9 +5,10 @@ const home: IPageInfo = {
     id: 'home',
     url: '',
     title: 'pages-home',
-    disabled: true,
+    disabled: false,
     landingPage: false,
     select: true,
+    icon: 'home'
 }
 
 const binomial: IPageInfo = {

@@ -15,22 +15,20 @@ const createRandomChart = (prob: number, entries: number): IBarChartItem[] => {
 }
 
 const INITIAL_PROB = 0.01
-const INITIAL_SIZE = 70
 
 type IProps = {
-    playAnimation: boolean;
+    playAnimation: boolean,
+    size: number,
 }
 
-const LandingChart = ({ playAnimation }: IProps) => {
+const LandingChart = ({ playAnimation, size }: IProps) => {
 
     const themeContext = useContext(ThemeContext)
-    const [chartData, setChartData] = useState(createRandomChart(INITIAL_PROB, INITIAL_SIZE))
+    const [chartData, setChartData] = useState(createRandomChart(INITIAL_PROB, size))
     const [prob, setProb] = useState(INITIAL_PROB)
-    const [size, setSize] = useState(INITIAL_SIZE)
 
     useInterval(() => {
         const new_prob = prob < 0.96 ? (prob + 0.04) : 0.04
-        // const new_prob = prob > 0.1 ? (prob - 0.04) : 0.9
         setProb(new_prob)
         setChartData(createRandomChart(new_prob, size))
     }, playAnimation ? 800 : null)

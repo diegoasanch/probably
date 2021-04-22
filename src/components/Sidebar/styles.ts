@@ -1,4 +1,4 @@
-import { H1 } from '@blueprintjs/core'
+import { Text, H1 } from '@blueprintjs/core'
 import styled from 'styled-components'
 
 export const SidebarContainer = styled.nav`
@@ -12,12 +12,17 @@ export const SidebarContainer = styled.nav`
 `
 
 export const Header = styled(H1)`
-    font-size: 3em !important;
+    font-size: 2.5em !important;
     line-height: 1.2em !important;
     font-weight: bold;
     word-wrap: break-word;
     width: 100%;
-    padding: .5em .4em;
+    margin: 1em 0;
+    text-align: center;
+
+    code {
+        font-size: .9em;
+    }
 `
 
 export const SideMain = styled.main`
@@ -40,9 +45,33 @@ export const SideNav = styled.nav`
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding-top: 1em;
+    padding-top: 3em;
 
     > * {
         padding: .5em 0;
     }
+`
+
+type NavProp = {
+    selected: boolean,
+    disabled: boolean,
+}
+
+export const NavButton = styled(Text)<NavProp>`
+    display: flex;
+    font-size: 1.8em;
+    align-items: baseline;
+    color: ${props => (
+        props.selected ? props.theme.code
+        :
+        props.disabled ? props.theme.disabled_link
+        : 'inherit'
+    )};
+    padding-left: .5em;
+    border-left: ${props => (
+        props.selected ?
+            `3px solid ${props.theme.code}`
+
+        : 'none'
+    )};
 `
