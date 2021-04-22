@@ -42,7 +42,7 @@ const Sidebar = ({
                                     selected={current_page.id === option.id}
                                     disabled={option.disabled}
                                 >
-                                    <Icon icon={option.icon ?? "function"} iconSize={16}/>&nbsp;
+                                    <Icon icon={option.icon ?? "function"} iconSize={15}/>&nbsp;
                                     {translate(`select-${option.id}`)}
                                 </NavButton>
                             </StyledLink>

@@ -8,6 +8,9 @@
     "pages-pascal": "Pascal Model",
     "select-pascal": "Pascal",
 
+    "pages-hypergeometric": "Hypergeometric Model",
+    "select-hypergeometric": "Hypergeometric",
+
     "select-more_soon": "Coming soon...",
 
     "distribution": "Distribution",
@@ -17,10 +20,13 @@
     "specify": "Specify",
     "and": "and",
 
-    "sample-size": "Number of trials",
+    "sample-size": "Sample size",
     "success-prob": "Probability of success",
     "success-found": "Success count",
     "round-precision": "Precision",
+    "population-size": "Population size",
+    "total-success": "Total success count",
+
     "by": "by",
     "with": "with",
     "view-on": "View on",

@@ -8,6 +8,9 @@
     "pages-pascal": "Modelo de Pascal",
     "select-pascal": "Pascal",
 
+    "pages-hypergeometric": "Modelo de Hipergeométrico",
+    "select-hypergeometric": "Hipergeométrico",
+
     "select-more_soon": "Pronto...",
 
     "distribution": "Distribución",
@@ -21,6 +24,9 @@
     "success-prob": "Probabilidad de éxito",
     "success-found": "Cantidad de éxitos encontrados",
     "round-precision": "Precisión",
+    "population-size": "Tamaño de la población",
+    "total-success": "Cantidad de exitos total",
+
     "by": "por",
     "with": "con",
     "view-on": "Ver en",

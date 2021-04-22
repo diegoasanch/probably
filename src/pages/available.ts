@@ -29,6 +29,15 @@ const pascal: IPageInfo = {
     select: true,
 }
 
+const hypergeometric: IPageInfo = {
+    id: 'hypergeometric',
+    url: 'hypergeometric',
+    title: 'pages-hypergeometric',
+    disabled: false,
+    landingPage: true,
+    select: true,
+}
+
 const coming_soon: IPageInfo = {
     id: 'more_soon',
     url: '',
@@ -44,6 +53,7 @@ const pageOptions: IPageInfo[] = [
     home,
     binomial,
     pascal,
+    hypergeometric,
     coming_soon,
 ]
 
@@ -66,6 +76,7 @@ export {
     home,
     binomial,
     pascal,
+    hypergeometric,
     coming_soon,
     pageOptions,
     defaultPage,
