@@ -1,4 +1,4 @@
-# Probabilty Distributions calculator 
+# Probabilty Distributions calculator
 
 ## Why?
 

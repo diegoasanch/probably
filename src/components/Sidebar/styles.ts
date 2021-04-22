@@ -22,6 +22,7 @@ export const Header = styled(H1)`
 
     code {
         font-size: .9em;
+        padding-left: .1em;
     }
 `
 

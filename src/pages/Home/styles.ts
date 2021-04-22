@@ -33,6 +33,10 @@ const ChartControls = styled.div`
 `
 const StyledEditableText = styled(EditableText)`
     width: 1.6em;
+    .bp3-editable-text-content {
+        min-width: 1.8em !important;
+    }
+
 `
 const SizeInput = styled(H3)`
     margin-right: .5em;
