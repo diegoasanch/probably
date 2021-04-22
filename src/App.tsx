@@ -8,14 +8,13 @@ import Sidebar from './components/Sidebar'
 import PageHeader from './components/PageHeader'
 import { pageOptions, defaultPage } from './pages/available'
 
-import { IPageInfo } from './types/pages'
 import {
     ViewPort,
     SideContainer,
     AppPageContainer,
     PageFrame
 } from './pages/layout'
-import { HashRouter, Route, Switch, useHistory, useLocation } from 'react-router-dom'
+import { HashRouter, Route, Switch, useLocation } from 'react-router-dom'
 import Binomial from './pages/Binomial'
 import Pascal from './pages/Pascal'
 import Home from './pages/Home'
@@ -24,7 +23,6 @@ FocusStyleManager.onlyShowFocusOnTabs()
 
 function App() {
 
-    const history = useHistory()
     const location = useLocation()
 
     const [isDark, setIsDark] = useLocalStorage('isDark', false)
@@ -34,10 +32,6 @@ function App() {
         setIsDark(!isDark)
     }
 
-    const selectPage = (selected: IPageInfo) => {
-        setCurrentPage(selected)
-        history.push('/' + selected.url)
-    }
 
     // Select curent page form url
     useEffect(() => {
@@ -61,11 +55,7 @@ function App() {
                 <ViewPort className={`.bp3-ui-text ${isDark ? 'bp3-dark' : ''}`}>
 
                     <SideContainer>
-                        <Sidebar
-                            current_page={currentPage}
-                            available_pages={pageOptions}
-                            setNewPage={selectPage}
-                        />
+                        <Sidebar current_page={currentPage} />
                     </SideContainer>
 
                     <AppPageContainer>

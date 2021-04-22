@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
-import { Button, Divider, H4, H5, H6, Icon, MenuItem } from '@blueprintjs/core'
+import { H4, H5, H6, Icon } from '@blueprintjs/core'
 import { useTranslation } from 'react-i18next'
-import { Select } from '@blueprintjs/select'
 
 import { IPageInfo } from '../../types/pages'
 import packageJSON from '../../../package.json'
@@ -18,39 +17,15 @@ import { StyledLink } from '../../styles/typography'
 
 type IProps = {
     readonly current_page: IPageInfo,
-    readonly available_pages: IPageInfo[],
-    setNewPage: (newItem: IPageInfo) => void,
 }
-
-// type IClickHandler = {
-//     handleClick: (event: React.MouseEvent<HTMLElement, MouseEvent>) => void,
-// }
-
-// const PageSelect = Select.ofType<IPageInfo>()
 
 const Sidebar = ({
     current_page,
-    available_pages,
-    setNewPage
 }: IProps ) => {
 
     const { t: translate } = useTranslation();
 
     const [options] = useState(getSelectOptions())
-
-    // const renderItem = (item: IPageInfo, {handleClick}: IClickHandler) => (
-
-    //     <MenuItem
-    //         key={item.id}
-    //         text={translate(`select-${item.id}`)}
-    //         onClick={handleClick}
-    //         active={current_page.id === item.id}
-    //         disabled={item.disabled}
-
-    //         labelElement={<Icon icon={item.icon} /> }
-    //     />
-
-    // )
 
     return (
         <SidebarContainer>
@@ -58,32 +33,8 @@ const Sidebar = ({
                 <StyledLink to="/">Probab<code>/ly</code></StyledLink>
             </Header>
 
-            {/* <Divider /> */}
-
             <SideMain>
                 <SideNav>
-                    {/* <StyledLink to="/">
-                        <Button icon="home" large minimal>
-                            {translate('pages-home')}
-                        </Button>
-                    </StyledLink> */}
-                    {/* <H4>
-                        {translate('distribution')}
-                    </H4> */}
-                    {/* <PageSelect
-                        // initialContent={initialContent}
-                        items={options}
-                        itemRenderer={renderItem}
-                        onItemSelect={setNewPage}
-                        filterable={false}
-                        noResults={<MenuItem text="No results." disabled={true} />}
-                    >
-                        <Button
-                            icon="function"
-                            text={translate(`select-${current_page.id}`)}
-                            rightIcon="caret-down"
-                        />
-                    </PageSelect> */}
                     {
                         options.map(option => (
                             <StyledLink to={option.disabled ? '#' : option.url}>
