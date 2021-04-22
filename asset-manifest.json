@@ -1,29 +1,29 @@
 {
   "files": {
-    "main.css": "/Estadistica_General/static/css/main.727bcd2e.chunk.css",
-    "main.js": "/Estadistica_General/static/js/main.d3575752.chunk.js",
-    "main.js.map": "/Estadistica_General/static/js/main.d3575752.chunk.js.map",
-    "runtime-main.js": "/Estadistica_General/static/js/runtime-main.42ab7325.js",
-    "runtime-main.js.map": "/Estadistica_General/static/js/runtime-main.42ab7325.js.map",
-    "static/css/2.635780d2.chunk.css": "/Estadistica_General/static/css/2.635780d2.chunk.css",
-    "static/js/2.472f2a83.chunk.js": "/Estadistica_General/static/js/2.472f2a83.chunk.js",
-    "static/js/2.472f2a83.chunk.js.map": "/Estadistica_General/static/js/2.472f2a83.chunk.js.map",
-    "static/js/3.d93f3281.chunk.js": "/Estadistica_General/static/js/3.d93f3281.chunk.js",
-    "static/js/3.d93f3281.chunk.js.map": "/Estadistica_General/static/js/3.d93f3281.chunk.js.map",
-    "index.html": "/Estadistica_General/index.html",
-    "static/css/2.635780d2.chunk.css.map": "/Estadistica_General/static/css/2.635780d2.chunk.css.map",
-    "static/css/main.727bcd2e.chunk.css.map": "/Estadistica_General/static/css/main.727bcd2e.chunk.css.map",
-    "static/js/2.472f2a83.chunk.js.LICENSE.txt": "/Estadistica_General/static/js/2.472f2a83.chunk.js.LICENSE.txt",
-    "static/media/katex.min.css": "/Estadistica_General/static/media/KaTeX_Typewriter-Regular.b6a56b14.woff",
-    "static/media/getFetch.cjs": "/Estadistica_General/static/media/getFetch.d7d6010d.cjs",
-    "static/media/spain.12ca02a6.svg": "/Estadistica_General/static/media/spain.12ca02a6.svg",
-    "static/media/uk.64f4888d.svg": "/Estadistica_General/static/media/uk.64f4888d.svg"
+    "main.css": "/probably/static/css/main.727bcd2e.chunk.css",
+    "main.js": "/probably/static/js/main.b0b157ef.chunk.js",
+    "main.js.map": "/probably/static/js/main.b0b157ef.chunk.js.map",
+    "runtime-main.js": "/probably/static/js/runtime-main.71020359.js",
+    "runtime-main.js.map": "/probably/static/js/runtime-main.71020359.js.map",
+    "static/css/2.bf88c4ae.chunk.css": "/probably/static/css/2.bf88c4ae.chunk.css",
+    "static/js/2.9f78c53f.chunk.js": "/probably/static/js/2.9f78c53f.chunk.js",
+    "static/js/2.9f78c53f.chunk.js.map": "/probably/static/js/2.9f78c53f.chunk.js.map",
+    "static/js/3.d93f3281.chunk.js": "/probably/static/js/3.d93f3281.chunk.js",
+    "static/js/3.d93f3281.chunk.js.map": "/probably/static/js/3.d93f3281.chunk.js.map",
+    "index.html": "/probably/index.html",
+    "static/css/2.bf88c4ae.chunk.css.map": "/probably/static/css/2.bf88c4ae.chunk.css.map",
+    "static/css/main.727bcd2e.chunk.css.map": "/probably/static/css/main.727bcd2e.chunk.css.map",
+    "static/js/2.9f78c53f.chunk.js.LICENSE.txt": "/probably/static/js/2.9f78c53f.chunk.js.LICENSE.txt",
+    "static/media/katex.min.css": "/probably/static/media/KaTeX_Typewriter-Regular.b6a56b14.woff",
+    "static/media/getFetch.cjs": "/probably/static/media/getFetch.d7d6010d.cjs",
+    "static/media/spain.12ca02a6.svg": "/probably/static/media/spain.12ca02a6.svg",
+    "static/media/uk.64f4888d.svg": "/probably/static/media/uk.64f4888d.svg"
   },
   "entrypoints": [
-    "static/js/runtime-main.42ab7325.js",
-    "static/css/2.635780d2.chunk.css",
-    "static/js/2.472f2a83.chunk.js",
+    "static/js/runtime-main.71020359.js",
+    "static/css/2.bf88c4ae.chunk.css",
+    "static/js/2.9f78c53f.chunk.js",
     "static/css/main.727bcd2e.chunk.css",
-    "static/js/main.d3575752.chunk.js"
+    "static/js/main.b0b157ef.chunk.js"
   ]
 }
