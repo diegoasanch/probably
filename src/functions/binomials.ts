@@ -1,4 +1,4 @@
-import { ITable, IProbabilities, IResult } from "../types/tables"
+import { ITable, IProbabilities, IResult, IBarChartItem } from "../types/tables"
 import { combinatory } from "./general"
 
 
@@ -92,6 +92,20 @@ const createTable = (
     return {headers, content}
 }
 
+const createLandingChart = (n: number, p: number): IBarChartItem[] => {
+    const chart_data: IBarChartItem[] = []
+
+    for (let r = 0; r <= n; r++) {
+        chart_data.push(
+            {
+                label: String(r),
+                value: binomialModel(r, n, p)
+            }
+        )
+    }
+    return chart_data
+}
+
 const analysis_labels = {
     expected: "E(r) = \\mu",
     variance: "V(r) = \\sigma^2",
@@ -159,6 +173,7 @@ export {
     partialLeftExpected,
     partialRightExpected,
     createTable,
+    createLandingChart,
     getAnalysis,
     getProbabilities,
     defaultTable,
