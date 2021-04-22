@@ -8,7 +8,6 @@ export const SidebarContainer = styled.nav`
     width: 100%;
     color: ${props => props.theme.sidebarText};
     background-color: ${ props => props.theme.sidebarBg };
-    border-right: 3px solid "#CACBCC";
 `
 
 export const Header = styled(H1)`
@@ -45,7 +44,9 @@ export const SideFooter = styled.footer`
 export const SideNav = styled.nav`
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
+    width: 100%;
+    margin-left: .5em;
     padding-top: 3em;
 
     > * {
@@ -60,19 +61,23 @@ type NavProp = {
 
 export const NavButton = styled(Text)<NavProp>`
     display: flex;
-    font-size: 1.8em;
+    font-size: 1.5em;
     align-items: baseline;
+    padding-left: .5em;
+
     color: ${props => (
         props.selected ? props.theme.code
         :
         props.disabled ? props.theme.disabled_link
         : 'inherit'
     )};
-    padding-left: .5em;
     border-left: ${props => (
         props.selected ?
-            `3px solid ${props.theme.code}`
-
+            `4px solid ${props.theme.code}`
         : 'none'
     )};
+
+    &:hover {
+        border-left: 4px solid;
+    }
 `
