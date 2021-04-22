@@ -24,6 +24,9 @@
     "success-prob": "Probabilidad de éxito",
     "success-found": "Cantidad de éxitos encontrados",
     "round-precision": "Precisión",
+    "population-size": "Tamaño de la población",
+    "total-success": "Cantidad de exitos total",
+
     "by": "por",
     "with": "con",
     "view-on": "Ver en",

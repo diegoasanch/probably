@@ -13,33 +13,35 @@ import { Spinner } from '@blueprintjs/core'
 import PageTemplate from '../PageTemplate'
 import { PrecisionContext } from '../../contexts/inputs'
 
-import PascalInput from '../../components/InputGroups/PascalInput'
+import HypergeometricInput from '../../components/InputGroups/HypergeometricInput'
 import {
     createTable,
     defaultTable,
     getAnalysis,
     getProbabilities
-} from '../../functions/pascal'
+} from '../../functions/hypergeometric'
 import { defaultResults } from '../../functions/shared'
 
-const handleHighlight = (tab: IOperationType, n: number, from: number, to: number): string | string[] => {
+const handleHighlight = (tab: IOperationType, r: number, to: number, from=0): string | string[] => {
     let hl: string | string[]
 
     if (tab === 'f')
-        hl = stringRange(from, n)
+        hl = stringRange(from, r)
     else if (tab === 'g')
-        hl = stringRange(n, to)
+        hl = stringRange(r, to)
     else
-        hl = String(n)
+        hl = String(r)
 
     return hl
 }
 
 function Hypergeometric() {
 
+    const [totalSize, setTotalSize] = useState(NaN) // N
+    const [totalSuccess, setTotalSuccess] = useState(NaN) // R
     const [sampleSize, setSampleSize] = useState(NaN) // n
-    const [successProbability, setSuccessProbability] = useState(NaN) // p
     const [successFound, setSuccessFound] = useState<number>(NaN) // r
+
     const [validInput, setValidInput] = useState(false)
 
     const [roundPrecision, setRoundPrecision] = useState(5)
@@ -50,43 +52,32 @@ function Hypergeometric() {
     const [tableData, setTableData] = useState<ITable | undefined>()
     const [chartData, setChartData] = useState<IBarChartItem[] | undefined>(([ {label: '', value: 0} ]) as IBarChartItem[])
 
-    const [dataFrom, setDataFrom] = useState<number>(0)
-    // TODO: fix this disable
-    // eslint-disable-next-line
-    const [dataTo, setDataTo] = useState(60)
     const [highlight, setHighlight] = useState<string | string[]>('')
     const [opType, setOpType] = useState<IOperationType>('p')
 
-    const handleSampleSize = (valueNum: number, valueStr: string ) => {
-        setSampleSize(parseFloat(valueStr) ?? 0)
-        setProbabilities(undefined)
-    }
-    const handleSuccessProb = (valueNum: number, valueStr: string ) => {
-        setSuccessProbability(parseFloat(valueStr) ?? 0)
-    }
-    const handleSuccessFound = (valueNum: number, valueStr: string ) => {
-        const value = parseFloat(valueStr) ?? 0
-        setSuccessFound(value)
-        setDataFrom(value)
-    }
     const handleTab = (tab: IOperationType) => {
         setOpType(tab)
     }
 
-    const handleType = (r: number, n: number, p: number) => {
-        setProbabilities(getProbabilities(n, r, p))
+    const handleType = (r: number, n: number, N: number, R: number) => {
+        setProbabilities(getProbabilities(r, n, N, R))
     }
+
+    // For the panel animation
+    useEffect(() => {
+        setProbabilities(undefined)
+    }, [totalSize, totalSuccess, sampleSize, successFound])
 
     // For the  calculations
     useDebounce(() => {
-        handleType( successFound, sampleSize, successProbability)
-    }, 300, [sampleSize, successProbability, successFound])
+        handleType(successFound, sampleSize, totalSize, totalSuccess)
+    }, 300, [totalSize, totalSuccess, sampleSize, successFound])
 
     // For the higlights
     useEffect(() => {
-        const toHighlight = handleHighlight(opType, sampleSize, dataFrom, dataTo)
+        const toHighlight = handleHighlight(opType, successFound, sampleSize)
         setHighlight(toHighlight)
-    }, [sampleSize, opType, dataTo, dataFrom])
+    }, [successFound, sampleSize, opType])
 
     // for rendering the loaders
     useEffect(() => {
@@ -96,13 +87,12 @@ function Hypergeometric() {
         setValidResults(false)
         setProbabilities(undefined)
 
-
-    }, [successFound, successProbability])
+    }, [totalSize, totalSuccess, sampleSize])
 
     // Debouncing the table and chart calculations
     useDebounce(() => {
-        const newTable = createTable(successFound, successProbability, dataFrom)
-        const analysis = getAnalysis(successFound, successProbability) // TODO: check (1)
+        const newTable = createTable(sampleSize, totalSize, totalSuccess)
+        const analysis = getAnalysis(sampleSize, totalSize, totalSuccess) // TODO: add J(r) (1)
 
         const probs_from_table = newTable.content.map(item => ({
             label: String(item[0]),
@@ -110,18 +100,16 @@ function Hypergeometric() {
         }))
 
         setTableData(newTable)
-        setResults(analysis)   // TODO: check (1)
+        setResults(analysis)   // TODO: add J(r) (1)
         setChartData(probs_from_table)
         setValidResults(true)
 
-        // console.table(probs_from_table)
-
-    }, 300, [successFound, successProbability])
+    }, 300, [totalSize, totalSuccess, sampleSize])
 
     useEffect(() => {
-        const valid = !!(successFound && successProbability)
+        const valid = !!(totalSize && totalSuccess && sampleSize)
         setValidInput(valid)
-    }, [successFound, successProbability])
+    }, [totalSize, totalSuccess, sampleSize])
 
     return (
         <PrecisionContext.Provider value={roundPrecision}>
@@ -129,19 +117,19 @@ function Hypergeometric() {
                 noInputs={{ a: 'r', b: 'p' }}
                 validInput={validInput}
                 input={
-                    <PascalInput
-                        handleSampleSize={handleSampleSize}
-                        handleSuccessProb={handleSuccessProb}
-                        handleSuccessFound={handleSuccessFound}
+                    <HypergeometricInput
+                        handleTotalSize={setTotalSize} // N
+                        handleTotalSuccess={setTotalSuccess} // R
+                        handleSampleSize={setSampleSize} // n
+                        handleSuccessFound={setSuccessFound} // r
                         setRoundPrecision={setRoundPrecision}
-                        sampleSize={sampleSize}
                         extraPanel={
                             <BinomialProb
                                 handleTab={handleTab}
-                                variable={sampleSize}
+                                variable={successFound}
                                 validInput={validInput}
                                 probabilities={probabilities}
-                                varLabel="n"
+                                varLabel="r"
                             />
                         }
                     />
