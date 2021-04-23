@@ -3,7 +3,7 @@ import { useLocalStorage } from 'react-use'
 import { dark, light } from './styles/colors'
 import { ThemeProvider } from 'styled-components'
 
-import { FocusStyleManager, H1 } from "@blueprintjs/core"
+import { FocusStyleManager } from "@blueprintjs/core"
 import Sidebar from './components/Sidebar'
 import PageHeader from './components/PageHeader'
 import { pageOptions, defaultPage } from './pages/available'

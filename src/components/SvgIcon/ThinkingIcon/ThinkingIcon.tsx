@@ -2,10 +2,6 @@ import React, { useContext } from 'react'
 import { ThemeContext } from 'styled-components'
 import { InlineSvg } from '../styles'
 
-type Props = {
-    fillColor: string,
-}
-
 const ThinkingIcon = () => {
     const theme = useContext(ThemeContext)
 
