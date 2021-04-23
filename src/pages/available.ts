@@ -18,6 +18,7 @@ const binomial: IPageInfo = {
     disabled: false,
     landingPage: true,
     select: true,
+    icon: 'function',
 }
 
 const pascal: IPageInfo = {
@@ -27,6 +28,7 @@ const pascal: IPageInfo = {
     disabled: false,
     landingPage: true,
     select: true,
+    icon: 'function',
 }
 
 const hypergeometric: IPageInfo = {
@@ -36,6 +38,7 @@ const hypergeometric: IPageInfo = {
     disabled: false,
     landingPage: true,
     select: true,
+    icon: 'function',
 }
 
 const coming_soon: IPageInfo = {

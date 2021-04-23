@@ -48,6 +48,12 @@ function App() {
         console.log(current_location, page)
         setCurrentPage(page)
 
+        // Google analytics
+        if ((window as any).gtag) {
+            (window as any).gtag('set', 'page', location.pathname + location.search);
+            (window as any).gtag('send', 'pageview');
+        }
+
     // eslint-disable-next-line
     }, [location.pathname])
 
@@ -63,6 +69,7 @@ function App() {
                     <AppPageContainer>
                         <PageHeader
                             title={currentPage.title}
+                            currentPage={currentPage}
                             isDark={!!isDark}
                             toggleTheme={toggleTheme}
                         />

@@ -64,6 +64,7 @@ export const NavButton = styled(Text)<NavProp>`
     font-size: 1.5em;
     align-items: baseline;
     padding-left: .5em;
+    transition: 100ms ease-in-out;
 
     color: ${props => (
         props.selected ? props.theme.code

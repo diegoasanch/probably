@@ -1,4 +1,4 @@
-import { H1, H2 } from "@blueprintjs/core";
+import { H1, H2, Icon } from "@blueprintjs/core";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
@@ -36,9 +36,15 @@ const StyledLink = styled(Link)`
 
 `
 
+const InlineIcon = styled(Icon)`
+    vertical-align: baseline;
+    margin: 0 .3em;
+`
+
 
 export {
     HomeHeader,
     HomeSubTitle,
-    StyledLink
+    StyledLink,
+    InlineIcon,
 }
