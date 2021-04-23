@@ -31,5 +31,9 @@
     "with": "con",
     "view-on": "Ver en",
     "calculate-pre": "Calcular modelo",
-    "calculate-post": ""
+    "calculate-post": "",
+
+    "no-greater": "no puede ser >",
+    "no-negative": "¡Sin negativos!"
+
 }

@@ -1,29 +1,29 @@
 {
   "files": {
-    "main.css": "/probably/static/css/main.727bcd2e.chunk.css",
-    "main.js": "/probably/static/js/main.e7deaf91.chunk.js",
-    "main.js.map": "/probably/static/js/main.e7deaf91.chunk.js.map",
-    "runtime-main.js": "/probably/static/js/runtime-main.2d5edf96.js",
-    "runtime-main.js.map": "/probably/static/js/runtime-main.2d5edf96.js.map",
+    "main.css": "/probably/static/css/main.a2a50346.chunk.css",
+    "main.js": "/probably/static/js/main.11f4707a.chunk.js",
+    "main.js.map": "/probably/static/js/main.11f4707a.chunk.js.map",
+    "runtime-main.js": "/probably/static/js/runtime-main.dd3671dd.js",
+    "runtime-main.js.map": "/probably/static/js/runtime-main.dd3671dd.js.map",
     "static/css/2.bf88c4ae.chunk.css": "/probably/static/css/2.bf88c4ae.chunk.css",
-    "static/js/2.e0574e22.chunk.js": "/probably/static/js/2.e0574e22.chunk.js",
-    "static/js/2.e0574e22.chunk.js.map": "/probably/static/js/2.e0574e22.chunk.js.map",
-    "static/js/3.e3a4da6a.chunk.js": "/probably/static/js/3.e3a4da6a.chunk.js",
-    "static/js/3.e3a4da6a.chunk.js.map": "/probably/static/js/3.e3a4da6a.chunk.js.map",
+    "static/js/2.1da38779.chunk.js": "/probably/static/js/2.1da38779.chunk.js",
+    "static/js/2.1da38779.chunk.js.map": "/probably/static/js/2.1da38779.chunk.js.map",
+    "static/js/3.8f8c0feb.chunk.js": "/probably/static/js/3.8f8c0feb.chunk.js",
+    "static/js/3.8f8c0feb.chunk.js.map": "/probably/static/js/3.8f8c0feb.chunk.js.map",
     "index.html": "/probably/index.html",
     "static/css/2.bf88c4ae.chunk.css.map": "/probably/static/css/2.bf88c4ae.chunk.css.map",
-    "static/css/main.727bcd2e.chunk.css.map": "/probably/static/css/main.727bcd2e.chunk.css.map",
-    "static/js/2.e0574e22.chunk.js.LICENSE.txt": "/probably/static/js/2.e0574e22.chunk.js.LICENSE.txt",
+    "static/css/main.a2a50346.chunk.css.map": "/probably/static/css/main.a2a50346.chunk.css.map",
+    "static/js/2.1da38779.chunk.js.LICENSE.txt": "/probably/static/js/2.1da38779.chunk.js.LICENSE.txt",
     "static/media/katex.min.css": "/probably/static/media/KaTeX_Typewriter-Regular.b6a56b14.woff",
     "static/media/getFetch.cjs": "/probably/static/media/getFetch.d7d6010d.cjs",
     "static/media/spain.12ca02a6.svg": "/probably/static/media/spain.12ca02a6.svg",
     "static/media/uk.64f4888d.svg": "/probably/static/media/uk.64f4888d.svg"
   },
   "entrypoints": [
-    "static/js/runtime-main.2d5edf96.js",
+    "static/js/runtime-main.dd3671dd.js",
     "static/css/2.bf88c4ae.chunk.css",
-    "static/js/2.e0574e22.chunk.js",
-    "static/css/main.727bcd2e.chunk.css",
-    "static/js/main.e7deaf91.chunk.js"
+    "static/js/2.1da38779.chunk.js",
+    "static/css/main.a2a50346.chunk.css",
+    "static/js/main.11f4707a.chunk.js"
   ]
 }
