@@ -23,6 +23,7 @@ import {
 import { defaultResults } from '../../functions/shared'
 import { showToast } from '../../utils/toaster'
 import NoGreater from '../../components/NoGreater'
+import NoNegative from '../../components/NoNegative'
 
 const validateInput = (N: number, R: number, n: number, r: number): void => {
     if (R > N)
@@ -34,7 +35,7 @@ const validateInput = (N: number, R: number, n: number, r: number): void => {
     if (r > R)
         showToast(<NoGreater a='r' b='R' />, 'danger')
     if ([N, R, n, r].some(item => item < 0))
-        showToast(<><strong>No</strong> negative numbers !</>, 'danger')
+        showToast(<NoNegative />, 'danger')
 }
 
 function Hypergeometric() {

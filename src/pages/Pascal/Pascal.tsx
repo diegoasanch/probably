@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import BinomialChart from '../../components/BinomialChart'
 import { IOperationType } from '../../types/pages'
-import { stringRange } from '../../utils/arrays'
+import { handleHighlight, stringRange } from '../../utils/arrays'
 
 import PunctualOrAccumulated from '../../components/PunctualOrAccumulated'
 import ResultGroup from '../../components/ResultGroup'
@@ -21,18 +21,15 @@ import {
     getProbabilities
 } from '../../functions/pascal'
 import { defaultResults } from '../../functions/shared'
+import { showToast } from '../../utils/toaster'
+import NoGreater from '../../components/NoGreater'
+import NoNegative from '../../components/NoNegative'
 
-const handleHighlight = (tab: IOperationType, n: number, from: number, to: number): string | string[] => {
-    let hl: string | string[]
-
-    if (tab === 'f')
-        hl = stringRange(from, n)
-    else if (tab === 'g')
-        hl = stringRange(n, to)
-    else
-        hl = String(n)
-
-    return hl
+const validateInput = (n: number, p: number, r: number): void => {
+    if (p > 1)
+        showToast(<NoGreater a='p' b='1' />, 'danger')
+    if ([n, r, p].some(item => item < 0))
+        showToast(<NoNegative />, 'danger')
 }
 
 function Pascal() {
@@ -58,7 +55,7 @@ function Pascal() {
     const [opType, setOpType] = useState<IOperationType>('p')
 
     const handleSampleSize = (valueNum: number, valueStr: string ) => {
-        setSampleSize(parseFloat(valueStr) ?? 0)
+        setSampleSize(valueNum)
         setProbabilities(undefined)
     }
     const handleSuccessProb = (valueNum: number, valueStr: string ) => {
@@ -72,10 +69,13 @@ function Pascal() {
     const handleTab = (tab: IOperationType) => {
         setOpType(tab)
     }
-
     const handleType = (r: number, n: number, p: number) => {
         setProbabilities(getProbabilities(n, r, p))
     }
+
+    useEffect(() => {
+        validateInput(sampleSize, successProbability, successFound)
+    }, [sampleSize, successProbability, successFound])
 
     // For the  calculations
     useDebounce(() => {
@@ -84,7 +84,7 @@ function Pascal() {
 
     // For the higlights
     useEffect(() => {
-        const toHighlight = handleHighlight(opType, sampleSize, dataFrom, dataTo)
+        const toHighlight = handleHighlight(opType, sampleSize, dataTo, dataFrom)
         setHighlight(toHighlight)
     }, [sampleSize, opType, dataTo, dataFrom])
 
@@ -113,8 +113,6 @@ function Pascal() {
         setResults(analysis)   // TODO: check (1)
         setChartData(probs_from_table)
         setValidResults(true)
-
-        // console.table(probs_from_table)
 
     }, 300, [successFound, successProbability])
 

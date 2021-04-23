@@ -4,13 +4,14 @@ import { useTranslation } from 'react-i18next'
 import { PrecisionContext } from '../../../contexts/inputs'
 import { Column, Row } from '../../../pages/layout'
 
-type StateSetter = (valueNum: number, valueStr: string) => void
+type BlueprintStateSetter = (valueNum: number, valueStr: string) => void
+type StateSetter = (value: React.SetStateAction<number>) => void
 
 type IProps = {
-    handleSampleSize: StateSetter,
-    handleSuccessProb: StateSetter,
-    handleSuccessFound: StateSetter,
-    setRoundPrecision: (value: number) => void,
+    handleSampleSize: BlueprintStateSetter,
+    handleSuccessProb: BlueprintStateSetter,
+    handleSuccessFound: BlueprintStateSetter,
+    setRoundPrecision: StateSetter,
     extraPanel?: JSX.Element,
     sampleSize: number,
 }
