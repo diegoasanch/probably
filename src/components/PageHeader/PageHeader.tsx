@@ -3,7 +3,6 @@ import {
     NavbarGroup,
     NavbarHeading,
     Alignment,
-    Icon
 } from '@blueprintjs/core'
 
 import { StyledNavbar, StyledSwitch } from './styles'
