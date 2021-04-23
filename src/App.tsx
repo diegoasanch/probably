@@ -20,6 +20,7 @@ import Pascal from './pages/Pascal'
 import Home from './pages/Home'
 import Hypergeometric from './pages/Hypergeometric'
 import LoadingScreen from './components/LoadingScreen'
+import NotFound404 from './pages/NotFound404'
 
 FocusStyleManager.onlyShowFocusOnTabs()
 
@@ -82,7 +83,7 @@ function App() {
                                         <Home />
                                     </Route>
                                     <Route path="/">
-                                        <H1>404</H1>
+                                        <NotFound404 />
                                     </Route>
                                 </Switch>
                             </HashRouter>

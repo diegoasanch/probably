@@ -12,7 +12,7 @@ type Itheme = {
     readonly landing_chart: string,
     readonly code: string,
     readonly disabled_link: string,
-
+    readonly emojiSkin: string,
 }
 
 export default Itheme

@@ -16,6 +16,7 @@ export const dark: Itheme = {
     landing_chart: '#0D5E91',
     code: '#59C0FF',
     disabled_link: '#777',
+    emojiSkin: '#EEDD28',
 }
 
 export const light: Itheme = {
@@ -34,4 +35,5 @@ export const light: Itheme = {
     landing_chart: '#50A9E1',
     code: '#0C527E',
     disabled_link: '#777',
+    emojiSkin: '#FCEA2B',
 }
