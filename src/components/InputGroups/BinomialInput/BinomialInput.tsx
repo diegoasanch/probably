@@ -4,15 +4,15 @@ import { useTranslation } from 'react-i18next'
 import { PrecisionContext } from '../../../contexts/inputs'
 import { Column, Row } from '../../../pages/layout'
 
-type StateSetter = (valueNum: number, valueStr: string) => void
+type BlueprintStateSetter = (valueNum: number, valueStr: string) => void
+type StateSetter = (value: React.SetStateAction<number>) => void
 
 type IProps = {
     handleSampleSize: StateSetter,
-    handleSuccessProb: StateSetter,
+    handleSuccessProb: BlueprintStateSetter,
     handleSuccessFound: StateSetter,
-    setRoundPrecision: (value: number) => void,
+    setRoundPrecision: StateSetter,
     extraPanel?: JSX.Element,
-    sampleSize: number,
 }
 
 const BinomialInput = ({
@@ -21,7 +21,6 @@ const BinomialInput = ({
     handleSuccessFound,
     setRoundPrecision,
     extraPanel,
-    sampleSize,
 
 }: IProps) => {
 
@@ -36,7 +35,7 @@ const BinomialInput = ({
                     <NumericInput
                         min={1}
                         onValueChange={handleSampleSize}
-                        minorStepSize={0.0001}
+                        stepSize={1}
                         placeholder="n"
                     />
                 </Label>
@@ -55,7 +54,6 @@ const BinomialInput = ({
                     <NumericInput
                         min={0}
                         onValueChange={handleSuccessFound}
-                        max={sampleSize}
                         placeholder="r"
                     />
                 </Label>

@@ -24,7 +24,7 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
-.bp3-dark code {
+.bp3-dark code, .bp3-dark .bp3-toast-message code  {
   color: #59C0FF;
   background-color: #23272C;
 }

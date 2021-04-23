@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import BinomialChart from '../../components/BinomialChart'
 import { IOperationType } from '../../types/pages'
-import { stringRange } from '../../utils/arrays'
+import { handleHighlight } from '../../utils/arrays'
 
 import PunctualOrAccumulated from '../../components/PunctualOrAccumulated'
 import ResultGroup from '../../components/ResultGroup'
@@ -21,11 +21,23 @@ import {
     getProbabilities
 } from '../../functions/binomials'
 import { defaultResults } from '../../functions/shared'
+import { showToast } from '../../utils/toaster'
+import NoGreater from '../../components/NoGreater'
+import NoNegative from '../../components/NoNegative'
+
+const validateInput = (n: number, p: number, r: number): void => {
+    if (r > n)
+        showToast(<NoGreater a='r' b='n' />, 'danger')
+    if (p > 1)
+        showToast(<NoGreater a='p' b='1' />, 'danger')
+    if ([n, r, p].some(item => item < 0))
+        showToast(<NoNegative />, 'danger')
+}
 
 function Binomial() {
 
-    const [sampleSize, setSampleSize] = useState(0) // n
-    const [successProbability, setSuccessProbability] = useState(0) // p
+    const [sampleSize, setSampleSize] = useState(NaN) // n
+    const [successProbability, setSuccessProbability] = useState(NaN) // p
     const [successFound, setSuccessFound] = useState<number>(NaN) // r
     const [validInput, setValidInput] = useState(false)
 
@@ -42,36 +54,21 @@ function Binomial() {
     const [highlight, setHighlight] = useState<string | string[]>('')
     const [opType, setOpType] = useState<IOperationType>('p')
 
-    const handleSampleSize = (valueNum: number, valueStr: string ) => {
-        setSampleSize(parseFloat(valueStr) ?? 0)
-    }
     const handleSuccessProb = (valueNum: number, valueStr: string ) => {
-        setSuccessProbability(parseFloat(valueStr) ?? 0)
-    }
-    const handleSuccessFound = (valueNum: number, valueStr: string ) => {
-        setSuccessFound(parseFloat(valueStr) ?? 0)
-        setProbabilities(undefined)
+        setSuccessProbability(parseFloat(valueStr))
     }
     const handleTab = (tab: IOperationType) => {
         setOpType(tab)
     }
-
-    const handleHighlight = (tab: IOperationType, r: number, n: number) => {
-        let hl: string | string[]
-
-        if (tab === 'f')
-            hl = stringRange(0, r)
-        else if (tab === 'g')
-            hl = stringRange(r, n)
-        else
-            hl = String(r)
-
-        setHighlight(hl)
-    }
-
     const handleType = (r: number, n: number, p: number) => {
         setProbabilities(getProbabilities(r, n, p))
     }
+
+    // for the punctual probs  loader
+    useEffect(() => {
+        setProbabilities(undefined)
+        validateInput(sampleSize, successProbability, successFound)
+    }, [sampleSize, successProbability, successFound])
 
     // For the calculations
     useDebounce(() => {
@@ -79,7 +76,8 @@ function Binomial() {
     }, 300, [sampleSize, successProbability, successFound])
 
     useEffect(() => {
-        handleHighlight(opType, successFound, dataTo)
+        const toHighlight = handleHighlight(opType, successFound, dataTo)
+        setHighlight(toHighlight)
     }, [successFound, dataTo, opType])
 
     // for rendering the loaders
@@ -88,6 +86,10 @@ function Binomial() {
         setChartData(undefined)
         setResults(defaultResults)
         setValidResults(false)
+
+        const valid = !!(sampleSize && successProbability)
+        setValidInput(valid)
+        setProbabilities(undefined)
     }, [sampleSize, successProbability])
 
     // Debouncing the calculations
@@ -106,15 +108,7 @@ function Binomial() {
         setResults(analysis)
         setValidResults(true)
 
-        // console.table(probs_from_table)
-
     }, 300, [sampleSize, successProbability])
-
-    useEffect(() => {
-        const valid = !!(sampleSize && successProbability)
-        setValidInput(valid)
-        // console.log({ valid, sampleSize, successProbability})
-    }, [sampleSize, successProbability])
 
     return (
         <PrecisionContext.Provider value={roundPrecision}>
@@ -123,11 +117,10 @@ function Binomial() {
                 validInput={validInput}
                 input={
                     <BinomialInput
-                        handleSampleSize={handleSampleSize}
+                        handleSampleSize={setSampleSize}
                         handleSuccessProb={handleSuccessProb}
-                        handleSuccessFound={handleSuccessFound}
+                        handleSuccessFound={setSuccessFound}
                         setRoundPrecision={setRoundPrecision}
-                        sampleSize={sampleSize}
                         extraPanel={
                             <PunctualOrAccumulated
                                 handleTab={handleTab}

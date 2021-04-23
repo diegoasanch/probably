@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import BinomialChart from '../../components/BinomialChart'
 import { IOperationType } from '../../types/pages'
-import { stringRange } from '../../utils/arrays'
+import { handleHighlight } from '../../utils/arrays'
 
 import PunctualOrAccumulated from '../../components/PunctualOrAccumulated'
 import ResultGroup from '../../components/ResultGroup'
@@ -21,18 +21,20 @@ import {
     getProbabilities
 } from '../../functions/hypergeometric'
 import { defaultResults } from '../../functions/shared'
+import { showToast } from '../../utils/toaster'
+import NoGreater from '../../components/NoGreater'
 
-const handleHighlight = (tab: IOperationType, r: number, to: number, from=0): string | string[] => {
-    let hl: string | string[]
-
-    if (tab === 'f')
-        hl = stringRange(from, r)
-    else if (tab === 'g')
-        hl = stringRange(r, to)
-    else
-        hl = String(r)
-
-    return hl
+const validateInput = (N: number, R: number, n: number, r: number): void => {
+    if (R > N)
+        showToast(<NoGreater a='R' b='N' />, 'danger')
+    if (n > N)
+        showToast(<NoGreater a='n' b='N' />, 'danger')
+    if (r > n)
+        showToast(<NoGreater a='r' b='n' />, 'danger')
+    if (r > R)
+        showToast(<NoGreater a='r' b='R' />, 'danger')
+    if ([N, R, n, r].some(item => item < 0))
+        showToast(<><strong>No</strong> negative numbers !</>, 'danger')
 }
 
 function Hypergeometric() {
@@ -66,6 +68,7 @@ function Hypergeometric() {
     // For the panel animation
     useEffect(() => {
         setProbabilities(undefined)
+        validateInput(totalSize, totalSuccess, sampleSize, successFound)
     }, [totalSize, totalSuccess, sampleSize, successFound])
 
     // For the  calculations
@@ -123,6 +126,7 @@ function Hypergeometric() {
                         handleSampleSize={setSampleSize} // n
                         handleSuccessFound={setSuccessFound} // r
                         setRoundPrecision={setRoundPrecision}
+
                         extraPanel={
                             <PunctualOrAccumulated
                                 handleTab={handleTab}

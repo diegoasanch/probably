@@ -31,5 +31,8 @@
     "with": "with",
     "view-on": "View on",
     "calculate-pre": "Calculate",
-    "calculate-post": " model"
+    "calculate-post": " model",
+
+    "no-greater": "can't be >",
+    "no-negative": "np negatives!"
 }
