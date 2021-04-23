@@ -6,9 +6,10 @@ import { StyledCallout } from '../../../styles/display'
 type IProps = {
     a: string,
     b?: string,
+    c?: string,
 }
 
-const NoNAndP = ({ a, b }: IProps) => {
+const NoNAndP = ({ a, b, c }: IProps) => {
     const { t } = useTranslation()
 
     return (
@@ -18,6 +19,11 @@ const NoNAndP = ({ a, b }: IProps) => {
                     <Icon icon="calculator" iconSize={25} />&nbsp;
                 </span>
                 {t('specify')} <code>{a}</code>
+                { c &&
+                    <>
+                        &nbsp;, <code>{c}</code>
+                    </>
+                }
                 { b &&
                     <>
                         &nbsp;{t('and')} <code>{b}</code>

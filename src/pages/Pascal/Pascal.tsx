@@ -3,7 +3,7 @@ import BinomialChart from '../../components/BinomialChart'
 import { IOperationType } from '../../types/pages'
 import { stringRange } from '../../utils/arrays'
 
-import BinomialProb from '../../components/BinomialProb'
+import PunctualOrAccumulated from '../../components/PunctualOrAccumulated'
 import ResultGroup from '../../components/ResultGroup'
 import BinomialTable from '../../components/BinomialTable'
 import { useDebounce } from 'react-use'
@@ -136,7 +136,7 @@ function Pascal() {
                         setRoundPrecision={setRoundPrecision}
                         sampleSize={sampleSize}
                         extraPanel={
-                            <BinomialProb
+                            <PunctualOrAccumulated
                                 handleTab={handleTab}
                                 variable={sampleSize}
                                 validInput={validInput}

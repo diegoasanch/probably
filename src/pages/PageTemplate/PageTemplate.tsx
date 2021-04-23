@@ -9,6 +9,7 @@ import NoInput from '../../components/NoInputCards/No2'
 type INoInputs = {
     a: string,
     b: string,
+    c?: string,
 }
 
 type IProps = {

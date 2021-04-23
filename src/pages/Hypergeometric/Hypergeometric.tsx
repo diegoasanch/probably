@@ -3,7 +3,7 @@ import BinomialChart from '../../components/BinomialChart'
 import { IOperationType } from '../../types/pages'
 import { stringRange } from '../../utils/arrays'
 
-import BinomialProb from '../../components/BinomialProb'
+import PunctualOrAccumulated from '../../components/PunctualOrAccumulated'
 import ResultGroup from '../../components/ResultGroup'
 import BinomialTable from '../../components/BinomialTable'
 import { useDebounce } from 'react-use'
@@ -114,7 +114,7 @@ function Hypergeometric() {
     return (
         <PrecisionContext.Provider value={roundPrecision}>
             <PageTemplate
-                noInputs={{ a: 'r', b: 'p' }}
+                noInputs={{ a: 'N', b: 'n', c: 'R' }}
                 validInput={validInput}
                 input={
                     <HypergeometricInput
@@ -124,7 +124,7 @@ function Hypergeometric() {
                         handleSuccessFound={setSuccessFound} // r
                         setRoundPrecision={setRoundPrecision}
                         extraPanel={
-                            <BinomialProb
+                            <PunctualOrAccumulated
                                 handleTab={handleTab}
                                 variable={successFound}
                                 validInput={validInput}

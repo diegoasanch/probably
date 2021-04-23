@@ -15,7 +15,7 @@ type IProps = {
     varLabel: string,
 }
 
-const BinomialProb = ({
+const PunctualOrAccumulated = ({
     handleTab,
     variable,
     validInput,
@@ -77,4 +77,4 @@ const BinomialProb = ({
     )
 }
 
-export default BinomialProb
+export default PunctualOrAccumulated
