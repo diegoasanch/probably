@@ -34,5 +34,6 @@
     "calculate-post": " model",
 
     "no-greater": "can't be >",
-    "no-negative": "No negatives!"
+    "no-negative": "No negatives!",
+    "accepts-fract": "Accepts fractions. eg:"
 }

@@ -3,6 +3,8 @@ import React, { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import { PrecisionContext } from '../../../contexts/inputs'
 import { Column, Row } from '../../../pages/layout'
+import MathInput from '../../MathInput'
+import ProbabilityInput from '../../ProbabilityInput'
 
 type BlueprintStateSetter = (valueNum: number, valueStr: string) => void
 type StateSetter = (value: React.SetStateAction<number>) => void
@@ -40,16 +42,13 @@ const PascalInput = ({
                         placeholder="r"
                     />
                 </Label>
-                <Label>
-                    <code>p</code> = {t('success-prob')}
-                    <NumericInput
-                        min={0}
-                        max={1}
-                        stepSize={0.1}
-                        onValueChange={handleSuccessProb}
-                        placeholder="p"
-                    />
-                </Label>
+                <ProbabilityInput
+                    min={0}
+                    max={1}
+                    stepSize={0.1}
+                    onValueChange={handleSuccessProb}
+                    placeholder="p"
+                />
                 <Label>
                     <code>n</code> = {t('sample-size')}
                     <NumericInput

@@ -8,7 +8,7 @@
     "pages-pascal": "Modelo de Pascal",
     "select-pascal": "Pascal",
 
-    "pages-hypergeometric": "Modelo de Hipergeométrico",
+    "pages-hypergeometric": "Modelo Hipergeométrico",
     "select-hypergeometric": "Hipergeométrico",
 
     "select-more_soon": "Pronto...",
@@ -34,6 +34,8 @@
     "calculate-post": "",
 
     "no-greater": "no puede ser >",
-    "no-negative": "¡Sin negativos!"
+    "no-negative": "¡Sin negativos!",
+    "accepts-fract": "Acepta fracciones. ej:"
+
 
 }
