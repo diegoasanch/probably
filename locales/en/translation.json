@@ -35,5 +35,8 @@
 
     "no-greater": "can't be >",
     "no-negative": "No negatives!",
-    "accepts-fract": "Accepts fractions. eg:"
+    "accepts-fract": "Accepts fractions. eg:",
+
+    "404-title": "Page not found",
+    "404-subtitle": "Or were you trying to find me?"
 }

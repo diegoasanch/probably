@@ -35,7 +35,8 @@
 
     "no-greater": "no puede ser >",
     "no-negative": "¡Sin negativos!",
-    "accepts-fract": "Acepta fracciones. ej:"
+    "accepts-fract": "Acepta fracciones. ej:",
 
-
+    "404-title": "Página no encontrada",
+    "404-subtitle": "¿O querías encontrarme a mí?"
 }
