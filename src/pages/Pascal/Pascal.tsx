@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import BinomialChart from '../../components/BinomialChart'
 import { IOperationType } from '../../types/pages'
-import { handleHighlight, stringRange } from '../../utils/arrays'
+import { handleHighlight } from '../../utils/arrays'
 
 import PunctualOrAccumulated from '../../components/PunctualOrAccumulated'
 import ResultGroup from '../../components/ResultGroup'
