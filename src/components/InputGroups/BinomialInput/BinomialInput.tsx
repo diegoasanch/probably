@@ -3,7 +3,6 @@ import React, { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import { PrecisionContext } from '../../../contexts/inputs'
 import { Column, Row } from '../../../pages/layout'
-import MathInput from '../../MathInput'
 import ProbabilityInput from '../../ProbabilityInput'
 
 type BlueprintStateSetter = (valueNum: number, valueStr: string) => void
