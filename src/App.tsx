@@ -3,7 +3,7 @@ import { useLocalStorage } from 'react-use'
 import { dark, light } from './styles/colors'
 import { ThemeProvider } from 'styled-components'
 
-import { FocusStyleManager, H1, Spinner } from "@blueprintjs/core"
+import { FocusStyleManager, H1 } from "@blueprintjs/core"
 import Sidebar from './components/Sidebar'
 import PageHeader from './components/PageHeader'
 import { pageOptions, defaultPage } from './pages/available'
@@ -19,6 +19,7 @@ import Binomial from './pages/Binomial'
 import Pascal from './pages/Pascal'
 import Home from './pages/Home'
 import Hypergeometric from './pages/Hypergeometric'
+import LoadingScreen from './components/LoadingScreen'
 
 FocusStyleManager.onlyShowFocusOnTabs()
 
@@ -50,9 +51,9 @@ function App() {
     }, [location.pathname])
 
     return (
-        <Suspense fallback={<AppPageContainer> <Spinner /> </AppPageContainer>}>
-            <ThemeProvider theme={isDark ? dark : light}>
-                <ViewPort className={`.bp3-ui-text ${isDark ? 'bp3-dark' : ''}`}>
+        <ThemeProvider theme={isDark ? dark : light}>
+            <ViewPort className={`.bp3-ui-text ${isDark ? 'bp3-dark' : ''}`}>
+                <Suspense fallback={<LoadingScreen />}>
 
                     <SideContainer>
                         <Sidebar current_page={currentPage} />
@@ -89,9 +90,9 @@ function App() {
                         </PageFrame>
                     </AppPageContainer>
 
-                </ViewPort>
-            </ThemeProvider>
-        </Suspense>
+                </Suspense>
+            </ViewPort>
+        </ThemeProvider>
     );
 }
 
