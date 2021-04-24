@@ -76,7 +76,6 @@ function HyperPascal() {
 
     // For the  calculations
     useDebounce(() => {
-        console.log({ sampleSize })
         handleType(sampleSize, successFound, totalSize, totalSuccess)
     }, 300, [totalSize, totalSuccess, sampleSize, successFound])
 
@@ -99,23 +98,28 @@ function HyperPascal() {
     // Debouncing the table and chart calculations
     useDebounce(() => {
 
-        const newTable = createTable(successFound, totalSize, totalSuccess)
-        console.log({ newTable })
+        if (validInput) {
+            console.time('Table generation ⌚')
+            const newTable = createTable(successFound, totalSize, totalSuccess)
+            console.timeEnd('Table generation ⌚')
 
-        const analysis = getAnalysis(successFound, totalSize, totalSuccess) // TODO: add J(r) (1)
-        console.log({ analysis })
+            console.time('Analysis generation ⌚')
+            const analysis = getAnalysis(successFound, totalSize, totalSuccess) // TODO: add J(r) (1)
+            console.timeEnd('Analysis generation ⌚')
 
-        const probs_from_table = newTable.content.map(item => ({
-            label: String(item[0]),
-            value: item[1],
-        }))
+            console.time('Chart data ⌚')
+            const probs_from_table = newTable.content.map(item => ({
+                label: String(item[0]),
+                value: item[1],
+            }))
+            console.timeEnd('Chart data ⌚')
 
-        setTableData(newTable)
-        setResults(analysis)   // TODO: add J(r) (1)
-        setChartData(probs_from_table)
-        setValidResults(true)
-
-    }, 300, [totalSize, totalSuccess, successFound])
+            setTableData(newTable)
+            setResults(analysis)   // TODO: add J(r) (1)
+            setChartData(probs_from_table)
+            setValidResults(true)
+        }
+    }, 300, [totalSize, totalSuccess, successFound, validInput])
 
     useEffect(() => {
         const valid = !!(totalSize && totalSuccess && successFound)

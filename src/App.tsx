@@ -40,14 +40,11 @@ function App() {
     // Select curent page form url
     useEffect(() => {
         const current_location = location.pathname.substring(1)
-        console.log('Current location, location obj', { current_location, location })
 
         const page = pageOptions.find(
             item => item.url === current_location && !item.disabled
         ) ?? defaultPage
 
-        console.log("Current page")
-        console.log(current_location, page)
         setCurrentPage(page)
 
         // Google analytics

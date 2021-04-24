@@ -83,29 +83,38 @@ function Binomial() {
         setChartData(undefined)
         setResults(defaultResults)
         setValidResults(false)
+        setProbabilities(undefined)
 
         const valid = !!(sampleSize && successProbability)
         setValidInput(valid)
-        setProbabilities(undefined)
     }, [sampleSize, successProbability])
 
     // Debouncing the calculations
     useDebounce(() => {
-        const newTable = createTable(sampleSize, successProbability)
-        const analysis = getAnalysis(sampleSize, successProbability)
 
-        const probs_from_table = newTable.content.map(item => ({
-            label: String(item[0]),
-            value: item[1],
-        }))
+        if (validInput) {
+            console.time('Table generation ⌚')
+            const newTable = createTable(sampleSize, successProbability)
+            console.timeEnd('Table generation ⌚')
 
-        setTableData(newTable)
-        setChartData(probs_from_table)
-        setDataTo(sampleSize)
-        setResults(analysis)
-        setValidResults(true)
+            console.time('Analysis generation ⌚')
+            const analysis = getAnalysis(sampleSize, successProbability)
+            console.timeEnd('Analysis generation ⌚')
 
-    }, 300, [sampleSize, successProbability])
+            console.time('Chart data ⌚')
+            const probs_from_table = newTable.content.map(item => ({
+                label: String(item[0]),
+                value: item[1],
+            }))
+            console.timeEnd('Chart data ⌚')
+
+            setTableData(newTable)
+            setChartData(probs_from_table)
+            setDataTo(sampleSize)
+            setResults(analysis)
+            setValidResults(true)
+        }
+    }, 300, [sampleSize, successProbability, validInput])
 
     return (
         <PrecisionContext.Provider value={roundPrecision}>

@@ -1,6 +1,8 @@
 {
     "pages-home": "Home",
     "select-home": "Home",
+    "home-header-line-1": "Probability",
+    "home-header-line-2": "Distributions",
 
     "pages-binomial": "Binomial Distribution",
     "select-binomial": "Binomial",
@@ -11,7 +13,7 @@
     "pages-hypergeometric": "Hypergeometric Model",
     "select-hypergeometric": "Hypergeometric",
 
-    "pages-hyperpascal": "Hyper-Pascal Model",
+    "pages-hyperpascal": "Pascal Hypergeometric Model",
     "select-hyperpascal": "Hyper-Pascal",
 
     "select-more_soon": "Coming soon...",

@@ -91,20 +91,29 @@ function Hypergeometric() {
 
     // Debouncing the table and chart calculations
     useDebounce(() => {
-        const newTable = createTable(sampleSize, totalSize, totalSuccess)
-        const analysis = getAnalysis(sampleSize, totalSize, totalSuccess) // TODO: add J(r) (1)
 
-        const probs_from_table = newTable.content.map(item => ({
-            label: String(item[0]),
-            value: item[1],
-        }))
+        if (validInput) {
+            console.time('Table generation ⌚')
+            const newTable = createTable(sampleSize, totalSize, totalSuccess)
+            console.timeEnd('Table generation ⌚')
 
-        setTableData(newTable)
-        setResults(analysis)   // TODO: add J(r) (1)
-        setChartData(probs_from_table)
-        setValidResults(true)
+            console.time('Analysis generation ⌚')
+            const analysis = getAnalysis(sampleSize, totalSize, totalSuccess) // TODO: add J(r) (1)
+            console.timeEnd('Analysis generation ⌚')
 
-    }, 300, [totalSize, totalSuccess, sampleSize])
+            console.time('Chart data ⌚')
+            const probs_from_table = newTable.content.map(item => ({
+                label: String(item[0]),
+                value: item[1],
+            }))
+            console.timeEnd('Chart data ⌚')
+
+            setTableData(newTable)
+            setResults(analysis)   // TODO: add J(r) (1)
+            setChartData(probs_from_table)
+            setValidResults(true)
+        }
+    }, 300, [totalSize, totalSuccess, sampleSize, validInput])
 
     useEffect(() => {
         const valid = !!(totalSize && totalSuccess && sampleSize)

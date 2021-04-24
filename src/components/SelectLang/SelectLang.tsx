@@ -16,7 +16,6 @@ const SelectLang = () => {
     const [langs, setLangs] = useState<ILang[]>([])
 
     const handleSelect = (item: string) => {
-        console.log({item})
         let newLang = validLang(item)
         setCurrentLang(newLang)
         setLang(newLang)

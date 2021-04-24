@@ -37,7 +37,7 @@ const Sidebar = ({
                 <SideNav>
                     {
                         options.map(option => (
-                            <StyledLink to={option.disabled ? '#' : option.url}>
+                            <StyledLink to={option.disabled ? '#' : option.url} key={option.id}>
                                 <NavButton
                                     selected={current_page.id === option.id}
                                     disabled={option.disabled}

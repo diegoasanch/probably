@@ -8,7 +8,7 @@ import { ChartControls, HeaderContainer, LandingBackground, LandingContainer, Si
 import LandingChart from '../../components/LandingChart'
 import { Button } from '@blueprintjs/core'
 
-const INITIAL_SIZE = 70
+const INITIAL_SIZE = 60
 
 const cleanSize = (value: string): number => {
     const newSize = parseInt(value)
@@ -40,7 +40,6 @@ const Home = () => {
         setPlayAnimation( prev => !prev )
     }
 
-
     const handleSize = (value: string) => {
         setSize(cleanSize(value))
     }
@@ -49,7 +48,8 @@ const Home = () => {
         <LandingContainer>
             <HeaderContainer>
                 <HomeHeader>
-                    Probability <br/> Distributions
+                    {t('home-header-line-1')}<br/>
+                    {t('home-header-line-2')}
                 </HomeHeader>
                 <HomeSubTitle>
                     {t('calculate-pre')}&nbsp;
@@ -57,7 +57,9 @@ const Home = () => {
                         <TextLoop>
                             {
                                 getLandingPageOptions().map(option => (
-                                    <StyledLink to={option.url}>{option.id}</StyledLink>
+                                    <StyledLink to={option.url} key={option.id}>
+                                        {option.id}
+                                    </StyledLink>
                                 ))
                             }
                         </TextLoop>
