@@ -57,9 +57,6 @@ function Binomial() {
     const handleSuccessProb = (valueNum: number, valueStr: string ) => {
         setSuccessProbability(parseFloat(valueStr))
     }
-    const handleTab = (tab: IOperationType) => {
-        setOpType(tab)
-    }
     const handleType = (r: number, n: number, p: number) => {
         setProbabilities(getProbabilities(r, n, p))
     }
@@ -123,7 +120,7 @@ function Binomial() {
                         setRoundPrecision={setRoundPrecision}
                         extraPanel={
                             <PunctualOrAccumulated
-                                handleTab={handleTab}
+                                handleTab={setOpType}
                                 variable={successFound}
                                 validInput={validInput}
                                 probabilities={probabilities}

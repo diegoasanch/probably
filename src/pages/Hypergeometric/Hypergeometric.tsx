@@ -58,10 +58,6 @@ function Hypergeometric() {
     const [highlight, setHighlight] = useState<string | string[]>('')
     const [opType, setOpType] = useState<IOperationType>('p')
 
-    const handleTab = (tab: IOperationType) => {
-        setOpType(tab)
-    }
-
     const handleType = (r: number, n: number, N: number, R: number) => {
         setProbabilities(getProbabilities(r, n, N, R))
     }
@@ -130,7 +126,7 @@ function Hypergeometric() {
 
                         extraPanel={
                             <PunctualOrAccumulated
-                                handleTab={handleTab}
+                                handleTab={setOpType}
                                 variable={successFound}
                                 validInput={validInput}
                                 probabilities={probabilities}

@@ -66,9 +66,6 @@ function Pascal() {
         setSuccessFound(value)
         setDataFrom(value)
     }
-    const handleTab = (tab: IOperationType) => {
-        setOpType(tab)
-    }
     const handleType = (r: number, n: number, p: number) => {
         setProbabilities(getProbabilities(n, r, p))
     }
@@ -135,7 +132,7 @@ function Pascal() {
                         sampleSize={sampleSize}
                         extraPanel={
                             <PunctualOrAccumulated
-                                handleTab={handleTab}
+                                handleTab={setOpType}
                                 variable={sampleSize}
                                 validInput={validInput}
                                 probabilities={probabilities}
