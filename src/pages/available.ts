@@ -41,6 +41,16 @@ const hypergeometric: IPageInfo = {
     icon: 'function',
 }
 
+const hyperPascal: IPageInfo = {
+    id: 'hyperpascal',
+    url: 'hyperpascal',
+    title: 'pages-hyperpascal',
+    disabled: false,
+    landingPage: true,
+    select: true,
+    icon: 'function',
+}
+
 const coming_soon: IPageInfo = {
     id: 'more_soon',
     url: '',
@@ -57,6 +67,7 @@ const pageOptions: IPageInfo[] = [
     binomial,
     pascal,
     hypergeometric,
+    hyperPascal,
     coming_soon,
 ]
 
@@ -73,7 +84,6 @@ const getLandingPageOptions = (): IPageInfo[] => {
 const getSelectOptions = (): IPageInfo[] => {
     return pageOptions.filter(item => item.select)
 }
-
 
 export {
     home,

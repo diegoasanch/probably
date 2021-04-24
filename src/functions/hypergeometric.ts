@@ -122,7 +122,7 @@ const getProbabilities = (r: number, n: number, N: number, R: number): IProbabil
 
 
 const defaultTable: ITable = {
-    headers: ['n', 'P(n)', 'F(n)', 'G(n)', 'H(n)'],
+    headers: ['r', 'P(r)', 'F(r)', 'G(r)', 'H(r)'],
     content: [
         [0, 0, 0 ,0, 0], [0, 0, 0 ,0, 0],
         [0, 0, 0 ,0, 0], [0, 0, 0 ,0, 0],
@@ -134,6 +134,9 @@ const defaultTable: ITable = {
 
 
 export {
+    probability,
+    accumulatedLeft,
+    accumulatedRight,
     createTable,
     getAnalysis,
     getProbabilities,

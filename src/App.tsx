@@ -8,19 +8,21 @@ import Sidebar from './components/Sidebar'
 import PageHeader from './components/PageHeader'
 import { pageOptions, defaultPage } from './pages/available'
 
+import { HashRouter, Route, Switch, useLocation } from 'react-router-dom'
+import Binomial from './pages/Binomial'
+import Pascal from './pages/Pascal'
+import Home from './pages/Home'
+
+import Hypergeometric from './pages/Hypergeometric'
+import LoadingScreen from './components/LoadingScreen'
+import NotFound404 from './pages/NotFound404'
 import {
     ViewPort,
     SideContainer,
     AppPageContainer,
     PageFrame
 } from './pages/layout'
-import { HashRouter, Route, Switch, useLocation } from 'react-router-dom'
-import Binomial from './pages/Binomial'
-import Pascal from './pages/Pascal'
-import Home from './pages/Home'
-import Hypergeometric from './pages/Hypergeometric'
-import LoadingScreen from './components/LoadingScreen'
-import NotFound404 from './pages/NotFound404'
+import HyperPascal from './pages/HyperPascal'
 
 FocusStyleManager.onlyShowFocusOnTabs()
 
@@ -49,8 +51,8 @@ function App() {
         setCurrentPage(page)
 
         // Google analytics
-        if ((window as any).gtag) {
-            (window as any).gtag('set', 'page', location.pathname + location.search);
+        if (typeof((window as any).gtag) === 'function') {
+            (window as any).gtag('set', 'page', location.pathname + location.hash + location.search);
             (window as any).gtag('send', 'pageview');
         }
 
@@ -83,8 +85,11 @@ function App() {
                                     <Route exact path="/pascal">
                                         <Pascal />
                                     </Route>
-                                    <Route exact path="/Hypergeometric">
+                                    <Route exact path="/hypergeometric">
                                         <Hypergeometric />
+                                    </Route>
+                                    <Route exact path="/hyperpascal">
+                                        <HyperPascal />
                                     </Route>
                                     <Route exact path="/">
                                         <Home />
