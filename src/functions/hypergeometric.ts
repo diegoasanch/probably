@@ -3,6 +3,12 @@ import { combinatory } from "./general"
 import { analysis_labels } from "./shared"
 
 const probability = (r: number, n: number, N: number, R: number): number => {
+    const MIN_LIMIT = Math.max(0, n - (N - R))
+    const MAX_LIMIT = Math.min(n, R)
+
+    if (r < MIN_LIMIT || r > MAX_LIMIT)
+        return 0
+
     const numerator = combinatory(R, r) * combinatory(N - R, n - r)
     const denominator = combinatory(N, n)
 
@@ -122,7 +128,7 @@ const getProbabilities = (r: number, n: number, N: number, R: number): IProbabil
 
 
 const defaultTable: ITable = {
-    headers: ['n', 'P(n)', 'F(n)', 'G(n)', 'H(n)'],
+    headers: ['r', 'P(r)', 'F(r)', 'G(r)', 'H(r)'],
     content: [
         [0, 0, 0 ,0, 0], [0, 0, 0 ,0, 0],
         [0, 0, 0 ,0, 0], [0, 0, 0 ,0, 0],
@@ -134,6 +140,9 @@ const defaultTable: ITable = {
 
 
 export {
+    probability,
+    accumulatedLeft,
+    accumulatedRight,
     createTable,
     getAnalysis,
     getProbabilities,

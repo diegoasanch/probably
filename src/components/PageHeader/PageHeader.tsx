@@ -1,16 +1,15 @@
 import React from 'react'
+import { StyledNavbar, StyledSwitch } from './styles'
+import { useTranslation } from 'react-i18next'
+import SelectLang from '../SelectLang'
+
+import { IPageInfo } from '../../types/pages'
+import { InlineIcon } from '../../styles/typography'
 import {
     NavbarGroup,
     NavbarHeading,
     Alignment,
 } from '@blueprintjs/core'
-
-import { StyledNavbar, StyledSwitch } from './styles'
-import { useTranslation } from 'react-i18next'
-import SelectLang from '../SelectLang'
-import { IPageInfo } from '../../types/pages'
-import { InlineIcon } from '../../styles/typography'
-
 
 type Iprops = {
     title: string,

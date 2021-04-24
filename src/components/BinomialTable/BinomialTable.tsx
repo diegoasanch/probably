@@ -43,7 +43,10 @@ const BinomialTable = ({ table, highlight, isLoading }: IProps) => {
             columnWidths={getColumnWidths(table.headers.length)}
         >
             {table.headers.map((header: string, i: number) => (
-                <Column name={header} cellRenderer={row => renderCell(row, i)} />
+                <Column
+                    name={header}
+                    cellRenderer={row => renderCell(row, i)}
+                    key={`column-${i}`} />
             ))}
         </StyledTable>
     )

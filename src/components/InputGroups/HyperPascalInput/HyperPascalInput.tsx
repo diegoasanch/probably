@@ -31,7 +31,7 @@ const PascalInput = ({
     const handleNaNs = (numVal: number, strVal: string): void => {
         if (!strVal)
             numVal = NaN
-        handleSuccessFound(numVal)
+        handleSampleSize(numVal)
     }
 
     return (
@@ -56,20 +56,20 @@ const PascalInput = ({
                     />
                 </Label>
                 <Label>
-                    <code>n</code> = {t('sample-size')}
-                    <NumericInput
-                        min={1}
-                        onValueChange={handleSampleSize}
-                        minorStepSize={1}
-                        placeholder="n"
-                    />
-                </Label>
-                <Label>
                     <code>r</code> = {t('success-found')}
                     <NumericInput
                         min={0}
-                        onValueChange={handleNaNs}
+                        onValueChange={handleSuccessFound}
                         placeholder="r"
+                    />
+                </Label>
+                <Label>
+                    <code>n</code> = {t('sample-size')}
+                    <NumericInput
+                        min={1}
+                        onValueChange={handleNaNs}
+                        minorStepSize={1}
+                        placeholder="n"
                     />
                 </Label>
 

@@ -13,32 +13,43 @@ import { Spinner } from '@blueprintjs/core'
 import PageTemplate from '../PageTemplate'
 import { PrecisionContext } from '../../contexts/inputs'
 
-import BinomialInput from '../../components/InputGroups/BinomialInput'
+import HyperPascalInput from '../../components/InputGroups/HyperPascalInput'
 import {
     createTable,
     defaultTable,
     getAnalysis,
     getProbabilities
-} from '../../functions/binomials'
+} from '../../functions/hyperPascal'
 import { defaultResults } from '../../functions/shared'
 import { showToast } from '../../utils/toaster'
 import NoGreater from '../../components/NoGreater'
 import NoNegative from '../../components/NoNegative'
 
-const validateInput = (n: number, p: number, r: number): void => {
+const validateInput = (N: number, R: number, n: number, r: number): void => {
+
+    const MAX_n = N - R + r
+
+    if (R > N)
+        showToast(<NoGreater a='R' b='N' />, 'danger')
+    if (r > N)
+        showToast(<NoGreater a='r' b='N' />, 'danger')
+    if (r > R)
+        showToast(<NoGreater a='r' b='R' />, 'danger')
     if (r > n)
         showToast(<NoGreater a='r' b='n' />, 'danger')
-    if (p > 1)
-        showToast(<NoGreater a='p' b='1' />, 'danger')
-    if ([n, r, p].some(item => item < 0))
+    if (n > MAX_n)
+        showToast(<NoGreater a='n' b={`(N - R + r) = ${MAX_n}`} />, 'danger')
+    if ([N, R, n, r].some(item => item < 0))
         showToast(<NoNegative />, 'danger')
 }
 
-function Binomial() {
+function HyperPascal() {
 
+    const [totalSize, setTotalSize] = useState(NaN) // N
+    const [totalSuccess, setTotalSuccess] = useState(NaN) // R
     const [sampleSize, setSampleSize] = useState(NaN) // n
-    const [successProbability, setSuccessProbability] = useState(NaN) // p
     const [successFound, setSuccessFound] = useState<number>(NaN) // r
+
     const [validInput, setValidInput] = useState(false)
 
     const [roundPrecision, setRoundPrecision] = useState(5)
@@ -49,33 +60,30 @@ function Binomial() {
     const [tableData, setTableData] = useState<ITable | undefined>()
     const [chartData, setChartData] = useState<IBarChartItem[] | undefined>(([ {label: '', value: 0} ]) as IBarChartItem[])
 
-    // const [dataFrom, setDataFrom] = useState<number>(0)
-    const [dataTo, setDataTo] = useState(0)
     const [highlight, setHighlight] = useState<string | string[]>('')
     const [opType, setOpType] = useState<IOperationType>('p')
 
-    const handleSuccessProb = (valueNum: number, valueStr: string ) => {
-        setSuccessProbability(parseFloat(valueStr))
-    }
-    const handleType = (r: number, n: number, p: number) => {
-        setProbabilities(getProbabilities(r, n, p))
+
+    const handleType = (n: number, r: number, N: number, R: number) => {
+        setProbabilities(getProbabilities(n, r, N, R))
     }
 
-    // for the punctual probs  loader
+    // For the panel animation
     useEffect(() => {
         setProbabilities(undefined)
-        validateInput(sampleSize, successProbability, successFound)
-    }, [sampleSize, successProbability, successFound])
+        validateInput(totalSize, totalSuccess, sampleSize, successFound)
+    }, [totalSize, totalSuccess, sampleSize, successFound])
 
-    // For the calculations
+    // For the  calculations
     useDebounce(() => {
-        handleType( successFound, sampleSize, successProbability)
-    }, 300, [sampleSize, successProbability, successFound])
+        handleType(sampleSize, successFound, totalSize, totalSuccess)
+    }, 300, [totalSize, totalSuccess, sampleSize, successFound])
 
+    // For the higlights
     useEffect(() => {
-        const toHighlight = handleHighlight(opType, successFound, dataTo)
+        const toHighlight = handleHighlight(opType, sampleSize, totalSize)
         setHighlight(toHighlight)
-    }, [successFound, dataTo, opType])
+    }, [opType, sampleSize, totalSize])
 
     // for rendering the loaders
     useEffect(() => {
@@ -85,20 +93,18 @@ function Binomial() {
         setValidResults(false)
         setProbabilities(undefined)
 
-        const valid = !!(sampleSize && successProbability)
-        setValidInput(valid)
-    }, [sampleSize, successProbability])
+    }, [totalSize, totalSuccess, successFound])
 
-    // Debouncing the calculations
+    // Debouncing the table and chart calculations
     useDebounce(() => {
 
         if (validInput) {
             console.time('Table generation ⌚')
-            const newTable = createTable(sampleSize, successProbability)
+            const newTable = createTable(successFound, totalSize, totalSuccess)
             console.timeEnd('Table generation ⌚')
 
             console.time('Analysis generation ⌚')
-            const analysis = getAnalysis(sampleSize, successProbability)
+            const analysis = getAnalysis(successFound, totalSize, totalSuccess) // TODO: add J(r) (1)
             console.timeEnd('Analysis generation ⌚')
 
             console.time('Chart data ⌚')
@@ -109,31 +115,37 @@ function Binomial() {
             console.timeEnd('Chart data ⌚')
 
             setTableData(newTable)
+            setResults(analysis)   // TODO: add J(r) (1)
             setChartData(probs_from_table)
-            setDataTo(sampleSize)
-            setResults(analysis)
             setValidResults(true)
         }
-    }, 300, [sampleSize, successProbability, validInput])
+    }, 300, [totalSize, totalSuccess, successFound, validInput])
+
+    useEffect(() => {
+        const valid = !!(totalSize && totalSuccess && successFound)
+        setValidInput(valid)
+    }, [totalSize, totalSuccess, successFound])
 
     return (
         <PrecisionContext.Provider value={roundPrecision}>
             <PageTemplate
-                noInputs={{ a: 'n', b: 'p'}}
+                noInputs={{ a: 'N', b: 'r', c: 'R' }}
                 validInput={validInput}
                 input={
-                    <BinomialInput
-                        handleSampleSize={setSampleSize}
-                        handleSuccessProb={handleSuccessProb}
-                        handleSuccessFound={setSuccessFound}
+                    <HyperPascalInput
+                        handleTotalSize={setTotalSize} // N
+                        handleTotalSuccess={setTotalSuccess} // R
+                        handleSampleSize={setSampleSize} // n
+                        handleSuccessFound={setSuccessFound} // r
                         setRoundPrecision={setRoundPrecision}
+
                         extraPanel={
                             <PunctualOrAccumulated
                                 handleTab={setOpType}
-                                variable={successFound}
+                                variable={sampleSize}
                                 validInput={validInput}
                                 probabilities={probabilities}
-                                varLabel="r"
+                                varLabel="n"
                             />
                         }
                     />
@@ -145,7 +157,7 @@ function Binomial() {
                     /> }
                 table={
                     <BinomialTable
-                        table={tableData || defaultTable}
+                        table={tableData ?? defaultTable}
                         isLoading={!tableData}
                         highlight={highlight}
                     />
@@ -153,7 +165,7 @@ function Binomial() {
                 chart={
                     (chartData ?
                         <BinomialChart
-                            variable="r"
+                            variable="n"
                             data={chartData}
                             highlight={highlight}
                         />
@@ -166,4 +178,4 @@ function Binomial() {
     )
 }
 
-export default Binomial
+export default HyperPascal

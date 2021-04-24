@@ -66,9 +66,6 @@ function Pascal() {
         setSuccessFound(value)
         setDataFrom(value)
     }
-    const handleTab = (tab: IOperationType) => {
-        setOpType(tab)
-    }
     const handleType = (r: number, n: number, p: number) => {
         setProbabilities(getProbabilities(n, r, p))
     }
@@ -101,20 +98,28 @@ function Pascal() {
 
     // Debouncing the table and chart calculations
     useDebounce(() => {
-        const newTable = createTable(successFound, successProbability, dataFrom)
-        const analysis = getAnalysis(successFound, successProbability) // TODO: check (1)
+        if (validInput) {
+            console.time('Table generation ⌚')
+            const newTable = createTable(successFound, successProbability, dataFrom)
+            console.timeEnd('Table generation ⌚')
 
-        const probs_from_table = newTable.content.map(item => ({
-            label: String(item[0]),
-            value: item[1],
-        }))
+            console.time('Analysis generation ⌚')
+            const analysis = getAnalysis(successFound, successProbability) // TODO: check (1)
+            console.timeEnd('Analysis generation ⌚')
 
-        setTableData(newTable)
-        setResults(analysis)   // TODO: check (1)
-        setChartData(probs_from_table)
-        setValidResults(true)
+            console.time('Chart data ⌚')
+            const probs_from_table = newTable.content.map(item => ({
+                label: String(item[0]),
+                value: item[1],
+            }))
+            console.timeEnd('Chart data ⌚')
 
-    }, 300, [successFound, successProbability])
+            setTableData(newTable)
+            setResults(analysis)   // TODO: check (1)
+            setChartData(probs_from_table)
+            setValidResults(true)
+        }
+    }, 300, [successFound, successProbability, validInput])
 
     useEffect(() => {
         const valid = !!(successFound && successProbability)
@@ -135,7 +140,7 @@ function Pascal() {
                         sampleSize={sampleSize}
                         extraPanel={
                             <PunctualOrAccumulated
-                                handleTab={handleTab}
+                                handleTab={setOpType}
                                 variable={sampleSize}
                                 validInput={validInput}
                                 probabilities={probabilities}

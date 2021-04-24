@@ -15,7 +15,7 @@ const MathInput = ({ min, max, stepSize, onValueChange, placeholder }: INumericI
                 parsedNum = evaluate(strValue)
             }
             catch (error) {
-                console.error('Error parsing input', error)
+                console.error('mathjs error 🤦‍♂️: parsing input error')
                 parsedNum = 0
             }
             // console.log(`Parsed num: ${parsedNum}, type: ${typeof(parsedNum)}`)
