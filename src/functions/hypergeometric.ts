@@ -3,6 +3,15 @@ import { combinatory } from "./general"
 import { analysis_labels } from "./shared"
 
 const probability = (r: number, n: number, N: number, R: number): number => {
+    const MIN_LIMIT = Math.max(0, n - (N - R))
+    const MAX_LIMIT = Math.min(n, R)
+
+
+    if (r < MIN_LIMIT || r > MAX_LIMIT) {
+        // console.log(`Outside limits`, {r, MIN_LIMIT, MAX_LIMIT})
+        return 0
+    }
+
     const numerator = combinatory(R, r) * combinatory(N - R, n - r)
     const denominator = combinatory(N, n)
 

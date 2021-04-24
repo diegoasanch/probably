@@ -63,9 +63,6 @@ function HyperPascal() {
     const [highlight, setHighlight] = useState<string | string[]>('')
     const [opType, setOpType] = useState<IOperationType>('p')
 
-    const handleTab = (tab: IOperationType) => {
-        setOpType(tab)
-    }
 
     const handleType = (n: number, r: number, N: number, R: number) => {
         setProbabilities(getProbabilities(n, r, N, R))
@@ -140,7 +137,7 @@ function HyperPascal() {
 
                         extraPanel={
                             <PunctualOrAccumulated
-                                handleTab={handleTab}
+                                handleTab={setOpType}
                                 variable={sampleSize}
                                 validInput={validInput}
                                 probabilities={probabilities}
