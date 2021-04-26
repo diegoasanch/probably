@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import BinomialChart from '../../components/BinomialChart'
+import ProbabilityChart from '../../components/ProbabilityChart'
 import { IOperationType } from '../../types/pages'
 import { handleHighlight } from '../../utils/arrays'
 
 import PunctualOrAccumulated from '../../components/PunctualOrAccumulated'
 import ResultGroup from '../../components/ResultGroup'
-import BinomialTable from '../../components/BinomialTable'
+import ProbabilityTable from '../../components/ProbabilityTable'
 import { useDebounce } from 'react-use'
 
 import { IBarChartItem, ITable, IProbabilities, IResult } from '../../types/tables'
@@ -40,10 +40,10 @@ const validateInput = (N: number, R: number, n: number, r: number): void => {
 
 function Hypergeometric() {
 
-    const [totalSize, setTotalSize] = useState(NaN) // N
-    const [totalSuccess, setTotalSuccess] = useState(NaN) // R
-    const [sampleSize, setSampleSize] = useState(NaN) // n
-    const [successFound, setSuccessFound] = useState<number>(NaN) // r
+    const [totalSize, setTotalSize] = useState(NaN) // .............. N
+    const [totalSuccess, setTotalSuccess] = useState(NaN) // ........ R
+    const [sampleSize, setSampleSize] = useState(NaN) // ............ n
+    const [successFound, setSuccessFound] = useState<number>(NaN) //. r
 
     const [validInput, setValidInput] = useState(false)
 
@@ -150,7 +150,7 @@ function Hypergeometric() {
                         results={results}
                     /> }
                 table={
-                    <BinomialTable
+                    <ProbabilityTable
                         table={tableData || defaultTable}
                         isLoading={!tableData}
                         highlight={highlight}
@@ -158,8 +158,8 @@ function Hypergeometric() {
                 }
                 chart={
                     (chartData ?
-                        <BinomialChart
-                            variable="n"
+                        <ProbabilityChart
+                            variable="r"
                             data={chartData}
                             highlight={highlight}
                         />

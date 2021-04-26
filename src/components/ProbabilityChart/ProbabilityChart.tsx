@@ -13,7 +13,7 @@ type IProps = {
     variable: string,
 }
 
-const BinomialChart = ({ data, highlight, variable }: IProps ) => {
+const ProbabilityChart = ({ data, highlight, variable }: IProps ) => {
 
     const themeContext = useContext(ThemeContext)
 
@@ -47,4 +47,4 @@ const BinomialChart = ({ data, highlight, variable }: IProps ) => {
     )
 }
 
-export default BinomialChart
+export default ProbabilityChart

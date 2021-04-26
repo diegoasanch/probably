@@ -18,7 +18,7 @@ const getColumnWidths = (length: number) => {
     return [35].concat(Array(length - 1).fill(75))
 }
 
-const BinomialTable = ({ table, highlight, isLoading }: IProps) => {
+const ProbabilityTable = ({ table, highlight, isLoading }: IProps) => {
 
     const roundPrecision = useContext(PrecisionContext)
 
@@ -52,4 +52,4 @@ const BinomialTable = ({ table, highlight, isLoading }: IProps) => {
     )
 }
 
-export default BinomialTable
+export default ProbabilityTable

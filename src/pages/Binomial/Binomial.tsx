@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import BinomialChart from '../../components/BinomialChart'
+import ProbabilityChart from '../../components/ProbabilityChart'
 import { IOperationType } from '../../types/pages'
 import { handleHighlight } from '../../utils/arrays'
 
 import PunctualOrAccumulated from '../../components/PunctualOrAccumulated'
 import ResultGroup from '../../components/ResultGroup'
-import BinomialTable from '../../components/BinomialTable'
+import ProbabilityTable from '../../components/ProbabilityTable'
 import { useDebounce } from 'react-use'
 
 import { IBarChartItem, ITable, IProbabilities, IResult } from '../../types/tables'
@@ -25,7 +25,34 @@ import { showToast } from '../../utils/toaster'
 import NoGreater from '../../components/NoGreater'
 import NoNegative from '../../components/NoNegative'
 
+// TODO: Fix the bug170  ------------------------
+import { useTranslation } from 'react-i18next'
+import SvgIcon from '../../components/SvgIcon'
+import bug from '../../svg/bug.svg'
+
+const TemporaryWarning170 = () => {
+    const { t } = useTranslation()
+
+    return (
+        <span>
+            {t('bug170-pre')} <code>n &gt; 170</code> {t('bug170-post') + ' '}
+            <a
+                href="https://github.com/diegoasanch/probably/issues/6"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                bug.
+                <SvgIcon src={bug} name="bug" height="2em" />
+            </a>
+
+        </span>
+    )
+}
+//! end TODO: Fix the bug170 ---------------------
+
 const validateInput = (n: number, p: number, r: number): void => {
+    if (n > 170)
+        showToast(<TemporaryWarning170 />, 'danger')
     if (r > n)
         showToast(<NoGreater a='r' b='n' />, 'danger')
     if (p > 1)
@@ -85,7 +112,8 @@ function Binomial() {
         setValidResults(false)
         setProbabilities(undefined)
 
-        const valid = !!(sampleSize && successProbability)
+        // TODO: Also remove the <= 170 limit from bug170
+        const valid = !!(sampleSize && successProbability && sampleSize <= 170)
         setValidInput(valid)
     }, [sampleSize, successProbability])
 
@@ -144,7 +172,7 @@ function Binomial() {
                         results={results}
                     /> }
                 table={
-                    <BinomialTable
+                    <ProbabilityTable
                         table={tableData || defaultTable}
                         isLoading={!tableData}
                         highlight={highlight}
@@ -152,7 +180,7 @@ function Binomial() {
                 }
                 chart={
                     (chartData ?
-                        <BinomialChart
+                        <ProbabilityChart
                             variable="r"
                             data={chartData}
                             highlight={highlight}

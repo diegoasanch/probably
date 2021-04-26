@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import BinomialChart from '../../components/BinomialChart'
+import ProbabilityChart from '../../components/ProbabilityChart'
 import { IOperationType } from '../../types/pages'
 import { handleHighlight } from '../../utils/arrays'
 
 import PunctualOrAccumulated from '../../components/PunctualOrAccumulated'
 import ResultGroup from '../../components/ResultGroup'
-import BinomialTable from '../../components/BinomialTable'
+import ProbabilityTable from '../../components/ProbabilityTable'
 import { useDebounce } from 'react-use'
 
 import { IBarChartItem, ITable, IProbabilities, IResult } from '../../types/tables'
@@ -65,6 +65,7 @@ function Pascal() {
         const value = parseFloat(valueStr) ?? 0
         setSuccessFound(value)
         setDataFrom(value)
+        setDataTo(value + 80)
     }
     const handleType = (r: number, n: number, p: number) => {
         setProbabilities(getProbabilities(n, r, p))
@@ -100,7 +101,7 @@ function Pascal() {
     useDebounce(() => {
         if (validInput) {
             console.time('Table generation ⌚')
-            const newTable = createTable(successFound, successProbability, dataFrom)
+            const newTable = createTable(successFound, successProbability, dataFrom, dataTo)
             console.timeEnd('Table generation ⌚')
 
             console.time('Analysis generation ⌚')
@@ -155,7 +156,7 @@ function Pascal() {
                         results={results}
                     /> }
                 table={
-                    <BinomialTable
+                    <ProbabilityTable
                         table={tableData || defaultTable}
                         isLoading={!tableData}
                         highlight={highlight}
@@ -163,7 +164,7 @@ function Pascal() {
                 }
                 chart={
                     (chartData ?
-                        <BinomialChart
+                        <ProbabilityChart
                             variable="n"
                             data={chartData}
                             highlight={highlight}
