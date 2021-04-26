@@ -43,5 +43,7 @@
     "accepts-fract": "Accepts fractions. eg:",
 
     "404-title": "Page not found",
-    "404-subtitle": "Or were you trying to find me?"
+    "404-subtitle": "Or were you trying to find me?",
+    "bug170-pre": "We're sorry, for the moment we can't do",
+    "bug170-post": "because of a"
 }

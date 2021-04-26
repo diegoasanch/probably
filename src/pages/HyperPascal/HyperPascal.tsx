@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import BinomialChart from '../../components/BinomialChart'
+import ProbabilityChart from '../../components/ProbabilityChart'
 import { IOperationType } from '../../types/pages'
 import { handleHighlight } from '../../utils/arrays'
 
 import PunctualOrAccumulated from '../../components/PunctualOrAccumulated'
 import ResultGroup from '../../components/ResultGroup'
-import BinomialTable from '../../components/BinomialTable'
+import ProbabilityTable from '../../components/ProbabilityTable'
 import { useDebounce } from 'react-use'
 
 import { IBarChartItem, ITable, IProbabilities, IResult } from '../../types/tables'
@@ -156,7 +156,7 @@ function HyperPascal() {
                         results={results}
                     /> }
                 table={
-                    <BinomialTable
+                    <ProbabilityTable
                         table={tableData ?? defaultTable}
                         isLoading={!tableData}
                         highlight={highlight}
@@ -164,7 +164,7 @@ function HyperPascal() {
                 }
                 chart={
                     (chartData ?
-                        <BinomialChart
+                        <ProbabilityChart
                             variable="n"
                             data={chartData}
                             highlight={highlight}

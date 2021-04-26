@@ -1,18 +1,15 @@
 import React from 'react'
-import styled from 'styled-components'
-
-const ImgContainer = styled.img`
-    height: 1.5em;
-`
+import { InlineImg } from './styles'
 
 type IProps = {
     src: string,
     name?: string
+    height?: string,
 }
 
-const SvgIcon = ({ src, name }: IProps) => {
+const SvgIcon = ({ src, name, height }: IProps) => {
     return (
-        <ImgContainer src={src} alt={name ?? 'svg-icon'} />
+        <InlineImg src={src} alt={name ?? 'svg-icon'} height={height} />
     )
 }
 

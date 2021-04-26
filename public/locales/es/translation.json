@@ -43,5 +43,7 @@
     "accepts-fract": "Acepta fracciones. ej:",
 
     "404-title": "Página no encontrada",
-    "404-subtitle": "¿O querías encontrarme a mí?"
+    "404-subtitle": "¿O querías encontrarme a mí?",
+    "bug170-pre": "Lo sentimos, por el momento no podemos calcular",
+    "bug170-post": "debido a un"
 }
