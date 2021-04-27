@@ -2,7 +2,7 @@
 
 ### Probabilty Distributions calculator
 
-Created as a tool for the "Estadistica General" course at UADE
+Created as a tool for the "Estadistica General" course at UADE.
 
 ### Why?
 
@@ -16,7 +16,7 @@ Contributions are welcome!
 __Ideas__:  
 - Page for a model that hasn't been implemented yet.
 - Extend the functionality of existing pages.
-- Fix an bug.
+- Fix a bug.
 - Fix a typo.  
 
 Just contact me regarding what you want to implement before you start to make sure we're not working on the same thing and duplicating stuff.
