@@ -24,6 +24,7 @@ import { defaultResults } from '../../functions/shared'
 import { showToast } from '../../utils/toaster'
 import NoGreater from '../../components/NoGreater'
 import NoNegative from '../../components/NoNegative'
+import { INPUT_DEBOUNCE } from '../../utils/constants'
 
 const validateInput = (N: number, R: number, n: number, r: number): void => {
     if (R > N)
@@ -71,7 +72,7 @@ function Hypergeometric() {
     // For the  calculations
     useDebounce(() => {
         handleType(successFound, sampleSize, totalSize, totalSuccess)
-    }, 300, [totalSize, totalSuccess, sampleSize, successFound])
+    }, INPUT_DEBOUNCE, [totalSize, totalSuccess, sampleSize, successFound])
 
     // For the higlights
     useEffect(() => {
@@ -113,7 +114,7 @@ function Hypergeometric() {
             setChartData(probs_from_table)
             setValidResults(true)
         }
-    }, 300, [totalSize, totalSuccess, sampleSize, validInput])
+    }, INPUT_DEBOUNCE, [totalSize, totalSuccess, sampleSize, validInput])
 
     useEffect(() => {
         const valid = !!(totalSize && totalSuccess && sampleSize)

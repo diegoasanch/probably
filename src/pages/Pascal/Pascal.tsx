@@ -14,16 +14,18 @@ import PageTemplate from '../PageTemplate'
 import { PrecisionContext } from '../../contexts/inputs'
 
 import PascalInput from '../../components/InputGroups/PascalInput'
+import { defaultResults } from '../../functions/shared'
+import { showToast } from '../../utils/toaster'
+import NoGreater from '../../components/NoGreater'
+
+import NoNegative from '../../components/NoNegative'
+import { INPUT_DEBOUNCE } from '../../utils/constants'
 import {
     createTable,
     defaultTable,
     getAnalysis,
     getProbabilities
 } from '../../functions/pascal'
-import { defaultResults } from '../../functions/shared'
-import { showToast } from '../../utils/toaster'
-import NoGreater from '../../components/NoGreater'
-import NoNegative from '../../components/NoNegative'
 
 const validateInput = (n: number, p: number, r: number): void => {
     if (p > 1)
@@ -78,7 +80,7 @@ function Pascal() {
     // For the  calculations
     useDebounce(() => {
         handleType( successFound, sampleSize, successProbability)
-    }, 300, [sampleSize, successProbability, successFound])
+    }, INPUT_DEBOUNCE, [sampleSize, successProbability, successFound])
 
     // For the higlights
     useEffect(() => {
@@ -93,7 +95,6 @@ function Pascal() {
         setResults(defaultResults)
         setValidResults(false)
         setProbabilities(undefined)
-
 
     }, [successFound, successProbability])
 
@@ -120,7 +121,7 @@ function Pascal() {
             setChartData(probs_from_table)
             setValidResults(true)
         }
-    }, 300, [successFound, successProbability, validInput])
+    }, INPUT_DEBOUNCE, [successFound, successProbability, validInput])
 
     useEffect(() => {
         const valid = !!(successFound && successProbability)

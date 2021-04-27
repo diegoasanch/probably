@@ -24,6 +24,7 @@ import { defaultResults } from '../../functions/shared'
 import { showToast } from '../../utils/toaster'
 import NoGreater from '../../components/NoGreater'
 import NoNegative from '../../components/NoNegative'
+import { INPUT_DEBOUNCE } from '../../utils/constants'
 
 const validateInput = (N: number, R: number, n: number, r: number): void => {
 
@@ -77,7 +78,7 @@ function HyperPascal() {
     // For the  calculations
     useDebounce(() => {
         handleType(sampleSize, successFound, totalSize, totalSuccess)
-    }, 300, [totalSize, totalSuccess, sampleSize, successFound])
+    }, INPUT_DEBOUNCE, [totalSize, totalSuccess, sampleSize, successFound])
 
     // For the higlights
     useEffect(() => {
@@ -119,7 +120,7 @@ function HyperPascal() {
             setChartData(probs_from_table)
             setValidResults(true)
         }
-    }, 300, [totalSize, totalSuccess, successFound, validInput])
+    }, INPUT_DEBOUNCE, [totalSize, totalSuccess, successFound, validInput])
 
     useEffect(() => {
         const valid = !!(totalSize && totalSuccess && successFound)
