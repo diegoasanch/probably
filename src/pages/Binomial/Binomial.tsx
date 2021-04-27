@@ -127,6 +127,7 @@ function Binomial() {
             const analysis = getAnalysis(sampleSize, successProbability)
             console.timeEnd('Analysis generation ⌚')
             setResults(analysis)
+            setValidResults(true)
         }
 
         if (validInput) {
@@ -149,7 +150,6 @@ function Binomial() {
             setChartData(probs_from_table)
             setDataTo(sampleSize)
             // setResults(analysis)
-            setValidResults(true)
         }
     }, 300, [sampleSize, successProbability, validInput, validAnalysis])
 
@@ -178,8 +178,8 @@ function Binomial() {
                 }
                 analysis={
                     <ResultGroup
-                        validResults={validAnalysis}
-                        // validResults={validResults}
+                        // validResults={validAnalysis}
+                        validResults={validResults}
                         results={results}
                     /> }
                 table={
