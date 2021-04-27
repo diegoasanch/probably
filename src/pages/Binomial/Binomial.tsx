@@ -8,10 +8,15 @@ import ResultGroup from '../../components/ResultGroup'
 import ProbabilityTable from '../../components/ProbabilityTable'
 import { useDebounce } from 'react-use'
 
-import { IBarChartItem, ITable, IProbabilities, IResult } from '../../types/tables'
+import { IBarChartItem, ITable, IProbabilities, IResult, Highlight } from '../../types/tables'
 import { Spinner } from '@blueprintjs/core'
 import PageTemplate from '../PageTemplate'
 import { PrecisionContext } from '../../contexts/inputs'
+
+import { defaultResults } from '../../functions/shared'
+import { showToast } from '../../utils/toaster'
+import NoGreater from '../../components/NoGreater'
+import NoNegative from '../../components/NoNegative'
 
 import BinomialInput from '../../components/InputGroups/BinomialInput'
 import {
@@ -20,39 +25,9 @@ import {
     getAnalysis,
     getProbabilities
 } from '../../functions/binomials'
-import { defaultResults } from '../../functions/shared'
-import { showToast } from '../../utils/toaster'
-import NoGreater from '../../components/NoGreater'
-import NoNegative from '../../components/NoNegative'
-
-// TODO: Fix the bug170  ------------------------
-import { useTranslation } from 'react-i18next'
-import SvgIcon from '../../components/SvgIcon'
-import bug from '../../svg/bug.svg'
-
-const TemporaryWarning170 = () => {
-    const { t } = useTranslation()
-
-    return (
-        <span>
-            {t('bug170-pre')} <code>n &gt; 170</code> {t('bug170-post') + ' '}
-            <a
-                href="https://github.com/diegoasanch/probably/issues/6"
-                target="_blank"
-                rel="noopener noreferrer"
-            >
-                bug.
-                <SvgIcon src={bug} name="bug" height="2em" />
-            </a>
-
-        </span>
-    )
-}
-//! end TODO: Fix the bug170 ---------------------
+import { INPUT_DEBOUNCE } from '../../utils/constants'
 
 const validateInput = (n: number, p: number, r: number): void => {
-    if (n > 170)
-        showToast(<TemporaryWarning170 />, 'danger')
     if (r > n)
         showToast(<NoGreater a='r' b='n' />, 'danger')
     if (p > 1)
@@ -71,15 +46,14 @@ function Binomial() {
     const [roundPrecision, setRoundPrecision] = useState(5)
     const [results, setResults] = useState<IResult[]>(defaultResults)
     const [validResults, setValidResults] = useState(false)
-    const [validAnalysis, setValidAnalysis] = useState(false) // TODO: Fix this
-    const [probabilities, setProbabilities] = useState<IProbabilities | undefined>()
+    const [probabilities, setProbabilities] = useState<IProbabilities>()
 
-    const [tableData, setTableData] = useState<ITable | undefined>()
-    const [chartData, setChartData] = useState<IBarChartItem[] | undefined>(([ {label: '', value: 0} ]) as IBarChartItem[])
+    const [tableData, setTableData] = useState<ITable>()
+    const [chartData, setChartData] = useState<IBarChartItem[]>()
 
     // const [dataFrom, setDataFrom] = useState<number>(0)
     const [dataTo, setDataTo] = useState(0)
-    const [highlight, setHighlight] = useState<string | string[]>('')
+    const [highlight, setHighlight] = useState<Highlight>()
     const [opType, setOpType] = useState<IOperationType>('p')
 
     const handleSuccessProb = (valueNum: number, valueStr: string ) => {
@@ -98,8 +72,9 @@ function Binomial() {
     // For the calculations
     useDebounce(() => {
         handleType( successFound, sampleSize, successProbability)
-    }, 300, [sampleSize, successProbability, successFound])
+    }, INPUT_DEBOUNCE, [sampleSize, successProbability, successFound])
 
+    // For the highlight
     useEffect(() => {
         const toHighlight = handleHighlight(opType, successFound, dataTo)
         setHighlight(toHighlight)
@@ -113,35 +88,25 @@ function Binomial() {
         setValidResults(false)
         setProbabilities(undefined)
 
-        // TODO: Also remove the <= 170 limit from bug170
         const valid = !!(sampleSize && successProbability)
-        setValidInput(valid &&  (sampleSize <= 170))
-        setValidAnalysis(valid) // TODO: fix
+        setValidInput(valid)
     }, [sampleSize, successProbability])
 
     // Debouncing the calculations
     useDebounce(() => {
-
-        if (validAnalysis) {
-            console.time('Analysis generation ⌚')
-            const analysis = getAnalysis(sampleSize, successProbability)
-            console.timeEnd('Analysis generation ⌚')
-            setResults(analysis)
-            setValidResults(true)
-        }
 
         if (validInput) {
             console.time('Table generation ⌚')
             const newTable = createTable(sampleSize, successProbability)
             console.timeEnd('Table generation ⌚')
 
-            // console.time('Analysis generation ⌚')
-            // const analysis = getAnalysis(sampleSize, successProbability)
-            // console.timeEnd('Analysis generation ⌚')
+            console.time('Analysis generation ⌚')
+            const analysis = getAnalysis(sampleSize, successProbability)
+            console.timeEnd('Analysis generation ⌚')
 
             console.time('Chart data ⌚')
             const probs_from_table = newTable.content.map(item => ({
-                label: String(item[0]),
+                label: item[0],
                 value: item[1],
             }))
             console.timeEnd('Chart data ⌚')
@@ -149,16 +114,16 @@ function Binomial() {
             setTableData(newTable)
             setChartData(probs_from_table)
             setDataTo(sampleSize)
-            // setResults(analysis)
+            setResults(analysis)
+            setValidResults(true)
         }
-    }, 300, [sampleSize, successProbability, validInput, validAnalysis])
+    }, INPUT_DEBOUNCE, [sampleSize, successProbability, validInput])
 
     return (
         <PrecisionContext.Provider value={roundPrecision}>
             <PageTemplate
                 noInputs={{ a: 'n', b: 'p'}}
                 validInput={validInput}
-                validAnalysis={validAnalysis}
                 input={
                     <BinomialInput
                         handleSampleSize={setSampleSize}
@@ -178,7 +143,6 @@ function Binomial() {
                 }
                 analysis={
                     <ResultGroup
-                        // validResults={validAnalysis}
                         validResults={validResults}
                         results={results}
                     /> }

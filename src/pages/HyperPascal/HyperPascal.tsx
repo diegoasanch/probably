@@ -8,7 +8,7 @@ import ResultGroup from '../../components/ResultGroup'
 import ProbabilityTable from '../../components/ProbabilityTable'
 import { useDebounce } from 'react-use'
 
-import { IBarChartItem, ITable, IProbabilities, IResult } from '../../types/tables'
+import { IBarChartItem, ITable, IProbabilities, IResult, Highlight } from '../../types/tables'
 import { Spinner } from '@blueprintjs/core'
 import PageTemplate from '../PageTemplate'
 import { PrecisionContext } from '../../contexts/inputs'
@@ -24,6 +24,7 @@ import { defaultResults } from '../../functions/shared'
 import { showToast } from '../../utils/toaster'
 import NoGreater from '../../components/NoGreater'
 import NoNegative from '../../components/NoNegative'
+import { INPUT_DEBOUNCE } from '../../utils/constants'
 
 const validateInput = (N: number, R: number, n: number, r: number): void => {
 
@@ -55,12 +56,12 @@ function HyperPascal() {
     const [roundPrecision, setRoundPrecision] = useState(5)
     const [results, setResults] = useState<IResult[]>(defaultResults)
     const [validResults, setValidResults] = useState(false)
-    const [probabilities, setProbabilities] = useState<IProbabilities | undefined>()
+    const [probabilities, setProbabilities] = useState<IProbabilities>()
 
-    const [tableData, setTableData] = useState<ITable | undefined>()
-    const [chartData, setChartData] = useState<IBarChartItem[] | undefined>(([ {label: '', value: 0} ]) as IBarChartItem[])
+    const [tableData, setTableData] = useState<ITable>()
+    const [chartData, setChartData] = useState<IBarChartItem[]>()
 
-    const [highlight, setHighlight] = useState<string | string[]>('')
+    const [highlight, setHighlight] = useState<Highlight>()
     const [opType, setOpType] = useState<IOperationType>('p')
 
 
@@ -77,7 +78,7 @@ function HyperPascal() {
     // For the  calculations
     useDebounce(() => {
         handleType(sampleSize, successFound, totalSize, totalSuccess)
-    }, 300, [totalSize, totalSuccess, sampleSize, successFound])
+    }, INPUT_DEBOUNCE, [totalSize, totalSuccess, sampleSize, successFound])
 
     // For the higlights
     useEffect(() => {
@@ -109,7 +110,7 @@ function HyperPascal() {
 
             console.time('Chart data ⌚')
             const probs_from_table = newTable.content.map(item => ({
-                label: String(item[0]),
+                label: item[0],
                 value: item[1],
             }))
             console.timeEnd('Chart data ⌚')
@@ -119,7 +120,7 @@ function HyperPascal() {
             setChartData(probs_from_table)
             setValidResults(true)
         }
-    }, 300, [totalSize, totalSuccess, successFound, validInput])
+    }, INPUT_DEBOUNCE, [totalSize, totalSuccess, successFound, validInput])
 
     useEffect(() => {
         const valid = !!(totalSize && totalSuccess && successFound)

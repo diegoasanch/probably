@@ -8,22 +8,24 @@ import ResultGroup from '../../components/ResultGroup'
 import ProbabilityTable from '../../components/ProbabilityTable'
 import { useDebounce } from 'react-use'
 
-import { IBarChartItem, ITable, IProbabilities, IResult } from '../../types/tables'
+import { IBarChartItem, ITable, IProbabilities, IResult, Highlight } from '../../types/tables'
 import { Spinner } from '@blueprintjs/core'
 import PageTemplate from '../PageTemplate'
 import { PrecisionContext } from '../../contexts/inputs'
 
 import PascalInput from '../../components/InputGroups/PascalInput'
+import { defaultResults } from '../../functions/shared'
+import { showToast } from '../../utils/toaster'
+import NoGreater from '../../components/NoGreater'
+
+import NoNegative from '../../components/NoNegative'
+import { INPUT_DEBOUNCE } from '../../utils/constants'
 import {
     createTable,
     defaultTable,
     getAnalysis,
     getProbabilities
 } from '../../functions/pascal'
-import { defaultResults } from '../../functions/shared'
-import { showToast } from '../../utils/toaster'
-import NoGreater from '../../components/NoGreater'
-import NoNegative from '../../components/NoNegative'
 
 const validateInput = (n: number, p: number, r: number): void => {
     if (p > 1)
@@ -42,16 +44,14 @@ function Pascal() {
     const [roundPrecision, setRoundPrecision] = useState(5)
     const [results, setResults] = useState<IResult[]>(defaultResults)
     const [validResults, setValidResults] = useState(false)
-    const [probabilities, setProbabilities] = useState<IProbabilities | undefined>()
+    const [probabilities, setProbabilities] = useState<IProbabilities>()
 
-    const [tableData, setTableData] = useState<ITable | undefined>()
-    const [chartData, setChartData] = useState<IBarChartItem[] | undefined>(([ {label: '', value: 0} ]) as IBarChartItem[])
+    const [tableData, setTableData] = useState<ITable>()
+    const [chartData, setChartData] = useState<IBarChartItem[]>()
 
     const [dataFrom, setDataFrom] = useState<number>(0)
-    // TODO: fix this disable
-    // eslint-disable-next-line
     const [dataTo, setDataTo] = useState(60)
-    const [highlight, setHighlight] = useState<string | string[]>('')
+    const [highlight, setHighlight] = useState<Highlight>()
     const [opType, setOpType] = useState<IOperationType>('p')
 
     const handleSampleSize = (valueNum: number, valueStr: string ) => {
@@ -78,7 +78,7 @@ function Pascal() {
     // For the  calculations
     useDebounce(() => {
         handleType( successFound, sampleSize, successProbability)
-    }, 300, [sampleSize, successProbability, successFound])
+    }, INPUT_DEBOUNCE, [sampleSize, successProbability, successFound])
 
     // For the higlights
     useEffect(() => {
@@ -93,7 +93,6 @@ function Pascal() {
         setResults(defaultResults)
         setValidResults(false)
         setProbabilities(undefined)
-
 
     }, [successFound, successProbability])
 
@@ -110,7 +109,7 @@ function Pascal() {
 
             console.time('Chart data ⌚')
             const probs_from_table = newTable.content.map(item => ({
-                label: String(item[0]),
+                label: item[0],
                 value: item[1],
             }))
             console.timeEnd('Chart data ⌚')
@@ -120,7 +119,7 @@ function Pascal() {
             setChartData(probs_from_table)
             setValidResults(true)
         }
-    }, 300, [successFound, successProbability, validInput])
+    }, INPUT_DEBOUNCE, [successFound, successProbability, validInput])
 
     useEffect(() => {
         const valid = !!(successFound && successProbability)

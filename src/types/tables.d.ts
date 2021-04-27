@@ -4,7 +4,7 @@ type ITable = {
 }
 
 type IBarChartItem = {
-    label: string,
+    label: number,
     value: number,
 }
 
@@ -19,9 +19,21 @@ type IProbabilities = {
     accum_right: number,
 }
 
+/**
+ * If if `isRange` is set to `true`, the evaluation will be: `currentNum >= min
+ * && currentNum <= max`, else evaluation will be `currentNum === num`
+ */
+type Highlight = {
+    isRange: boolean,
+    num: number,
+    min: number,
+    max: number,
+}
+
 export {
     ITable,
     IBarChartItem,
     IResult,
     IProbabilities,
+    Highlight,
 }

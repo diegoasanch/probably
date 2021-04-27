@@ -14,6 +14,7 @@ import {
 } from './styles'
 import { getSelectOptions } from '../../pages/available'
 import { StyledLink } from '../../styles/typography'
+import DevTag from '../DevTag'
 
 type IProps = {
     readonly current_page: IPageInfo,
@@ -59,6 +60,9 @@ const Sidebar = ({
                     </H4>
                     <H5 className="bp3-text-muted">
                         version: {packageJSON.version}
+                        { process.env.NODE_ENV === 'development' &&
+                            <DevTag />
+                        }
                     </H5>
                     <H6 className="bp3-text-muted">
                         <Icon icon="code" />&nbsp;

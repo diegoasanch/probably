@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import { Cell, Column } from '@blueprintjs/table'
-import { ITable } from '../../types/tables'
+import { Highlight, ITable } from '../../types/tables'
 import { isCellHighlight } from '../../utils/determine_style'
 import { StyledTable } from './styles'
 import { PrecisionContext } from '../../contexts/inputs'
@@ -8,7 +8,7 @@ import { PrecisionContext } from '../../contexts/inputs'
 type IProps = {
     table: ITable,
     isLoading: boolean,
-    highlight?: string | string[],
+    highlight?: Highlight,
 }
 
 /**
