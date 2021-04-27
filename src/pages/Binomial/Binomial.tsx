@@ -71,6 +71,7 @@ function Binomial() {
     const [roundPrecision, setRoundPrecision] = useState(5)
     const [results, setResults] = useState<IResult[]>(defaultResults)
     const [validResults, setValidResults] = useState(false)
+    const [validAnalysis, setValidAnalysis] = useState(false) // TODO: Fix this
     const [probabilities, setProbabilities] = useState<IProbabilities | undefined>()
 
     const [tableData, setTableData] = useState<ITable | undefined>()
@@ -113,21 +114,29 @@ function Binomial() {
         setProbabilities(undefined)
 
         // TODO: Also remove the <= 170 limit from bug170
-        const valid = !!(sampleSize && successProbability && sampleSize <= 170)
-        setValidInput(valid)
+        const valid = !!(sampleSize && successProbability)
+        setValidInput(valid &&  (sampleSize <= 170))
+        setValidAnalysis(valid) // TODO: fix
     }, [sampleSize, successProbability])
 
     // Debouncing the calculations
     useDebounce(() => {
+
+        if (validAnalysis) {
+            console.time('Analysis generation ⌚')
+            const analysis = getAnalysis(sampleSize, successProbability)
+            console.timeEnd('Analysis generation ⌚')
+            setResults(analysis)
+        }
 
         if (validInput) {
             console.time('Table generation ⌚')
             const newTable = createTable(sampleSize, successProbability)
             console.timeEnd('Table generation ⌚')
 
-            console.time('Analysis generation ⌚')
-            const analysis = getAnalysis(sampleSize, successProbability)
-            console.timeEnd('Analysis generation ⌚')
+            // console.time('Analysis generation ⌚')
+            // const analysis = getAnalysis(sampleSize, successProbability)
+            // console.timeEnd('Analysis generation ⌚')
 
             console.time('Chart data ⌚')
             const probs_from_table = newTable.content.map(item => ({
@@ -139,16 +148,17 @@ function Binomial() {
             setTableData(newTable)
             setChartData(probs_from_table)
             setDataTo(sampleSize)
-            setResults(analysis)
+            // setResults(analysis)
             setValidResults(true)
         }
-    }, 300, [sampleSize, successProbability, validInput])
+    }, 300, [sampleSize, successProbability, validInput, validAnalysis])
 
     return (
         <PrecisionContext.Provider value={roundPrecision}>
             <PageTemplate
                 noInputs={{ a: 'n', b: 'p'}}
                 validInput={validInput}
+                validAnalysis={validAnalysis}
                 input={
                     <BinomialInput
                         handleSampleSize={setSampleSize}
@@ -168,7 +178,8 @@ function Binomial() {
                 }
                 analysis={
                     <ResultGroup
-                        validResults={validResults}
+                        validResults={validAnalysis}
+                        // validResults={validResults}
                         results={results}
                     /> }
                 table={

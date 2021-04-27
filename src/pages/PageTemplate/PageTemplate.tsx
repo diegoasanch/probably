@@ -18,6 +18,7 @@ type IProps = {
     table: JSX.Element,
     chart: JSX.Element,
     validInput: boolean,
+    validAnalysis?: boolean, // TODO: maybe fix
     noInputs: INoInputs
 }
 
@@ -26,7 +27,7 @@ type IProps = {
  * the pages, receives the page components to render and places them accordingly
  * @returns
  */
-const PageTemplate = ({ input, analysis, table, chart, validInput, noInputs }: IProps) => {
+const PageTemplate = ({ input, analysis, table, chart, validInput, validAnalysis, noInputs }: IProps) => {
 
     const { t } = useTranslation()
 
@@ -40,7 +41,7 @@ const PageTemplate = ({ input, analysis, table, chart, validInput, noInputs }: I
                 </Column>
                 <Column>
                     <H1>{t('analysis')}</H1>
-                    { validInput ?
+                    { validAnalysis ?
                         analysis
                       :
                         <NoInput {...noInputs} />
