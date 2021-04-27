@@ -8,7 +8,7 @@ import ResultGroup from '../../components/ResultGroup'
 import ProbabilityTable from '../../components/ProbabilityTable'
 import { useDebounce } from 'react-use'
 
-import { IBarChartItem, ITable, IProbabilities, IResult } from '../../types/tables'
+import { IBarChartItem, ITable, IProbabilities, IResult, Highlight } from '../../types/tables'
 import { Spinner } from '@blueprintjs/core'
 import PageTemplate from '../PageTemplate'
 import { PrecisionContext } from '../../contexts/inputs'
@@ -44,16 +44,14 @@ function Pascal() {
     const [roundPrecision, setRoundPrecision] = useState(5)
     const [results, setResults] = useState<IResult[]>(defaultResults)
     const [validResults, setValidResults] = useState(false)
-    const [probabilities, setProbabilities] = useState<IProbabilities | undefined>()
+    const [probabilities, setProbabilities] = useState<IProbabilities>()
 
-    const [tableData, setTableData] = useState<ITable | undefined>()
-    const [chartData, setChartData] = useState<IBarChartItem[] | undefined>(([ {label: '', value: 0} ]) as IBarChartItem[])
+    const [tableData, setTableData] = useState<ITable>()
+    const [chartData, setChartData] = useState<IBarChartItem[]>()
 
     const [dataFrom, setDataFrom] = useState<number>(0)
-    // TODO: fix this disable
-    // eslint-disable-next-line
     const [dataTo, setDataTo] = useState(60)
-    const [highlight, setHighlight] = useState<string | string[]>('')
+    const [highlight, setHighlight] = useState<Highlight>()
     const [opType, setOpType] = useState<IOperationType>('p')
 
     const handleSampleSize = (valueNum: number, valueStr: string ) => {
@@ -111,7 +109,7 @@ function Pascal() {
 
             console.time('Chart data ⌚')
             const probs_from_table = newTable.content.map(item => ({
-                label: String(item[0]),
+                label: item[0],
                 value: item[1],
             }))
             console.timeEnd('Chart data ⌚')

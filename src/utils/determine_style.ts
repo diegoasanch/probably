@@ -1,19 +1,19 @@
+import { Highlight } from "../types/tables"
+import { inRange } from "./numbers"
+
 const isCellHighlight = (
-    value: number | string,
-    highlight: string | string[] | undefined,
+    value: number,
+    highlight: Highlight | undefined,
 ): boolean => {
 
-    let is_highlight
-    value = String(value)
+    let is_highlight = false
 
-    if (typeof(highlight) === 'string')
-        is_highlight =  highlight === value
-
-    else if (highlight instanceof Array)
-        is_highlight = highlight.includes(value)
-    else
-        is_highlight = true
-
+    if (highlight) {
+        if (highlight.isRange)
+            is_highlight =  inRange(value, highlight.min, highlight.max)
+        else
+            is_highlight = value === highlight.num
+    }
     // console.log({ is_highlight, value, highlight })
     return is_highlight
 }

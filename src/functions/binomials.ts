@@ -98,7 +98,7 @@ const createLandingChart = (n: number, p: number): IBarChartItem[] => {
     for (let r = 0; r <= n; r++) {
         chart_data.push(
             {
-                label: String(r),
+                label: r,
                 value: binomialModel(r, n, p)
             }
         )

@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { IBarChartItem } from '../../types/tables'
+import { Highlight, IBarChartItem } from '../../types/tables'
 import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip } from 'recharts';
 import { OverflowContainer } from '../../pages/layout';
 import { ThemeContext } from 'styled-components'
@@ -9,7 +9,7 @@ import ChartTooltip from '../ChartTooltip';
 
 type IProps = {
     data: IBarChartItem[],
-    highlight?: string | string[],
+    highlight?: Highlight,
     variable: string,
 }
 
