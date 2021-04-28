@@ -1,35 +1,26 @@
-name: Deploy to GitHub Pages
-on:
-  push:
-    tags:
-      - "*"
+name: Run jest tests
+
+on: [pull_request]
 
 jobs:
-  build-deploy:
+  prettier:
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
         with:
           node-version: 14
+
       - uses: actions/cache@v2
         id: cache
         with:
           path: "**/node_modules"
           key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
 
-      - name: Install dependencies
+      - name: Install deps
         if: steps.cache.outputs.cache-hit != 'true'
         run: yarn install
 
-      - name: Test code
+      - name: Test
         run: CI=true yarn test
-
-      - name: Build app
-        run: CI=true yarn build
-
-      - name: Deploy to gh-pages
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./build

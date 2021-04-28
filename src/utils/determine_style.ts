@@ -9,7 +9,7 @@ const isCellHighlight = (
 
     if (highlight) {
         if (highlight.isRange)
-            is_highlight = inRange(value, highlight.min, highlight.max)
+            is_highlight = inRange(value, highlight.min, highlight.max + 1)
         else is_highlight = value === highlight.num
     }
     // console.log({ is_highlight, value, highlight })
