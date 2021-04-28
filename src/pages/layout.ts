@@ -4,11 +4,11 @@ import styled from 'styled-components'
 const minSideBarWidth = '250px'
 
 type IContainer = {
-    width?: 'auto' |  '100%' | '' | 'max-content' | string ,
-    height?: string,
-    margin?: string,
-    noPad?: boolean,
-    noGrow?: boolean,
+    width?: 'auto' | '100%' | '' | 'max-content' | string
+    height?: string
+    margin?: string
+    noPad?: boolean
+    noGrow?: boolean
 }
 
 const ViewPort = styled.div`
@@ -18,13 +18,13 @@ const ViewPort = styled.div`
     flex-direction: row;
 
     > * ::-webkit-scrollbar {
-        background-color: ${props => props.theme.scrollBarBg};
+        background-color: ${(props) => props.theme.scrollBarBg};
         width: 10px;
         height: 10px;
         border-radius: 10px;
     }
     > * ::-webkit-scrollbar-thumb {
-        background-color: ${props => props.theme.scrollBarThumb};
+        background-color: ${(props) => props.theme.scrollBarThumb};
         border-radius: 5px;
     }
 `
@@ -51,33 +51,27 @@ const PageFrame = styled.main`
     width: 100%;
     overflow: auto;
     margin: 0;
-    background-color: ${ props => props.theme.background };
-    color: ${props => props.theme.text };
+    background-color: ${(props) => props.theme.background};
+    color: ${(props) => props.theme.text};
     max-width: 1050px;
     height: 100%;
 `
 
-
-
 const Column = styled.div<IContainer>`
     display: flex;
     flex-direction: column;
-    flex-grow: ${props => props.noGrow ? 0 : 1};
-    height: ${ props => props.height ?? '100%'};
-    width: ${ props => props.width ?? '100%'};
+    flex-grow: ${(props) => (props.noGrow ? 0 : 1)};
+    height: ${(props) => props.height ?? '100%'};
+    width: ${(props) => props.width ?? '100%'};
     min-width: max-content;
 
-    margin: ${props => (
-        props.noPad ? '0' : (
-            props.margin ?? '1em'
-        )
-    )};
+    margin: ${(props) => (props.noPad ? '0' : props.margin ?? '1em')};
 `
 
 const Row = styled.div<IContainer>`
     display: flex;
     flex-direction: row;
-    margin: ${props => props.noPad ? '0' : 'inherit'};
+    margin: ${(props) => (props.noPad ? '0' : 'inherit')};
 `
 const Container = styled(Column)<IContainer>`
     width: 100%;
@@ -104,7 +98,6 @@ const CenteredContainer = styled.div`
     justify-content: center;
 `
 
-
 export {
     ViewPort,
     SideContainer,
@@ -115,5 +108,5 @@ export {
     OverflowContainer,
     AppPageContainer,
     PageContainer,
-    CenteredContainer
+    CenteredContainer,
 }

@@ -5,30 +5,25 @@ import SelectLang from '../SelectLang'
 
 import { IPageInfo } from '../../types/pages'
 import { InlineIcon } from '../../styles/typography'
-import {
-    NavbarGroup,
-    NavbarHeading,
-    Alignment,
-} from '@blueprintjs/core'
+import { NavbarGroup, NavbarHeading, Alignment } from '@blueprintjs/core'
 
 type Iprops = {
-    title: string,
-    currentPage: IPageInfo,
-    readonly isDark: boolean,
-    toggleTheme: () => void,
+    title: string
+    currentPage: IPageInfo
+    readonly isDark: boolean
+    toggleTheme: () => void
 }
 
 const PageHeader = ({ title, currentPage, isDark, toggleTheme }: Iprops) => {
-
     const { t } = useTranslation()
 
     return (
         <StyledNavbar>
             <NavbarGroup align={Alignment.LEFT}>
                 <NavbarHeading>
-                    { currentPage.icon &&
+                    {currentPage.icon && (
                         <InlineIcon icon={currentPage.icon} iconSize={12} />
-                    }
+                    )}
                     {t(title)}
                 </NavbarHeading>
             </NavbarGroup>

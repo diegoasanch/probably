@@ -6,8 +6,8 @@ export const SidebarContainer = styled.nav`
     flex-direction: column;
     height: 100%;
     width: 100%;
-    color: ${props => props.theme.sidebarText};
-    background-color: ${ props => props.theme.sidebarBg };
+    color: ${(props) => props.theme.sidebarText};
+    background-color: ${(props) => props.theme.sidebarBg};
 `
 
 export const Header = styled(H1)`
@@ -20,8 +20,8 @@ export const Header = styled(H1)`
     text-align: center;
 
     code {
-        font-size: .9em;
-        padding-left: .1em;
+        font-size: 0.9em;
+        padding-left: 0.1em;
     }
 `
 
@@ -46,37 +46,34 @@ export const SideNav = styled.nav`
     flex-direction: column;
     align-items: flex-start;
     width: 100%;
-    margin-left: .5em;
+    margin-left: 0.5em;
     padding-top: 3em;
 
     > * {
-        padding: .5em 0;
+        padding: 0.5em 0;
     }
 `
 
 type NavProp = {
-    selected: boolean,
-    disabled: boolean,
+    selected: boolean
+    disabled: boolean
 }
 
 export const NavButton = styled(Text)<NavProp>`
     display: flex;
     font-size: 1.5em;
     align-items: baseline;
-    padding-left: .5em;
+    padding-left: 0.5em;
     transition: 100ms ease-in-out;
 
-    color: ${props => (
-        props.selected ? props.theme.code
-        :
-        props.disabled ? props.theme.disabled_link
-        : 'inherit'
-    )};
-    border-left: ${props => (
-        props.selected ?
-            `4px solid ${props.theme.code}`
-        : 'none'
-    )};
+    color: ${(props) =>
+        props.selected
+            ? props.theme.code
+            : props.disabled
+            ? props.theme.disabled_link
+            : 'inherit'};
+    border-left: ${(props) =>
+        props.selected ? `4px solid ${props.theme.code}` : 'none'};
 
     &:hover {
         border-left: 4px solid;

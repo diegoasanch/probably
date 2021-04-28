@@ -8,7 +8,13 @@ import ResultGroup from '../../components/ResultGroup'
 import ProbabilityTable from '../../components/ProbabilityTable'
 import { useDebounce } from 'react-use'
 
-import { IBarChartItem, ITable, IProbabilities, IResult, Highlight } from '../../types/tables'
+import {
+    IBarChartItem,
+    ITable,
+    IProbabilities,
+    IResult,
+    Highlight,
+} from '../../types/tables'
 import { Spinner } from '@blueprintjs/core'
 import PageTemplate from '../PageTemplate'
 import { PrecisionContext } from '../../contexts/inputs'
@@ -18,7 +24,7 @@ import {
     createTable,
     defaultTable,
     getAnalysis,
-    getProbabilities
+    getProbabilities,
 } from '../../functions/hypergeometric'
 import { defaultResults } from '../../functions/shared'
 import { showToast } from '../../utils/toaster'
@@ -27,20 +33,15 @@ import NoNegative from '../../components/NoNegative'
 import { INPUT_DEBOUNCE } from '../../utils/constants'
 
 const validateInput = (N: number, R: number, n: number, r: number): void => {
-    if (R > N)
-        showToast(<NoGreater a='R' b='N' />, 'danger')
-    if (n > N)
-        showToast(<NoGreater a='n' b='N' />, 'danger')
-    if (r > n)
-        showToast(<NoGreater a='r' b='n' />, 'danger')
-    if (r > R)
-        showToast(<NoGreater a='r' b='R' />, 'danger')
-    if ([N, R, n, r].some(item => item < 0))
+    if (R > N) showToast(<NoGreater a="R" b="N" />, 'danger')
+    if (n > N) showToast(<NoGreater a="n" b="N" />, 'danger')
+    if (r > n) showToast(<NoGreater a="r" b="n" />, 'danger')
+    if (r > R) showToast(<NoGreater a="r" b="R" />, 'danger')
+    if ([N, R, n, r].some((item) => item < 0))
         showToast(<NoNegative />, 'danger')
 }
 
 function Hypergeometric() {
-
     const [totalSize, setTotalSize] = useState(NaN) // .............. N
     const [totalSuccess, setTotalSuccess] = useState(NaN) // ........ R
     const [sampleSize, setSampleSize] = useState(NaN) // ............ n
@@ -70,9 +71,13 @@ function Hypergeometric() {
     }, [totalSize, totalSuccess, sampleSize, successFound])
 
     // For the  calculations
-    useDebounce(() => {
-        handleType(successFound, sampleSize, totalSize, totalSuccess)
-    }, INPUT_DEBOUNCE, [totalSize, totalSuccess, sampleSize, successFound])
+    useDebounce(
+        () => {
+            handleType(successFound, sampleSize, totalSize, totalSuccess)
+        },
+        INPUT_DEBOUNCE,
+        [totalSize, totalSuccess, sampleSize, successFound],
+    )
 
     // For the higlights
     useEffect(() => {
@@ -87,34 +92,44 @@ function Hypergeometric() {
         setResults(defaultResults)
         setValidResults(false)
         setProbabilities(undefined)
-
     }, [totalSize, totalSuccess, sampleSize])
 
     // Debouncing the table and chart calculations
-    useDebounce(() => {
+    useDebounce(
+        () => {
+            if (validInput) {
+                console.time('Table generation ⌚')
+                const newTable = createTable(
+                    sampleSize,
+                    totalSize,
+                    totalSuccess,
+                )
+                console.timeEnd('Table generation ⌚')
 
-        if (validInput) {
-            console.time('Table generation ⌚')
-            const newTable = createTable(sampleSize, totalSize, totalSuccess)
-            console.timeEnd('Table generation ⌚')
+                console.time('Analysis generation ⌚')
+                const analysis = getAnalysis(
+                    sampleSize,
+                    totalSize,
+                    totalSuccess,
+                ) // TODO: add J(r) (1)
+                console.timeEnd('Analysis generation ⌚')
 
-            console.time('Analysis generation ⌚')
-            const analysis = getAnalysis(sampleSize, totalSize, totalSuccess) // TODO: add J(r) (1)
-            console.timeEnd('Analysis generation ⌚')
+                console.time('Chart data ⌚')
+                const probs_from_table = newTable.content.map((item) => ({
+                    label: item[0],
+                    value: item[1],
+                }))
+                console.timeEnd('Chart data ⌚')
 
-            console.time('Chart data ⌚')
-            const probs_from_table = newTable.content.map(item => ({
-                label: item[0],
-                value: item[1],
-            }))
-            console.timeEnd('Chart data ⌚')
-
-            setTableData(newTable)
-            setResults(analysis)   // TODO: add J(r) (1)
-            setChartData(probs_from_table)
-            setValidResults(true)
-        }
-    }, INPUT_DEBOUNCE, [totalSize, totalSuccess, sampleSize, validInput])
+                setTableData(newTable)
+                setResults(analysis) // TODO: add J(r) (1)
+                setChartData(probs_from_table)
+                setValidResults(true)
+            }
+        },
+        INPUT_DEBOUNCE,
+        [totalSize, totalSuccess, sampleSize, validInput],
+    )
 
     useEffect(() => {
         const valid = !!(totalSize && totalSuccess && sampleSize)
@@ -133,7 +148,6 @@ function Hypergeometric() {
                         handleSampleSize={setSampleSize} // n
                         handleSuccessFound={setSuccessFound} // r
                         setRoundPrecision={setRoundPrecision}
-
                         extraPanel={
                             <PunctualOrAccumulated
                                 handleTab={setOpType}
@@ -149,7 +163,8 @@ function Hypergeometric() {
                     <ResultGroup
                         validResults={validResults}
                         results={results}
-                    /> }
+                    />
+                }
                 table={
                     <ProbabilityTable
                         table={tableData || defaultTable}
@@ -158,13 +173,13 @@ function Hypergeometric() {
                     />
                 }
                 chart={
-                    (chartData ?
+                    chartData ? (
                         <ProbabilityChart
                             variable="r"
                             data={chartData}
                             highlight={highlight}
                         />
-                    :
+                    ) : (
                         <Spinner size={100} />
                     )
                 }

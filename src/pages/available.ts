@@ -1,4 +1,4 @@
-import { IPageInfo } from "../types/pages"
+import { IPageInfo } from '../types/pages'
 
 // All available pages
 const home: IPageInfo = {
@@ -8,7 +8,7 @@ const home: IPageInfo = {
     disabled: false,
     landingPage: false,
     select: true,
-    icon: 'home'
+    icon: 'home',
 }
 
 const binomial: IPageInfo = {
@@ -58,7 +58,7 @@ const coming_soon: IPageInfo = {
     disabled: true,
     landingPage: false,
     select: true,
-    icon: 'plus'
+    icon: 'plus',
 }
 
 // Array of all of them
@@ -74,15 +74,15 @@ const pageOptions: IPageInfo[] = [
 const defaultPage = home
 
 const getAvailable = (): string[] => {
-    return pageOptions.map(item => item.id)
+    return pageOptions.map((item) => item.id)
 }
 
 const getLandingPageOptions = (): IPageInfo[] => {
-    return pageOptions.filter(item => item.landingPage)
+    return pageOptions.filter((item) => item.landingPage)
 }
 
 const getSelectOptions = (): IPageInfo[] => {
-    return pageOptions.filter(item => item.select)
+    return pageOptions.filter((item) => item.select)
 }
 
 export {

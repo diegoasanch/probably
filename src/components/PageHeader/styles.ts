@@ -8,10 +8,10 @@ export const StyledNavbar = styled(Navbar)`
     top: 0;
 
     &.bp3-navbar {
-        background-color: ${ props => props.theme.sidebarBg};
+        background-color: ${(props) => props.theme.sidebarBg};
     }
 `
 
 export const StyledSwitch = styled(Switch)`
-    margin: .2em;
+    margin: 0.2em;
 `

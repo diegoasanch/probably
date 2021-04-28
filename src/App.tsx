@@ -3,7 +3,7 @@ import { useLocalStorage } from 'react-use'
 import { dark, light } from './styles/colors'
 import { ThemeProvider } from 'styled-components'
 
-import { FocusStyleManager } from "@blueprintjs/core"
+import { FocusStyleManager } from '@blueprintjs/core'
 import Sidebar from './components/Sidebar'
 import PageHeader from './components/PageHeader'
 import { pageOptions, defaultPage } from './pages/available'
@@ -20,14 +20,13 @@ import {
     ViewPort,
     SideContainer,
     AppPageContainer,
-    PageFrame
+    PageFrame,
 } from './pages/layout'
 import HyperPascal from './pages/HyperPascal'
 
 FocusStyleManager.onlyShowFocusOnTabs()
 
 function App() {
-
     const location = useLocation()
 
     const [isDark, setIsDark] = useLocalStorage('isDark', false)
@@ -41,26 +40,30 @@ function App() {
     useEffect(() => {
         const current_location = location.pathname.substring(1)
 
-        const page = pageOptions.find(
-            item => item.url === current_location && !item.disabled
-        ) ?? defaultPage
+        const page =
+            pageOptions.find(
+                (item) => item.url === current_location && !item.disabled,
+            ) ?? defaultPage
 
         setCurrentPage(page)
 
         // Google analytics
-        if (typeof((window as any).gtag) === 'function') {
-            (window as any).gtag('set', 'page', location.pathname + location.hash + location.search);
-            (window as any).gtag('send', 'pageview');
+        if (typeof (window as any).gtag === 'function') {
+            ;(window as any).gtag(
+                'set',
+                'page',
+                location.pathname + location.hash + location.search,
+            )
+            ;(window as any).gtag('send', 'pageview')
         }
 
-    // eslint-disable-next-line
+        // eslint-disable-next-line
     }, [location.pathname])
 
     return (
         <ThemeProvider theme={isDark ? dark : light}>
             <ViewPort className={`.bp3-ui-text ${isDark ? 'bp3-dark' : ''}`}>
                 <Suspense fallback={<LoadingScreen />}>
-
                     <SideContainer>
                         <Sidebar current_page={currentPage} />
                     </SideContainer>
@@ -73,7 +76,6 @@ function App() {
                             toggleTheme={toggleTheme}
                         />
                         <PageFrame>
-
                             <HashRouter>
                                 <Switch>
                                     <Route exact path="/binomial">
@@ -96,14 +98,12 @@ function App() {
                                     </Route>
                                 </Switch>
                             </HashRouter>
-
                         </PageFrame>
                     </AppPageContainer>
-
                 </Suspense>
             </ViewPort>
         </ThemeProvider>
-    );
+    )
 }
 
-export default App;
+export default App

@@ -8,7 +8,13 @@ import ResultGroup from '../../components/ResultGroup'
 import ProbabilityTable from '../../components/ProbabilityTable'
 import { useDebounce } from 'react-use'
 
-import { IBarChartItem, ITable, IProbabilities, IResult, Highlight } from '../../types/tables'
+import {
+    IBarChartItem,
+    ITable,
+    IProbabilities,
+    IResult,
+    Highlight,
+} from '../../types/tables'
 import { Spinner } from '@blueprintjs/core'
 import PageTemplate from '../PageTemplate'
 import { PrecisionContext } from '../../contexts/inputs'
@@ -24,18 +30,15 @@ import {
     createTable,
     defaultTable,
     getAnalysis,
-    getProbabilities
+    getProbabilities,
 } from '../../functions/pascal'
 
 const validateInput = (n: number, p: number, r: number): void => {
-    if (p > 1)
-        showToast(<NoGreater a='p' b='1' />, 'danger')
-    if ([n, r, p].some(item => item < 0))
-        showToast(<NoNegative />, 'danger')
+    if (p > 1) showToast(<NoGreater a="p" b="1" />, 'danger')
+    if ([n, r, p].some((item) => item < 0)) showToast(<NoNegative />, 'danger')
 }
 
 function Pascal() {
-
     const [sampleSize, setSampleSize] = useState(NaN) // n
     const [successProbability, setSuccessProbability] = useState(NaN) // p
     const [successFound, setSuccessFound] = useState<number>(NaN) // r
@@ -54,14 +57,14 @@ function Pascal() {
     const [highlight, setHighlight] = useState<Highlight>()
     const [opType, setOpType] = useState<IOperationType>('p')
 
-    const handleSampleSize = (valueNum: number, valueStr: string ) => {
+    const handleSampleSize = (valueNum: number, valueStr: string) => {
         setSampleSize(valueNum)
         setProbabilities(undefined)
     }
-    const handleSuccessProb = (valueNum: number, valueStr: string ) => {
+    const handleSuccessProb = (valueNum: number, valueStr: string) => {
         setSuccessProbability(parseFloat(valueStr) ?? 0)
     }
-    const handleSuccessFound = (valueNum: number, valueStr: string ) => {
+    const handleSuccessFound = (valueNum: number, valueStr: string) => {
         const value = parseFloat(valueStr) ?? 0
         setSuccessFound(value)
         setDataFrom(value)
@@ -76,13 +79,22 @@ function Pascal() {
     }, [sampleSize, successProbability, successFound])
 
     // For the  calculations
-    useDebounce(() => {
-        handleType( successFound, sampleSize, successProbability)
-    }, INPUT_DEBOUNCE, [sampleSize, successProbability, successFound])
+    useDebounce(
+        () => {
+            handleType(successFound, sampleSize, successProbability)
+        },
+        INPUT_DEBOUNCE,
+        [sampleSize, successProbability, successFound],
+    )
 
     // For the higlights
     useEffect(() => {
-        const toHighlight = handleHighlight(opType, sampleSize, dataTo, dataFrom)
+        const toHighlight = handleHighlight(
+            opType,
+            sampleSize,
+            dataTo,
+            dataFrom,
+        )
         setHighlight(toHighlight)
     }, [sampleSize, opType, dataTo, dataFrom])
 
@@ -93,33 +105,41 @@ function Pascal() {
         setResults(defaultResults)
         setValidResults(false)
         setProbabilities(undefined)
-
     }, [successFound, successProbability])
 
     // Debouncing the table and chart calculations
-    useDebounce(() => {
-        if (validInput) {
-            console.time('Table generation ⌚')
-            const newTable = createTable(successFound, successProbability, dataFrom, dataTo)
-            console.timeEnd('Table generation ⌚')
+    useDebounce(
+        () => {
+            if (validInput) {
+                console.time('Table generation ⌚')
+                const newTable = createTable(
+                    successFound,
+                    successProbability,
+                    dataFrom,
+                    dataTo,
+                )
+                console.timeEnd('Table generation ⌚')
 
-            console.time('Analysis generation ⌚')
-            const analysis = getAnalysis(successFound, successProbability) // TODO: check (1)
-            console.timeEnd('Analysis generation ⌚')
+                console.time('Analysis generation ⌚')
+                const analysis = getAnalysis(successFound, successProbability) // TODO: check (1)
+                console.timeEnd('Analysis generation ⌚')
 
-            console.time('Chart data ⌚')
-            const probs_from_table = newTable.content.map(item => ({
-                label: item[0],
-                value: item[1],
-            }))
-            console.timeEnd('Chart data ⌚')
+                console.time('Chart data ⌚')
+                const probs_from_table = newTable.content.map((item) => ({
+                    label: item[0],
+                    value: item[1],
+                }))
+                console.timeEnd('Chart data ⌚')
 
-            setTableData(newTable)
-            setResults(analysis)   // TODO: check (1)
-            setChartData(probs_from_table)
-            setValidResults(true)
-        }
-    }, INPUT_DEBOUNCE, [successFound, successProbability, validInput])
+                setTableData(newTable)
+                setResults(analysis) // TODO: check (1)
+                setChartData(probs_from_table)
+                setValidResults(true)
+            }
+        },
+        INPUT_DEBOUNCE,
+        [successFound, successProbability, validInput],
+    )
 
     useEffect(() => {
         const valid = !!(successFound && successProbability)
@@ -153,7 +173,8 @@ function Pascal() {
                     <ResultGroup
                         validResults={validResults}
                         results={results}
-                    /> }
+                    />
+                }
                 table={
                     <ProbabilityTable
                         table={tableData || defaultTable}
@@ -162,13 +183,13 @@ function Pascal() {
                     />
                 }
                 chart={
-                    (chartData ?
+                    chartData ? (
                         <ProbabilityChart
                             variable="n"
                             data={chartData}
                             highlight={highlight}
                         />
-                    :
+                    ) : (
                         <Spinner size={100} />
                     )
                 }

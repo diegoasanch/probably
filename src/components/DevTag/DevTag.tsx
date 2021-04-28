@@ -4,12 +4,13 @@ import { Tooltip2 } from '@blueprintjs/popover2'
 import styled from 'styled-components'
 
 const StyledTag = styled.code`
-    margin-left: .5em;
+    margin-left: 0.5em;
 `
 
 const TooltipContent = () => (
     <span>
-        You are running the <code>development</code> version of Probab<code>/ly</code>
+        You are running the <code>development</code> version of Probab
+        <code>/ly</code>
     </span>
 )
 

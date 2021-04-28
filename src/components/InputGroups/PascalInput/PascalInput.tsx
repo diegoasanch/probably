@@ -9,12 +9,12 @@ type BlueprintStateSetter = (valueNum: number, valueStr: string) => void
 type StateSetter = (value: React.SetStateAction<number>) => void
 
 type IProps = {
-    handleSampleSize: BlueprintStateSetter,
-    handleSuccessProb: BlueprintStateSetter,
-    handleSuccessFound: BlueprintStateSetter,
-    setRoundPrecision: StateSetter,
-    extraPanel?: JSX.Element,
-    sampleSize: number,
+    handleSampleSize: BlueprintStateSetter
+    handleSuccessProb: BlueprintStateSetter
+    handleSuccessFound: BlueprintStateSetter
+    setRoundPrecision: StateSetter
+    extraPanel?: JSX.Element
+    sampleSize: number
 }
 
 const PascalInput = ({
@@ -24,15 +24,13 @@ const PascalInput = ({
     setRoundPrecision,
     extraPanel,
     sampleSize,
-
 }: IProps) => {
-
     const { t } = useTranslation()
     const roundPrecision = useContext(PrecisionContext)
 
     return (
         <Row noPad>
-            <Column margin=".8em 1em" noGrow >
+            <Column margin=".8em 1em" noGrow>
                 <Label>
                     <code>r</code> = {t('success-found')}
                     <NumericInput
@@ -58,7 +56,7 @@ const PascalInput = ({
                     />
                 </Label>
             </Column>
-            <Column margin=".8em 1em" noGrow >
+            <Column margin=".8em 1em" noGrow>
                 <Label>
                     {t('round-precision')} <code> (0.xf)</code>
                     <NumericInput
@@ -68,7 +66,7 @@ const PascalInput = ({
                         placeholder="x"
                     />
                 </Label>
-                { extraPanel }
+                {extraPanel}
             </Column>
         </Row>
     )

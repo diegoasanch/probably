@@ -9,24 +9,21 @@ const { origin, pathname } = window.location
 // console.log(`Deployed translations  ${homepage}/locales/{{lng}}/translation.json`)
 // console.log(`Local translations  ${origin}${pathname}/locales/{{lng}}/translation.json`)
 
-i18n
-    .use(Backend)
+i18n.use(Backend)
     .use(LanguageDetector)
-    .use (initReactI18next)
+    .use(initReactI18next)
     .init({
         backend: {
-          loadPath: (
-              process.env.NODE_ENV === 'production' ?
-              `${homepage}/locales/{{lng}}/translation.json`
-              :
-              `${origin}${pathname}/locales/{{lng}}/translation.json`
-            ),
+            loadPath:
+                process.env.NODE_ENV === 'production'
+                    ? `${homepage}/locales/{{lng}}/translation.json`
+                    : `${origin}${pathname}/locales/{{lng}}/translation.json`,
         },
         fallbackLng: 'es',
         debug: true,
         interpolation: {
-            escapeValue: false
-        }
+            escapeValue: false,
+        },
     })
 
 export default i18n

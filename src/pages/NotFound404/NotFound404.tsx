@@ -11,7 +11,7 @@ const StyledSubTitle = styled(HomeSubTitle)`
     margin: 0;
 `
 const MinText = styled(H3)`
-    color: ${props => props.theme.disabled_link} !important;
+    color: ${(props) => props.theme.disabled_link} !important;
 `
 
 const NotFound404 = () => {
@@ -23,9 +23,7 @@ const NotFound404 = () => {
                 <code>404</code>
             </HomeHeader>
 
-            <StyledSubTitle>
-                {t('404-title')}
-            </StyledSubTitle>
+            <StyledSubTitle>{t('404-title')}</StyledSubTitle>
 
             <MinText>
                 {t('404-subtitle')} <ThinkingIcon />

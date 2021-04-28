@@ -1,10 +1,17 @@
 import React, { useState } from 'react'
 import { HomeHeader, HomeSubTitle, StyledLink } from '../../styles/typography'
-import TextLoop from "react-text-loop"
+import TextLoop from 'react-text-loop'
 import { getLandingPageOptions } from '../available'
 // import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { ChartControls, HeaderContainer, LandingBackground, LandingContainer, SizeInput, StyledEditableText } from './styles'
+import {
+    ChartControls,
+    HeaderContainer,
+    LandingBackground,
+    LandingContainer,
+    SizeInput,
+    StyledEditableText,
+} from './styles'
 import LandingChart from '../../components/LandingChart'
 import { Button } from '@blueprintjs/core'
 
@@ -15,29 +22,22 @@ const cleanSize = (value: string): number => {
     let result: number
 
     if (!isNaN(newSize)) {
-        if (newSize < 1)
-            result = 1
-        else if (newSize > 150)
-            result = 150
-        else
-            result = newSize
-    }
-    else if (value === '')
-        result = 0
-    else
-        result = INITIAL_SIZE
+        if (newSize < 1) result = 1
+        else if (newSize > 150) result = 150
+        else result = newSize
+    } else if (value === '') result = 0
+    else result = INITIAL_SIZE
 
     return result
 }
 
 const Home = () => {
-
     const { t } = useTranslation()
     const [playAnimation, setPlayAnimation] = useState(true)
     const [size, setSize] = useState(INITIAL_SIZE)
 
     const toggleAnimation = () => {
-        setPlayAnimation( prev => !prev )
+        setPlayAnimation((prev) => !prev)
     }
 
     const handleSize = (value: string) => {
@@ -48,25 +48,23 @@ const Home = () => {
         <LandingContainer>
             <HeaderContainer>
                 <HomeHeader>
-                    {t('home-header-line-1')}<br/>
+                    {t('home-header-line-1')}
+                    <br />
                     {t('home-header-line-2')}
                 </HomeHeader>
                 <HomeSubTitle>
                     {t('calculate-pre')}&nbsp;
                     <code>
                         <TextLoop>
-                            {
-                                getLandingPageOptions().map(option => (
-                                    <StyledLink to={option.url} key={option.id}>
-                                        {option.id}
-                                    </StyledLink>
-                                ))
-                            }
+                            {getLandingPageOptions().map((option) => (
+                                <StyledLink to={option.url} key={option.id}>
+                                    {option.id}
+                                </StyledLink>
+                            ))}
                         </TextLoop>
                     </code>
                     {t('calculate-post')}
                 </HomeSubTitle>
-
             </HeaderContainer>
 
             <LandingBackground>

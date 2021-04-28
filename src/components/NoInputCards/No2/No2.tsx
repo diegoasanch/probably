@@ -4,9 +4,9 @@ import { useTranslation } from 'react-i18next'
 import { StyledCallout } from '../../../styles/display'
 
 type IProps = {
-    a: string,
-    b?: string,
-    c?: string,
+    a: string
+    b?: string
+    c?: string
 }
 
 const NoNAndP = ({ a, b, c }: IProps) => {
@@ -16,19 +16,20 @@ const NoNAndP = ({ a, b, c }: IProps) => {
         <StyledCallout>
             <H3>
                 <span className="bp3-text-muted">
-                    <Icon icon="calculator" iconSize={25} />&nbsp;
+                    <Icon icon="calculator" iconSize={25} />
+                    &nbsp;
                 </span>
                 {t('specify')} <code>{a}</code>
-                { c &&
+                {c && (
                     <>
                         &nbsp;, <code>{c}</code>
                     </>
-                }
-                { b &&
+                )}
+                {b && (
                     <>
                         &nbsp;{t('and')} <code>{b}</code>
                     </>
-                }
+                )}
             </H3>
         </StyledCallout>
     )

@@ -8,7 +8,13 @@ import ResultGroup from '../../components/ResultGroup'
 import ProbabilityTable from '../../components/ProbabilityTable'
 import { useDebounce } from 'react-use'
 
-import { IBarChartItem, ITable, IProbabilities, IResult, Highlight } from '../../types/tables'
+import {
+    IBarChartItem,
+    ITable,
+    IProbabilities,
+    IResult,
+    Highlight,
+} from '../../types/tables'
 import { Spinner } from '@blueprintjs/core'
 import PageTemplate from '../PageTemplate'
 import { PrecisionContext } from '../../contexts/inputs'
@@ -18,7 +24,7 @@ import {
     createTable,
     defaultTable,
     getAnalysis,
-    getProbabilities
+    getProbabilities,
 } from '../../functions/hyperPascal'
 import { defaultResults } from '../../functions/shared'
 import { showToast } from '../../utils/toaster'
@@ -27,25 +33,19 @@ import NoNegative from '../../components/NoNegative'
 import { INPUT_DEBOUNCE } from '../../utils/constants'
 
 const validateInput = (N: number, R: number, n: number, r: number): void => {
-
     const MAX_n = N - R + r
 
-    if (R > N)
-        showToast(<NoGreater a='R' b='N' />, 'danger')
-    if (r > N)
-        showToast(<NoGreater a='r' b='N' />, 'danger')
-    if (r > R)
-        showToast(<NoGreater a='r' b='R' />, 'danger')
-    if (r > n)
-        showToast(<NoGreater a='r' b='n' />, 'danger')
+    if (R > N) showToast(<NoGreater a="R" b="N" />, 'danger')
+    if (r > N) showToast(<NoGreater a="r" b="N" />, 'danger')
+    if (r > R) showToast(<NoGreater a="r" b="R" />, 'danger')
+    if (r > n) showToast(<NoGreater a="r" b="n" />, 'danger')
     if (n > MAX_n)
-        showToast(<NoGreater a='n' b={`(N - R + r) = ${MAX_n}`} />, 'danger')
-    if ([N, R, n, r].some(item => item < 0))
+        showToast(<NoGreater a="n" b={`(N - R + r) = ${MAX_n}`} />, 'danger')
+    if ([N, R, n, r].some((item) => item < 0))
         showToast(<NoNegative />, 'danger')
 }
 
 function HyperPascal() {
-
     const [totalSize, setTotalSize] = useState(NaN) // N
     const [totalSuccess, setTotalSuccess] = useState(NaN) // R
     const [sampleSize, setSampleSize] = useState(NaN) // n
@@ -64,7 +64,6 @@ function HyperPascal() {
     const [highlight, setHighlight] = useState<Highlight>()
     const [opType, setOpType] = useState<IOperationType>('p')
 
-
     const handleType = (n: number, r: number, N: number, R: number) => {
         setProbabilities(getProbabilities(n, r, N, R))
     }
@@ -76,9 +75,13 @@ function HyperPascal() {
     }, [totalSize, totalSuccess, sampleSize, successFound])
 
     // For the  calculations
-    useDebounce(() => {
-        handleType(sampleSize, successFound, totalSize, totalSuccess)
-    }, INPUT_DEBOUNCE, [totalSize, totalSuccess, sampleSize, successFound])
+    useDebounce(
+        () => {
+            handleType(sampleSize, successFound, totalSize, totalSuccess)
+        },
+        INPUT_DEBOUNCE,
+        [totalSize, totalSuccess, sampleSize, successFound],
+    )
 
     // For the higlights
     useEffect(() => {
@@ -93,34 +96,44 @@ function HyperPascal() {
         setResults(defaultResults)
         setValidResults(false)
         setProbabilities(undefined)
-
     }, [totalSize, totalSuccess, successFound])
 
     // Debouncing the table and chart calculations
-    useDebounce(() => {
+    useDebounce(
+        () => {
+            if (validInput) {
+                console.time('Table generation ⌚')
+                const newTable = createTable(
+                    successFound,
+                    totalSize,
+                    totalSuccess,
+                )
+                console.timeEnd('Table generation ⌚')
 
-        if (validInput) {
-            console.time('Table generation ⌚')
-            const newTable = createTable(successFound, totalSize, totalSuccess)
-            console.timeEnd('Table generation ⌚')
+                console.time('Analysis generation ⌚')
+                const analysis = getAnalysis(
+                    successFound,
+                    totalSize,
+                    totalSuccess,
+                ) // TODO: add J(r) (1)
+                console.timeEnd('Analysis generation ⌚')
 
-            console.time('Analysis generation ⌚')
-            const analysis = getAnalysis(successFound, totalSize, totalSuccess) // TODO: add J(r) (1)
-            console.timeEnd('Analysis generation ⌚')
+                console.time('Chart data ⌚')
+                const probs_from_table = newTable.content.map((item) => ({
+                    label: item[0],
+                    value: item[1],
+                }))
+                console.timeEnd('Chart data ⌚')
 
-            console.time('Chart data ⌚')
-            const probs_from_table = newTable.content.map(item => ({
-                label: item[0],
-                value: item[1],
-            }))
-            console.timeEnd('Chart data ⌚')
-
-            setTableData(newTable)
-            setResults(analysis)   // TODO: add J(r) (1)
-            setChartData(probs_from_table)
-            setValidResults(true)
-        }
-    }, INPUT_DEBOUNCE, [totalSize, totalSuccess, successFound, validInput])
+                setTableData(newTable)
+                setResults(analysis) // TODO: add J(r) (1)
+                setChartData(probs_from_table)
+                setValidResults(true)
+            }
+        },
+        INPUT_DEBOUNCE,
+        [totalSize, totalSuccess, successFound, validInput],
+    )
 
     useEffect(() => {
         const valid = !!(totalSize && totalSuccess && successFound)
@@ -139,7 +152,6 @@ function HyperPascal() {
                         handleSampleSize={setSampleSize} // n
                         handleSuccessFound={setSuccessFound} // r
                         setRoundPrecision={setRoundPrecision}
-
                         extraPanel={
                             <PunctualOrAccumulated
                                 handleTab={setOpType}
@@ -155,7 +167,8 @@ function HyperPascal() {
                     <ResultGroup
                         validResults={validResults}
                         results={results}
-                    /> }
+                    />
+                }
                 table={
                     <ProbabilityTable
                         table={tableData ?? defaultTable}
@@ -164,13 +177,13 @@ function HyperPascal() {
                     />
                 }
                 chart={
-                    (chartData ?
+                    chartData ? (
                         <ProbabilityChart
                             variable="n"
                             data={chartData}
                             highlight={highlight}
                         />
-                    :
+                    ) : (
                         <Spinner size={100} />
                     )
                 }

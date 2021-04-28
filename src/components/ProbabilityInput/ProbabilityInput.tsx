@@ -1,6 +1,6 @@
 import React from 'react'
 import { Icon, Label, Position } from '@blueprintjs/core'
-import { Tooltip2 } from "@blueprintjs/popover2"
+import { Tooltip2 } from '@blueprintjs/popover2'
 import { useTranslation } from 'react-i18next'
 import MathInput from '../MathInput'
 import styled from 'styled-components'
