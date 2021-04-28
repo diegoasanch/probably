@@ -16,5 +16,4 @@ jobs:
         run: yarn add --exact prettier
 
       - name: Check style
-          run: yarn prettier -c .
-
+        run: yarn prettier -c .
