@@ -1,0 +1,24 @@
+name: Check code style with prettier
+
+on:
+  pull_request:
+  tags:
+  push:
+    - "*"
+
+jobs:
+  prettier:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.head_ref }}
+
+      - name: Prettify code
+        uses: creyD/prettier_action@v3.1
+        with:
+          dry: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
