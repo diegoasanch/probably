@@ -33,7 +33,7 @@ function App() {
     const [currentPage, setCurrentPage] = useState(defaultPage)
 
     const toggleTheme = () => {
-        setIsDark(!isDark);
+        setIsDark(!isDark)
     }
 
     // Select curent page form url
