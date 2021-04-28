@@ -2,19 +2,31 @@ import React from 'react'
 import { INumericInputProps, NumericInput } from '@blueprintjs/core'
 import { evaluate } from 'mathjs'
 
-type HandleInputType = (valueAsNumber: number, valueAsString: string, inputElement: HTMLInputElement | null) => void
+type HandleInputType = (
+    valueAsNumber: number,
+    valueAsString: string,
+    inputElement: HTMLInputElement | null,
+) => void
 
-const MathInput = ({ min, max, stepSize, onValueChange, placeholder }: INumericInputProps) => {
-
-    const handleInput: HandleInputType = ( numValue: number, strValue: string, inputElement: HTMLInputElement | null ): void => {
+const MathInput = ({
+    min,
+    max,
+    stepSize,
+    onValueChange,
+    placeholder,
+}: INumericInputProps) => {
+    const handleInput: HandleInputType = (
+        numValue: number,
+        strValue: string,
+        inputElement: HTMLInputElement | null,
+    ): void => {
         // console.log(`Value as number: ${numValue}, Value as string: ${strValue}`)
 
         if (onValueChange) {
             let parsedNum: number
             try {
                 parsedNum = evaluate(strValue)
-            }
-            catch (error) {
+            } catch (error) {
                 console.error('mathjs error 🤦‍♂️: parsing input error')
                 parsedNum = 0
             }

@@ -1,5 +1,5 @@
-import { EditableText, H3 } from "@blueprintjs/core"
-import styled from "styled-components"
+import { EditableText, H3 } from '@blueprintjs/core'
+import styled from 'styled-components'
 
 const LandingContainer = styled.div`
     height: 100%;
@@ -36,12 +36,10 @@ const StyledEditableText = styled(EditableText)`
     .bp3-editable-text-content {
         min-width: 1.8em !important;
     }
-
 `
 const SizeInput = styled(H3)`
-    margin-right: .5em;
+    margin-right: 0.5em;
 `
-
 
 export {
     LandingContainer,

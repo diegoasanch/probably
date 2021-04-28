@@ -6,18 +6,19 @@ Created as a tool for the "Estadistica General" course at UADE.
 
 ### Why?
 
-Because the calculators recommended by the professor are __completely functional__
+Because the calculators recommended by the professor are **completely functional**
 but lack a modern UI... or at least one that I personally like. 🤷‍♂️  
 Also, I wanted to practice more TypeScript.
 
 ### Contributions
 
 Contributions are welcome!  
-__Ideas__:  
-- Page for a model that hasn't been implemented yet.
-- Extend the functionality of existing pages.
-- Fix a bug.
-- Fix a typo.  
+**Ideas**:
+
+-   Page for a model that hasn't been implemented yet.
+-   Extend the functionality of existing pages.
+-   Fix a bug.
+-   Fix a typo.
 
 Just contact me regarding what you want to implement before you start to make sure we're not working on the same thing and duplicating stuff.
 You proably want to read the existing [issues](https://github.com/diegoasanch/probably/issues)

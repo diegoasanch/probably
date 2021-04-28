@@ -1,17 +1,23 @@
 import React, { useEffect, useState } from 'react'
 import { Select } from '@blueprintjs/select'
-import { available_langs, validLang, getLang, ILang, setLang, flags } from '../../utils/internationalization'
+import {
+    available_langs,
+    validLang,
+    getLang,
+    ILang,
+    setLang,
+    flags,
+} from '../../utils/internationalization'
 import { Button, MenuItem } from '@blueprintjs/core'
 import SvgIcon from '../SvgIcon'
 
 const LangSelect = Select.ofType<string>()
 
 type IClickHandler = {
-    handleClick: (event: React.MouseEvent<HTMLElement, MouseEvent>) => void,
+    handleClick: (event: React.MouseEvent<HTMLElement, MouseEvent>) => void
 }
 
 const SelectLang = () => {
-
     const [currentLang, setCurrentLang] = useState<ILang>('es')
     const [langs, setLangs] = useState<ILang[]>([])
 
@@ -26,7 +32,7 @@ const SelectLang = () => {
         setLangs(available_langs)
     }, [])
 
-    const RenderLang = (item: string, {handleClick}: IClickHandler) => {
+    const RenderLang = (item: string, { handleClick }: IClickHandler) => {
         let toRender = validLang(item)
         const flag = flags[toRender]
 
@@ -36,7 +42,7 @@ const SelectLang = () => {
                 text={item}
                 onClick={handleClick}
                 active={currentLang === item}
-                icon={<SvgIcon src={flag} name={currentLang} /> }
+                icon={<SvgIcon src={flag} name={currentLang} />}
             />
         )
     }

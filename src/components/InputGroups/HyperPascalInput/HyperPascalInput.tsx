@@ -7,12 +7,12 @@ import { Column, Row } from '../../../pages/layout'
 type StateSetter = (value: React.SetStateAction<number>) => void
 
 type IProps = {
-    handleTotalSize: StateSetter,
-    handleTotalSuccess: StateSetter,
-    handleSampleSize: StateSetter,
-    handleSuccessFound: StateSetter,
-    setRoundPrecision: (value: number) => void,
-    extraPanel?: JSX.Element,
+    handleTotalSize: StateSetter
+    handleTotalSuccess: StateSetter
+    handleSampleSize: StateSetter
+    handleSuccessFound: StateSetter
+    setRoundPrecision: (value: number) => void
+    extraPanel?: JSX.Element
 }
 
 const PascalInput = ({
@@ -22,21 +22,18 @@ const PascalInput = ({
     handleSuccessFound,
     setRoundPrecision,
     extraPanel,
-
 }: IProps) => {
-
     const { t } = useTranslation()
     const roundPrecision = useContext(PrecisionContext)
 
     const handleNaNs = (numVal: number, strVal: string): void => {
-        if (!strVal)
-            numVal = NaN
+        if (!strVal) numVal = NaN
         handleSampleSize(numVal)
     }
 
     return (
         <Row noPad>
-            <Column margin=".8em 1em" noGrow >
+            <Column margin=".8em 1em" noGrow>
                 <Label>
                     <code>N</code> = {t('population-size')}
                     <NumericInput
@@ -72,9 +69,8 @@ const PascalInput = ({
                         placeholder="n"
                     />
                 </Label>
-
             </Column>
-            <Column margin=".8em 1em" noGrow >
+            <Column margin=".8em 1em" noGrow>
                 <Label>
                     {t('round-precision')} <code> (0.xf)</code>
                     <NumericInput
@@ -84,7 +80,7 @@ const PascalInput = ({
                         placeholder="x"
                     />
                 </Label>
-                { extraPanel }
+                {extraPanel}
             </Column>
         </Row>
     )

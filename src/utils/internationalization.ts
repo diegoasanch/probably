@@ -1,4 +1,4 @@
-import i18n from "../i18n"
+import i18n from '../i18n'
 import enFlag from '../svg/uk.svg'
 import esFlag from '../svg/spain.svg'
 
@@ -7,31 +7,24 @@ const i18n_localstorage = 'i18nextLng'
 
 export type ILang = 'es' | 'en'
 
-const available_langs: ILang[] = [
-    'es',
-    'en',
-]
+const available_langs: ILang[] = ['es', 'en']
 
 const flags = {
-    'es': esFlag,
-    'en': enFlag,
+    es: esFlag,
+    en: enFlag,
 }
 
 const setLang = (newLang: string): void => {
-    i18n.changeLanguage(newLang);
+    i18n.changeLanguage(newLang)
     window.localStorage.setItem(i18n_localstorage, newLang)
-
 }
 
 const getLang = (): ILang => {
     const local = window.localStorage.getItem(i18n_localstorage) ?? 'es'
-    let lang : ILang = 'es'
+    let lang: ILang = 'es'
 
-
-    if (local === 'es')
-        lang = 'es'
-    else if (local === 'en')
-        lang = 'en'
+    if (local === 'es') lang = 'es'
+    else if (local === 'en') lang = 'en'
 
     return lang
 
@@ -43,17 +36,9 @@ const getLang = (): ILang => {
 const validLang = (to_test: string): ILang => {
     let out: ILang = 'es' // fallback
 
-    if (to_test === 'en')
-        out = 'en'
+    if (to_test === 'en') out = 'en'
 
     return out
 }
 
-export {
-    DEFAULT_LANG,
-    available_langs,
-    flags,
-    setLang,
-    getLang,
-    validLang,
-}
+export { DEFAULT_LANG, available_langs, flags, setLang, getLang, validLang }

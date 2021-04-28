@@ -5,7 +5,7 @@ import { Header } from '../Sidebar/styles'
 import { CenteredContainer } from '../../pages/layout'
 
 const StyledHeader = styled(Header)`
-    margin-bottom: .5em;
+    margin-bottom: 0.5em;
 `
 
 const LoadingScreen = () => {

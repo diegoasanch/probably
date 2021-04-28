@@ -8,11 +8,11 @@ import No2 from '../NoInputCards/No2'
 import { PrecisionContext } from '../../contexts/inputs'
 
 type IProps = {
-    handleTab: (tab: IOperationType) => void,
-    variable: number,
-    validInput: boolean,
-    probabilities: IProbabilities | undefined,
-    varLabel: string,
+    handleTab: (tab: IOperationType) => void
+    variable: number
+    validInput: boolean
+    probabilities: IProbabilities | undefined
+    varLabel: string
 }
 
 const PunctualOrAccumulated = ({
@@ -22,7 +22,6 @@ const PunctualOrAccumulated = ({
     probabilities,
     varLabel,
 }: IProps) => {
-
     validInput = validInput && !isNaN(variable)
     const roundPrecision = useContext(PrecisionContext)
 
@@ -33,46 +32,48 @@ const PunctualOrAccumulated = ({
                     title={<TeX math="P(r)" />}
                     id="p"
                     panel={
-                        !validInput ?
+                        !validInput ? (
                             <No2 a={varLabel} />
-                        :
+                        ) : (
                             <Result
                                 name={`P(\\text{V.A.} = ${variable})`}
                                 result={probabilities?.punctual}
                                 precision={roundPrecision}
                             />
+                        )
                     }
                 />
                 <Tab
-                    title={<TeX math="F(r)"/>}
+                    title={<TeX math="F(r)" />}
                     id="f"
                     panel={
-                        !validInput ?
+                        !validInput ? (
                             <No2 a={varLabel} />
-                        :
+                        ) : (
                             <Result
                                 name={`P(\\text{V.A.} \\leq ${variable})`}
                                 result={probabilities?.accum_left}
                                 precision={roundPrecision}
                             />
+                        )
                     }
                 />
                 <Tab
-                    title={<TeX math="G(r)"/>}
+                    title={<TeX math="G(r)" />}
                     id="g"
                     panel={
-                        !validInput ?
+                        !validInput ? (
                             <No2 a={varLabel} />
-                        :
+                        ) : (
                             <Result
                                 name={`P(\\text{V.A.} \\geq ${variable})`}
                                 result={probabilities?.accum_right}
                                 precision={roundPrecision}
                             />
+                        )
                     }
                 />
             </Tabs>
-
         </Card>
     )
 }

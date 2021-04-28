@@ -9,11 +9,11 @@ type BlueprintStateSetter = (valueNum: number, valueStr: string) => void
 type StateSetter = (value: React.SetStateAction<number>) => void
 
 type IProps = {
-    handleSampleSize: StateSetter,
-    handleSuccessProb: BlueprintStateSetter,
-    handleSuccessFound: StateSetter,
-    setRoundPrecision: StateSetter,
-    extraPanel?: JSX.Element,
+    handleSampleSize: StateSetter
+    handleSuccessProb: BlueprintStateSetter
+    handleSuccessFound: StateSetter
+    setRoundPrecision: StateSetter
+    extraPanel?: JSX.Element
 }
 
 const BinomialInput = ({
@@ -22,15 +22,13 @@ const BinomialInput = ({
     handleSuccessFound,
     setRoundPrecision,
     extraPanel,
-
 }: IProps) => {
-
     const { t } = useTranslation()
     const roundPrecision = useContext(PrecisionContext)
 
     return (
         <Row noPad>
-            <Column margin=".8em 1em" noGrow >
+            <Column margin=".8em 1em" noGrow>
                 <Label>
                     <code>n</code> = {t('sample-size')}
                     <NumericInput
@@ -56,7 +54,7 @@ const BinomialInput = ({
                     />
                 </Label>
             </Column>
-            <Column margin=".8em 1em" noGrow >
+            <Column margin=".8em 1em" noGrow>
                 <Label>
                     {t('round-precision')} <code> (0.xf)</code>
                     <NumericInput
@@ -66,7 +64,7 @@ const BinomialInput = ({
                         placeholder="x"
                     />
                 </Label>
-                { extraPanel }
+                {extraPanel}
             </Column>
         </Row>
     )

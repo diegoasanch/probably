@@ -1,22 +1,22 @@
 type ITable = {
-    headers: string[],
-    content: number[][],
+    headers: string[]
+    content: number[][]
 }
 
 type IBarChartItem = {
-    label: number,
-    value: number,
+    label: number
+    value: number
 }
 
 type IResult = {
-    texLabel: string,
-    value: number,
+    texLabel: string
+    value: number
 }
 
 type IProbabilities = {
-    punctual: number,
-    accum_left: number,
-    accum_right: number,
+    punctual: number
+    accum_left: number
+    accum_right: number
 }
 
 /**
@@ -24,16 +24,10 @@ type IProbabilities = {
  * && currentNum <= max`, else evaluation will be `currentNum === num`
  */
 type Highlight = {
-    isRange: boolean,
-    num: number,
-    min: number,
-    max: number,
+    isRange: boolean
+    num: number
+    min: number
+    max: number
 }
 
-export {
-    ITable,
-    IBarChartItem,
-    IResult,
-    IProbabilities,
-    Highlight,
-}
+export { ITable, IBarChartItem, IResult, IProbabilities, Highlight }

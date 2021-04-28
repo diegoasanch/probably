@@ -6,6 +6,4 @@ const StyledCallout = styled(Callout)`
     padding: 1.5em;
 `
 
-export {
-    StyledCallout
-}
+export { StyledCallout }

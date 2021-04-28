@@ -8,7 +8,13 @@ import ResultGroup from '../../components/ResultGroup'
 import ProbabilityTable from '../../components/ProbabilityTable'
 import { useDebounce } from 'react-use'
 
-import { IBarChartItem, ITable, IProbabilities, IResult, Highlight } from '../../types/tables'
+import {
+    IBarChartItem,
+    ITable,
+    IProbabilities,
+    IResult,
+    Highlight,
+} from '../../types/tables'
 import { Spinner } from '@blueprintjs/core'
 import PageTemplate from '../PageTemplate'
 import { PrecisionContext } from '../../contexts/inputs'
@@ -23,21 +29,17 @@ import {
     createTable,
     defaultTable,
     getAnalysis,
-    getProbabilities
+    getProbabilities,
 } from '../../functions/binomials'
 import { INPUT_DEBOUNCE } from '../../utils/constants'
 
 const validateInput = (n: number, p: number, r: number): void => {
-    if (r > n)
-        showToast(<NoGreater a='r' b='n' />, 'danger')
-    if (p > 1)
-        showToast(<NoGreater a='p' b='1' />, 'danger')
-    if ([n, r, p].some(item => item < 0))
-        showToast(<NoNegative />, 'danger')
+    if (r > n) showToast(<NoGreater a="r" b="n" />, 'danger')
+    if (p > 1) showToast(<NoGreater a="p" b="1" />, 'danger')
+    if ([n, r, p].some((item) => item < 0)) showToast(<NoNegative />, 'danger')
 }
 
 function Binomial() {
-
     const [sampleSize, setSampleSize] = useState(NaN) // n
     const [successProbability, setSuccessProbability] = useState(NaN) // p
     const [successFound, setSuccessFound] = useState<number>(NaN) // r
@@ -56,7 +58,7 @@ function Binomial() {
     const [highlight, setHighlight] = useState<Highlight>()
     const [opType, setOpType] = useState<IOperationType>('p')
 
-    const handleSuccessProb = (valueNum: number, valueStr: string ) => {
+    const handleSuccessProb = (valueNum: number, valueStr: string) => {
         setSuccessProbability(parseFloat(valueStr))
     }
     const handleType = (r: number, n: number, p: number) => {
@@ -70,9 +72,13 @@ function Binomial() {
     }, [sampleSize, successProbability, successFound])
 
     // For the calculations
-    useDebounce(() => {
-        handleType( successFound, sampleSize, successProbability)
-    }, INPUT_DEBOUNCE, [sampleSize, successProbability, successFound])
+    useDebounce(
+        () => {
+            handleType(successFound, sampleSize, successProbability)
+        },
+        INPUT_DEBOUNCE,
+        [sampleSize, successProbability, successFound],
+    )
 
     // For the highlight
     useEffect(() => {
@@ -93,36 +99,39 @@ function Binomial() {
     }, [sampleSize, successProbability])
 
     // Debouncing the calculations
-    useDebounce(() => {
+    useDebounce(
+        () => {
+            if (validInput) {
+                console.time('Table generation ⌚')
+                const newTable = createTable(sampleSize, successProbability)
+                console.timeEnd('Table generation ⌚')
 
-        if (validInput) {
-            console.time('Table generation ⌚')
-            const newTable = createTable(sampleSize, successProbability)
-            console.timeEnd('Table generation ⌚')
+                console.time('Analysis generation ⌚')
+                const analysis = getAnalysis(sampleSize, successProbability)
+                console.timeEnd('Analysis generation ⌚')
 
-            console.time('Analysis generation ⌚')
-            const analysis = getAnalysis(sampleSize, successProbability)
-            console.timeEnd('Analysis generation ⌚')
+                console.time('Chart data ⌚')
+                const probs_from_table = newTable.content.map((item) => ({
+                    label: item[0],
+                    value: item[1],
+                }))
+                console.timeEnd('Chart data ⌚')
 
-            console.time('Chart data ⌚')
-            const probs_from_table = newTable.content.map(item => ({
-                label: item[0],
-                value: item[1],
-            }))
-            console.timeEnd('Chart data ⌚')
-
-            setTableData(newTable)
-            setChartData(probs_from_table)
-            setDataTo(sampleSize)
-            setResults(analysis)
-            setValidResults(true)
-        }
-    }, INPUT_DEBOUNCE, [sampleSize, successProbability, validInput])
+                setTableData(newTable)
+                setChartData(probs_from_table)
+                setDataTo(sampleSize)
+                setResults(analysis)
+                setValidResults(true)
+            }
+        },
+        INPUT_DEBOUNCE,
+        [sampleSize, successProbability, validInput],
+    )
 
     return (
         <PrecisionContext.Provider value={roundPrecision}>
             <PageTemplate
-                noInputs={{ a: 'n', b: 'p'}}
+                noInputs={{ a: 'n', b: 'p' }}
                 validInput={validInput}
                 input={
                     <BinomialInput
@@ -145,7 +154,8 @@ function Binomial() {
                     <ResultGroup
                         validResults={validResults}
                         results={results}
-                    /> }
+                    />
+                }
                 table={
                     <ProbabilityTable
                         table={tableData || defaultTable}
@@ -154,13 +164,13 @@ function Binomial() {
                     />
                 }
                 chart={
-                    (chartData ?
+                    chartData ? (
                         <ProbabilityChart
                             variable="r"
                             data={chartData}
                             highlight={highlight}
                         />
-                    :
+                    ) : (
                         <Spinner size={100} />
                     )
                 }
