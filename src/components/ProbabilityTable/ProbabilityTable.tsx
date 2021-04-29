@@ -1,9 +1,10 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { Cell, Column } from '@blueprintjs/table'
 import { Highlight, ITable } from '../../types/tables'
 import { isCellHighlight } from '../../utils/determine_style'
 import { StyledTable } from './styles'
 import { PrecisionContext } from '../../contexts/inputs'
+import { getColumnWidths, getResizedColumns } from '../../utils/arrays'
 
 type IProps = {
     table: ITable
@@ -11,15 +12,15 @@ type IProps = {
     highlight?: Highlight
 }
 
-/**
- * The first column is the thinnest
- */
-const getColumnWidths = (length: number) => {
-    return [35].concat(Array(length - 1).fill(75))
-}
-
 const ProbabilityTable = ({ table, highlight, isLoading }: IProps) => {
     const roundPrecision = useContext(PrecisionContext)
+    const [colWidths, setColWidths] = useState<number[]>(
+        getColumnWidths(table.headers.length),
+    )
+
+    const handleResize = (index: number, newSize: number) => {
+        setColWidths(getResizedColumns(colWidths, index, newSize))
+    }
 
     const renderCell = (row: number, col: number) => {
         // Determine if higlightable from first value of row
@@ -39,7 +40,8 @@ const ProbabilityTable = ({ table, highlight, isLoading }: IProps) => {
     return (
         <StyledTable
             numRows={table.content.length}
-            columnWidths={getColumnWidths(table.headers.length)}
+            columnWidths={colWidths}
+            onColumnWidthChanged={handleResize}
         >
             {table.headers.map((header: string, i: number) => (
                 <Column

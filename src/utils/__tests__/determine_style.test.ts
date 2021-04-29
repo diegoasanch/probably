@@ -1,5 +1,5 @@
-import { Highlight } from '../types/tables'
-import { isCellHighlight } from './determine_style'
+import { Highlight } from '../../types/tables'
+import { isCellHighlight } from '../determine_style'
 
 test('Cell 5 should highlight in range [0, ... , 5]', () => {
     const highL: Highlight = {
@@ -20,6 +20,7 @@ test('Cell 5 should highlight in exact', () => {
     }
     expect(isCellHighlight(5, highL)).toBeTruthy()
 })
+
 test('Cell 5 should not highlight in range [0, 4]', () => {
     const highL: Highlight = {
         isRange: true,
