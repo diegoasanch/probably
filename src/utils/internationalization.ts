@@ -33,8 +33,9 @@ const getLang = (): ILang => {
     //     return local
 }
 
+// If received `to_test` is not a valid language, returns `DEFAULT_LANG`
 const validLang = (to_test: string): ILang => {
-    let out: ILang = 'es' // fallback
+    let out: ILang = DEFAULT_LANG // fallback
 
     if (to_test === 'en') out = 'en'
 

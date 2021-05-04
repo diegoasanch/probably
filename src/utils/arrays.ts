@@ -45,4 +45,34 @@ const handleHighlight = (
     return hl
 }
 
-export { range, stringRange, handleHighlight }
+/**
+ * The first column is the thinnest
+ */
+const getColumnWidths = (length: number): number[] => {
+    return [35].concat(Array(length - 1).fill(75))
+}
+
+/**
+ * Copies the array and sets the new value to
+ * @param prevWidths
+ * @param index
+ * @param newSize
+ * @returns
+ */
+const getResizedColumns = (
+    prevWidths: number[],
+    index: number,
+    newSize: number,
+): number[] => {
+    const newArray = [...prevWidths]
+    if (index < newArray.length) newArray[index] = newSize
+    return newArray
+}
+
+export {
+    range,
+    stringRange,
+    handleHighlight,
+    getColumnWidths,
+    getResizedColumns,
+}

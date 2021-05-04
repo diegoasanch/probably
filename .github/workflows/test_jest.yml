@@ -3,7 +3,7 @@ name: Run jest tests
 on: [pull_request]
 
 jobs:
-  prettier:
+  test:
     runs-on: ubuntu-latest
 
     steps:

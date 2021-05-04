@@ -8,6 +8,9 @@ type IBarChartItem = {
     value: number
 }
 
+/**
+ * Yes, it's `texValue` because it is to be rendered using `KaTeX`
+ */
 type IResult = {
     texLabel: string
     value: number
