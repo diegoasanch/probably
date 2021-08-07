@@ -7,7 +7,7 @@ Created as a tool for the "Estadistica General" course at UADE.
 ### Why?
 
 Because the calculators recommended by the professor are **completely functional**
-but lack a modern UI... or at least one that I personally like. 🤷‍♂️  
+but lack a modern UI... or at least one that I personally like.   
 Also, I wanted to practice more TypeScript.
 
 ### Contributions
