@@ -1,9 +1,9 @@
-type ITable = {
+export type ITable = {
     headers: string[]
     content: number[][]
 }
 
-type IBarChartItem = {
+export type IBarChartItem = {
     label: number
     value: number
 }
@@ -11,12 +11,12 @@ type IBarChartItem = {
 /**
  * Yes, it's `texValue` because it is to be rendered using `KaTeX`
  */
-type IResult = {
+export type IResult = {
     texLabel: string
     value: number
 }
 
-type IProbabilities = {
+export type IProbabilities = {
     punctual: number
     accum_left: number
     accum_right: number
@@ -26,11 +26,9 @@ type IProbabilities = {
  * If if `isRange` is set to `true`, the evaluation will be: `currentNum >= min
  * && currentNum <= max`, else evaluation will be `currentNum === num`
  */
-type Highlight = {
+export type Highlight = {
     isRange: boolean
     num: number
     min: number
     max: number
 }
-
-export { ITable, IBarChartItem, IResult, IProbabilities, Highlight }
