@@ -1,5 +1,12 @@
 import { IconName } from '@blueprintjs/icons'
 
+export interface PageCategory {
+    name?: string,
+    // index: number,
+    hideContent: boolean,
+    pages: IPageInfo[],
+}
+
 export type IPageInfo = {
     id: string
     url: string

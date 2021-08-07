@@ -2,6 +2,7 @@ type Itheme = {
     readonly background: string
     readonly text: string
     readonly sidebarText: string
+    readonly sidebarTitle: string
     readonly sidebarBg: string
     readonly result: string
     readonly scrollBarBg: string

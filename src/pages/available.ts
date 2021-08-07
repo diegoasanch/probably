@@ -90,6 +90,7 @@ export {
     binomial,
     pascal,
     hypergeometric,
+    hyperPascal,
     coming_soon,
     pageOptions,
     defaultPage,

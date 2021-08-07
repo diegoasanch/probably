@@ -3,10 +3,6 @@ import { Highlight } from '../types/tables'
 
 /**
  * from and to inclusive
- * @param from
- * @param to
- * @param step
- * @returns
  */
 const range = (from: number, to: number, step = 1): number[] => {
     const length = to - from

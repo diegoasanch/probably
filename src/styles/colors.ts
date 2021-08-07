@@ -4,6 +4,7 @@ export const dark: Itheme = {
     background: '#2F3437',
     text: '#EBEBEB',
     sidebarText: '#EBEBEB',
+    sidebarTitle: '#A7B6C2',
     sidebarBg: '#1B222A',
     result: '#19A6FF',
 
@@ -22,6 +23,7 @@ export const dark: Itheme = {
 export const light: Itheme = {
     background: '#FFFFFF',
     text: '#37352F',
+    sidebarTitle: '#5C7080',
     sidebarText: '#37352F',
     sidebarBg: '#EBEBEB',
     result: '#0C527E',

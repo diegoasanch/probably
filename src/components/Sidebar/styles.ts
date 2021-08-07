@@ -1,4 +1,4 @@
-import { Text, H1 } from '@blueprintjs/core'
+import { Text, H1, H2, Divider } from '@blueprintjs/core'
 import styled from 'styled-components'
 
 export const SidebarContainer = styled.nav`
@@ -38,32 +38,44 @@ export const SideFooter = styled.footer`
     position: absolute;
     bottom: 0;
     width: 100%;
-    padding: 0 1em;
+    padding: 1em 1em 0;
     align-items: flex-start;
+    background-color: ${props => [props.theme.sidebarBg]};
+    height: 6.4rem;
 `
 export const SideNav = styled.nav`
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    width: 100%;
+    width: calc(100% - .5rem);
     margin-left: 0.5em;
     padding-top: 3em;
+    height: calc(100% - 6rem - 4vh);
+    overflow: auto;
 
     > * {
         padding: 0.5em 0;
     }
 `
 
+export const CategoryTitle = styled(H2)`
+    font-size: 1.3em !important;
+    margin: 0 .2em;
+    padding-bottom: .2em;
+    color: ${props => props.theme.sidebarTitle} !important;
+`
+
 type NavProp = {
     selected: boolean
     disabled: boolean
+    isNested?: boolean
 }
 
 export const NavButton = styled(Text)<NavProp>`
     display: flex;
     font-size: 1.5em;
     align-items: baseline;
-    padding-left: 0.5em;
+    padding-left: ${props => props.isNested ? '0.8em': '0.4em'};
     transition: 100ms ease-in-out;
 
     color: ${(props) =>
@@ -78,4 +90,10 @@ export const NavButton = styled(Text)<NavProp>`
     &:hover {
         border-left: 4px solid;
     }
+`
+
+export const SidebarDivider = styled(Divider)`
+    width: 90%;
+    margin: 2vh 0 0;
+    border-color: ${props => props.theme.disabled_link } !important;
 `
