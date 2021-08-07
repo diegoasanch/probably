@@ -5,9 +5,6 @@ import { initReactI18next } from 'react-i18next'
 import { homepage } from '../package.json'
 
 const { origin, pathname } = window.location
-// console.log(origin, pathname)
-// console.log(`Deployed translations  ${homepage}/locales/{{lng}}/translation.json`)
-// console.log(`Local translations  ${origin}${pathname}/locales/{{lng}}/translation.json`)
 
 i18n.use(Backend)
     .use(LanguageDetector)
