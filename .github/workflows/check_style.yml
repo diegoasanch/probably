@@ -23,4 +23,4 @@ jobs:
         run: yarn install
 
       - name: Check style
-        run: yarn prettier -c .
+        run: yarn prettier -c ./src/
