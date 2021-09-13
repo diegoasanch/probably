@@ -31,6 +31,14 @@ const StyledLink = styled(Link)`
 
     code {
         color: ${(props) => props.theme.code} !important ;
+
+        &:link {
+            color: ${(props) => props.theme.code} !important ;
+        }
+        &:hover, & :hover {
+            text-decoration: underline;
+            text-decoration-color: ${(props) => props.theme.code} !important;
+        }
     }
 `
 
