@@ -26,6 +26,7 @@ import HyperPascal from './pages/HyperPascal'
 
 FocusStyleManager.onlyShowFocusOnTabs()
 
+// TEst comment
 function App() {
     const location = useLocation()
 
