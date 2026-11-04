@@ -1,5 +1,5 @@
 import React, { Suspense, useEffect, useState } from 'react'
-import { useLocalStorage } from 'react-use'
+import { useLocalStorage, useMedia } from 'react-use'
 import { dark, light } from './styles/colors'
 import { ThemeProvider } from 'styled-components'
 
@@ -29,11 +29,14 @@ FocusStyleManager.onlyShowFocusOnTabs()
 function App() {
     const location = useLocation()
 
-    const [isDark, setIsDark] = useLocalStorage('isDark', false)
+    // Follows the system theme until the user toggles it
+    const prefersDark = useMedia('(prefers-color-scheme: dark)')
+    const [storedIsDark, setStoredIsDark] = useLocalStorage<boolean>('isDark')
+    const isDark = storedIsDark ?? prefersDark
     const [currentPage, setCurrentPage] = useState(defaultPage)
 
     const toggleTheme = () => {
-        setIsDark(!isDark)
+        setStoredIsDark(!isDark)
     }
 
     // Select curent page form url
@@ -72,7 +75,7 @@ function App() {
                         <PageHeader
                             title={currentPage.title}
                             currentPage={currentPage}
-                            isDark={!!isDark}
+                            isDark={isDark}
                             toggleTheme={toggleTheme}
                         />
                         <PageFrame>
